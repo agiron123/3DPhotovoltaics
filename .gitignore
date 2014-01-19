@@ -5,6 +5,7 @@
 
 # Packages
 .idea
+.idea/
 *.egg
 *.egg-info
 dist
