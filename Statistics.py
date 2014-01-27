@@ -4,7 +4,7 @@ class Statistics(object):
         and an update method exists for updating the stats as needed. The update method is passed using a function
         as a first class object at the time of instantiation"""
 
-    def __init__(self,info,update):
+    def __init__(self, info, update):
         """Initialize the statistics object with the given dictionary and update function."""
-        self.info=info
-        Statistics.update=update
+        self.info = info
+        Statistics.update = update

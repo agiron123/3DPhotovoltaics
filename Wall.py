@@ -4,5 +4,5 @@ class Wall(object):
 
     def get_collision(self,photon):
         """Determine wheter the given photon collides with the Wall.
-        If so create and return a Record containg the relevant information."""
+        If so create and return a Record containing the relevant information."""
         return None

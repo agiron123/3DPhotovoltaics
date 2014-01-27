@@ -10,10 +10,12 @@ class Orbit(object):
         #not sure what exactly to put here right now, we need a better understanding of the physics
         #to determine that exactly, beta angles, and earth shine definitely seem like things which should go here
 
-    def generate_photon(self,photon):
+    def generate_photon(self, photon, tower):
         """Reset the photon which the simulation is using to represent a new photon"""
-        #hard physics stuff goes here
+        #TODO : hard physics stuff goes here
+        #NOTE : leaving a normal distribution here
 
-    def time_step(self,delta_t):
+
+    def time_step(self, delta_t):
         """Move the ISS along the orbit by the given time step. The probability distribution of
-            generate_photon will refelct this change"""
+            generate_photon will reflect this change"""

@@ -4,10 +4,10 @@ import Analysis
 
 def Main():
     """Main method for running the entire program"""
-    arguments=parse_file()
-    statistics=Statistics()
-    Simulation.run(arguments,statistics)
-    analysis=Analysis()
+    arguments = parse_file()
+    statistics = Statistics()
+    Simulation.run(arguments, statistics)
+    analysis = Analysis()
     analysis.generate_graphs()
     analysis.generate_output()
 

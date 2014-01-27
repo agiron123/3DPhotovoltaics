@@ -6,7 +6,13 @@ class Material(object):
         self.abs_coeff=abs_coeff
         self.bandgap=bandgap
 
-    def is_absorbed(self):
+    #TODO : bitch about photon being left out of is_absorbed method
+    def is_absorbed(self, photon):
         """Determine with the proper probability whether the photon is absorbed or not"""
+        #TODO : Implement me
         return True
 
+    def reflect(self, photon, record):
+        """Perform non-specular reflection of photon based upon record"""
+        #TODO : Implement me
+        raise Exception("Non-specular reflection has not been implemented yet.")
