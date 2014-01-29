@@ -3,7 +3,7 @@ import Tower
 import Photon
 import Record
 
-def run(arguments,statistics):
+def run(settings,statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #pass relevant arguments to each of these constructor functions, details omitted for now
@@ -18,7 +18,7 @@ def run(arguments,statistics):
         #now given that the ISS is in one fixed position we need to "fire" some number of photons at it
         #this number will probably vary based on the position in the orbit, the orbit class will need to store this
         photon_count = 0
-        while photon_count < arguments.photonsPerPoint:
+        while photon_count < settings.photonsPerPoint:
             #generate a new photon from orbit
             photon = orbit.generate_photon()
             #generate new stat datum
@@ -44,16 +44,16 @@ def run(arguments,statistics):
                     record = tower.get_record(photon)  # move onto next collision
                     continue
                 #-absorbed
-                if arguments.absorbing and record.material.is_absorbed(photn):
+                if settings.absorbing and record.material.is_absorbed(photn):
                     stat.absorb(photon, record)
                     break  # move onto next photon
                 #-trapped
-                if arguments.trapping and record.material.trapped(photon):
+                if settings.trapping and record.material.trapped(photon):
                     #TODO : do trapping work here
                     stat.trap(photon, record)
                     #something else?
                     break  # move onto next photon
-                if arguments.specularOnly:
+                if settings.specularOnly:
                     photon.reflect(record.normal)
                 else:
                     material.reflect(photon)
