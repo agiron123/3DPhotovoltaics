@@ -12,6 +12,7 @@ class Plane(Wall):
         self.point2 = point2
         #compute normal vector too line formed by the 2 points
         self.normal = np.array([-1,1])*(point1-point2)[1::-1]
+    
     #TODO :determine how vectors will be passed around including points, R^2 or R^3 ??
     def get_collision(self, photon):
         """Override the default behavior of the wall class to determine if their is a collision.
