@@ -17,13 +17,13 @@ class Photon(object):
         #TODO : determine if this should be part of Stat() initialization parameters
         self.stat.wavelength = self.wavelength
 
-    #TODO : decide on deletion or retention
     def specular_reflect(self, record):
         """Update position and velocity of photon for mirror-like reflection off a wall based upon a
                 record."""
         self.position += record.time * self.velocity
         self.velocity -= 2 * np.dot(self.velocity, record.normal) * record.normal
 
+    #TODO : Implement non-specular reflection
     def non_specular_reflect(self, record):
         """Update position and velocity of photon for non-specular reflection off a wall based upon a
                 record."""
