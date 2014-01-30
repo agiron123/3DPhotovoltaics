@@ -21,8 +21,5 @@ class Tower(object):
             if temp.time < record.time:
                 record = temp
         #return a valid record or None
-        if record is None:
-            return None
-        else:
-            return record
+        return record
 
