@@ -3,7 +3,9 @@ class Record(object):
 
     def __init__(self, material, time, coordinate, normal):
         """Create a Record with the given parameters"""
-        self.material = material
+        self.is_boundary = (material is None)
+        if not self.is_boundary:
+            self.material = material
         self.time = time
         self.coordinate = coordinate
         self.normal = normal
