@@ -1,7 +1,5 @@
 import Orbit
 import Tower
-import Photon
-import Record
 
 def run(settings,statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
@@ -33,30 +31,25 @@ def run(settings,statistics):
                 #check 3 things
                 #-exiting
                 if record.time == float('inf'):
-                    #TODO : do exiting work
                     stat.exit(photon)
                     break  # move onto next photon
                 #-wrap around
-                if record.material is None:
-                    #TODO : do wrap around work
+                elif record.is_boundary:
                     stat.wrap_around(photon, record)
-                    #update photon to other side of cell
-                    record = tower.get_record(photon)  # move onto next collision
-                    continue
                 #-absorbed
-                if settings.absorbing and record.material.is_absorbed(photn):
+                elif settings.absorbing and record.material.is_absorbed(photon):
                     stat.absorb(photon, record)
                     break  # move onto next photon
                 #-trapped
-                if settings.trapping and record.material.trapped(photon):
+                elif settings.trapping and photon.trapped(record):
                     #TODO : do trapping work here
                     stat.trap(photon, record)
                     #something else?
                     break  # move onto next photon
-                if settings.specularOnly:
+                elif settings.specularOnly:
                     photon.specular_reflect(record)
                 else:
-                    material.reflect(photon)
+                    photon.non_specular_reflect(record)
                 #move onto next collision
                 record = tower.get_record(photon)
             #finish with this photon by updating statistics with its stat datum

@@ -5,7 +5,7 @@ import random
 class Material(object):
     """Represents the material that a tower is coated with.
         Is responsible for determining whether a photon is absorbed with the proper probability"""
-    hc = 1239.84193;  # Planck's constant times speed of light (in electron volt nanometers)
+    hc = 1239.84193  # Planck's constant times speed of light (in electron volt nanometers)
     def __init__(self, abs_coeff, band_gap):
         """Create a material with the given absorption coefficient and band gap"""
         self.abs_coeff = abs_coeff
@@ -22,8 +22,3 @@ class Material(object):
         alpha = 10000000.0 * 4.0 * math.PI * self.extinct_coeff / photon.wavelength  # alpha = 4*PI*k/lambda
         x = random.uniform(0.0001, 0.01)
         return random.uniform(1.0) > alpha * x
-
-    def reflect(self, photon, record):
-        """Perform non-specular reflection of photon based upon record"""
-        #TODO : Implement me
-        raise Exception("Non-specular reflection has not been implemented yet.")

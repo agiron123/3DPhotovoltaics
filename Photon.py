@@ -29,6 +29,11 @@ class Photon(object):
                 record."""
         raise Exception("non_specular_reflect in Photon.py is not implemented yet.")
 
+    #TODO : Implement is_trapped check
+    def is_trapped(self, record):
+        """See Ricardo for implementation."""
+        raise Exception("is_trapped in Photon.py is not implemented yet.")
+
     #leaving this here for now but we don't really need it
     #orbit can just do the resetting
     #TODO : decide on deletion or retention
