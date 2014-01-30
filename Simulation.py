@@ -54,7 +54,7 @@ def run(settings,statistics):
                     #something else?
                     break  # move onto next photon
                 if settings.specularOnly:
-                    photon.reflect(record.normal)
+                    photon.specular_reflect(record)
                 else:
                     material.reflect(photon)
                 #move onto next collision

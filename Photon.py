@@ -17,11 +17,23 @@ class Photon(object):
         #TODO : determine if this should be part of Stat() initialization parameters
         self.stat.wavelength = self.wavelength
 
+    #TODO : decide on deletion or retention
+    def specular_reflect(self, record):
+        """Update position and velocity of photon for mirror-like reflection off a wall based upon a
+                record."""
+        self.position += record.time * self.velocity
+        self.velocity -= 2 * np.dot(self.velocity, record.normal) * record.normal
+
+    def non_specular_reflect(self, record):
+        """Update position and velocity of photon for non-specular reflection off a wall based upon a
+                record."""
+        raise Exception("non_specular_reflect in Photon.py is not implemented yet.")
+
     #leaving this here for now but we don't really need it
     #orbit can just do the resetting
     #TODO : decide on deletion or retention
     def reset(self, position, velocity, wavelength):
-        """Avoid the costs associated with creating and destroying objects by just reseting the photon
+        """Avoid the costs associated with creating and destroying objects by just resetting the photon
                 instead of making a new one"""
         self.position = position
         self.velocity = velocity
