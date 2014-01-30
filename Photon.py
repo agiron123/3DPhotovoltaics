@@ -5,13 +5,16 @@ import Stat
 class Photon(object):
     """Represents a photon in the simulation. Only one photon is ever made, it is just reset when needed"""
     def __init__(self, position, originalAzimuth, originalZenith, wavelength,):
+        #TODO: Determine whether these pos and vel vectors will be in R^2 or R^3, if R^2 we need to add a photon.z field
         self.position = position
         #TODO : Compute velocity from original azimuth and zenith angles
+        #TODO: why is this being calcualted here, shouldn't that be done in orbit
         self.velocity = ()
         raise Exception('Construction of photon\'s velocity from azimuth and zenith angle has not been implemented.')
         self.wavelength = wavelength
         self.azimuth = originalAzimuth
         self.zenith = originalZenith
+        #TODO: Decide on deletion or retention
         self.stat = Stat()
         #Some preliminary work for maintaining stat
         #TODO : determine if this should be part of Stat() initialization parameters

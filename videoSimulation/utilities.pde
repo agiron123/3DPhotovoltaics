@@ -1,3 +1,6 @@
+//@Walker this file seems to illustrate the benefits of using numpy
+//no need to write a utility file when a fast, widely used and supported one already exists
+//np.array will be good for most of our needs and np.matrix and the linear algebra package should be helpful too
 class pt { float x = 0.0, y = 0.0, z = 0.0;
   pt () {}
   pt (float px, float py, float pz) { x = px; y = py; z = pz;}

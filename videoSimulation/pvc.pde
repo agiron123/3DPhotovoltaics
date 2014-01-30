@@ -29,6 +29,7 @@ class hit { wall w; photon p; float time; pt intersection;
     w = hw; p = wp;
     time = intersectionT(p, w);
     intersection = P(p.P,time,p.V);
+    //@Walker here and below concerned with determining membership within quad, should not be relevant to new design
     vec PQ = V(w.A,intersection);
     vec N = cross(V(w.A,w.B),w.normal);
     if (dot(PQ,N)>0) { time = MAX_FLOAT;}
@@ -64,7 +65,7 @@ float intersectionT(photon p, wall w) {
   float t = -dot(V(w.A,p.P),w.normal)/dot(p.V,w.normal);
   return t;
 }
-
+//@Walker, what are b1,b2,b3,b4?
 class pvc { wall w1, w2, w3, w4, wfloor, wtop, b1, b2, b3, b4;
   pvc () {}
   pvc (wall pvcw1, wall pvcw2, wall pvcw3, wall pvcw4) { w1 = pvcw1; w2 = pvcw2; w3 = pvcw3; w4 = pvcw4; }

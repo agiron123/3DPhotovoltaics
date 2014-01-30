@@ -3,6 +3,7 @@ class Record(object):
 
     def __init__(self, material, time, coordinate, normal):
         """Create a Record with the given parameters"""
+        #this is good, avoid using null as a flag and use this boolean field instead
         self.is_boundary = (material is None)
         if not self.is_boundary:
             self.material = material

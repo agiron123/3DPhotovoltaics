@@ -16,7 +16,7 @@ class Material(object):
     #TODO : ported christians code from processing, need to confirm correctness
     def is_absorbed(self, photon):
         """Determine with the proper probability whether the photon is absorbed or not"""
-        #TODO : Implement me
+        #TODO : The accuracy of this needs to be confimred, especially units, should probably check in with Ricardo
         if self.band_gap > Material.hc / photon.wavelength:
             return False
         alpha = 10000000.0 * 4.0 * math.PI * self.extinct_coeff / photon.wavelength  # alpha = 4*PI*k/lambda

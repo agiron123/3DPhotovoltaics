@@ -19,12 +19,15 @@ int displayNo = 100;
 photon[] photons;
 int photonNo = 1000, photonsPerAzimuth = 10000;
 boolean inProgress = false, graphicsOn = true, ignoreTowerTopPhotons = false, printInteractions = true, printAbsorption = false;
+//@Walker here we use aspect ratio to calculate tower width, need to discuss with Ricardo how excatly they would like this inputted
+//may require filtering/modification after Andre's parsing
 float aspectRatio = 2;
 float towerWidth = 1/aspectRatio;
 float integratedAreaRatio = 1; 
 float simulationWidth = sqrt(towerWidth*towerWidth*(integratedAreaRatio+1));
 float simulationHeight = 1;
 
+//@Walker, determine what units/scale Christian was using throughout here, should be able to move that over directly to our new simulation
 void setup() {
   //initialize view variables
   //myFace = loadImage("data/pic.jpg");
@@ -38,12 +41,14 @@ void setup() {
   
   //initialize simulation variables
   photons = new photon[photonNo];
-  
+
+  //@Walker aggregate data variables like this might be good things to store in the statistics dictionary and constantly upadte with the update method
   //initialize data counters
   escapedNo = new int[100];
   absorbedNo = new int[100];
   interactions = new int[100];
 }
+
 
 void draw() {
   if (ignoreTowerTopPhotons) { tepsilon = 0; } else { epsilon = 0.001; } 
@@ -120,7 +125,9 @@ void destroyPhoton(int i) {
   photons[i] = null; // destroy/delete photon
 }
 
+//@Walker we should port this over to Orbit as a dummy generate photon method for Release 1
 void generatePhoton(int i) {
+    //@Walker why are we indexing with an angle?
   if ((absorbedNo[azimuth]+escapedNo[azimuth]) % photonsPerAzimuth == 0 && (absorbedNo[azimuth]+escapedNo[azimuth]) != 0) { // if time to update azimuth angle
     
     //print out comma sepearate values (csv) to console
@@ -131,11 +138,13 @@ void generatePhoton(int i) {
     
     azimuth++; if(azimuth == 91) { inProgress = false;} // update azimuth angle
   }
-  
+  //@Walker this generate photon makes sense, I think we should port it over to use as a dummy one for release 1, can subclass orbit
+  //into multiple classes
   time[i] = 0.0; // reset time variable to start of path segment
   vec V = sphericalV(1.0, azimuth, zenith); // calculate new velocity from spherical coordinates (will change in future)
   
   // generate new photon. if ignore tower top photons is "On", only create photons Not originating above tower
+  //@Walker why simulationHeight/2, why not simulationHeight-epsilon
   photons[i] = Photon(P(random(-simulationWidth/2,simulationWidth/2),random(-simulationWidth/2,simulationWidth/2),simulationHeight/2+tepsilon), V,random(200,827));
   while(ignoreTowerTopPhotons && photons[i].P.x >= -towerWidth/2 && photons[i].P.x <= towerWidth/2 && photons[i].P.y >= -towerWidth/2 && photons[i].P.y <= towerWidth/2) {
     photons[i] = Photon(P(random(-simulationWidth/2,simulationWidth/2),random(-simulationWidth/2,simulationWidth/2),simulationHeight/2+tepsilon), V,random(200,827));
