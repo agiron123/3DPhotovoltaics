@@ -13,20 +13,6 @@ class Analysis(object):
         Analysis.generate_graphs = generate_graphs
         Analysis.generate_output = generate_output
 
-<<<<<<< Updated upstream
-    def generate_output(self, statistics):
-        data = statistics.data
-        filename = csv.open('Simulation_Data.csv','wb')
-        writer = csv.writer(filename)
-        writer.writerow(data.keys())
-        writer.writerow(data.values())
-
-        writer.writerow("Stats")
-        stat_list = statistics.stat_list
-        #TODO: dump the data from a statlist
-
-        filename.close()
-=======
     #This method creates a CSV file with all of the data from a simulation
     def generate_output(self, statistic):
         #Copies the data dictionary from a statistic
@@ -60,7 +46,6 @@ class Analysis(object):
 
         #Closes the CSV file
         file_name.close()
->>>>>>> Stashed changes
 
 
     def generate_graphs(self, statistics):

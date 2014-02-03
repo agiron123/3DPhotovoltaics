@@ -4,10 +4,8 @@ class Statistics(object):
         and an update method exists for updating the stats as needed. The update method is passed using a function
         as a first class object at the time of instantiation"""
 
-    def __init__(self, info, update):
+    def __init__(self):
         """Initialize the statistics object with the given dictionary and update function."""
-        self.info = info
-        Statistics.update = update
         self.data = {'total_absorbed': 0, 'total_trapped': 0, 'avg_number_reflections': 0,
                      'avg_number_interactions': 0, 'avg_azimuth': 0, 'avg_zenith': 0,
                      'avg_wavelength': 0, 'number_photons': 0, 'total_number_reflections': 0,
