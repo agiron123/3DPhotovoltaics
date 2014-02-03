@@ -1,12 +1,16 @@
 import Simulation
 import Statistics
 import Analysis
+import OutputSettings
+import GraphSettings
 import xml.dom.minidom
 from xml.dom.minidom import parseString
 
 def Main():
     """Main method for running the entire program"""
-    arguments = parse_file()
+    arguments = parse_file("test_input.xml")
+    output_settings = OutputSettings(arguments["OutputSettings"])
+    graph_settings = GraphSettings(arguments["OutputSettings"]["GraphSettings"])
     statistics = Statistics()
     Simulation.run(arguments, statistics)
     analysis = Analysis()

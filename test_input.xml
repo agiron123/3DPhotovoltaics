@@ -65,7 +65,7 @@
 	<azumithal_angle>true</azumithal_angle>
 
 <GraphSettings>
-        <MaxPointPowerVsZenithAngle>true</MaxPointPowerVsZenithAngle>
+    <MaxPointPowerVsZenithAngle>true</MaxPointPowerVsZenithAngle>
 	<AverageReflectionsVsAzumithal>true</AverageReflectionsVsAzumithal>
 	<AbsorptionEfficiencyVsAzumithal>false</AbsorptionEfficiencyVsAzumithal>
 	<AspectRatioVsAverageReflections>true</AspectRatioVsAverageReflections>
