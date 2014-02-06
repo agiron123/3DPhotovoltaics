@@ -1,41 +1,62 @@
-import Record
-import Cylinder
-import Plane
+from Record import *
+from Cylinder import *
+from Plane import *
+from Floor import *
 import numpy as np
 
+
 class Tower(object):
-    """Represents a tower in the simulation. Only one tower will be modeled"""
+    """Represents a tower in the simulation. Only one tower will be modeled.
+    The Tower is always centered on the origin"""
 
-    def __init___(self, height, material, pitch, width,type):
+    def __init__(self, height, material, pitch, width, tower_type):
         """Initialize a tower with the given parameters"""
-        self.pitch=pitch
-        self.material=material
-        self.height=height
-        self.width=width
+        self.pitch = pitch
+        self.material = material
+        self.height = height
+        self.width = width
+        self.tower_type = tower_type
+        #this wall list contains a list of walls forming both the tower and its boundaries
+        #walls are created using points in counter clockwise order
         self.walls = []
-        #TODO : Construct walls based on height, pitch, width, and material
-        #TODO: determine where tower will be centered, there is no position field for tower, will it be centered on origin?
-        if type=="cylinder":
-            self.walls.append(Cylinder(np.array([0,0]),width))
-        elif type=="rectprism":
-            self.walls.append(Plane(np.array([-width/2,width/2]),np.array([-width/2,-width/2])))
-            self.walls.append(Plane(np.array([-width/2,-width/2]),np.array([width/2,-width/2])))
-            self.walls.append(Plane(np.array([width/2,-width/2]),np.array([width/2,width/2])))
-            self.walls.append(Plane(np.array([width/2,width/2]),np.array([-width/2,width/2])))
-
-
+        #boundaries
+        d = pitch / 2 + width / 2
+        s = width / 2
+        self.walls.append(Plane(np.array([-d, d, 0]), np.array([-d, -d, 0]), True))
+        self.walls.append(Plane(np.array([-d, -d, 0]), np.array([d, -d, 0]), True))
+        self.walls.append(Plane(np.array([d, -d, 0]), np.array([d, d, 0]), True))
+        self.walls.append(Plane(np.array([d, d, 0]), np.array([-d, d, 0]), True))
+        #add a floor
+        self.walls.append(Floor(np.array([1, 1, 0]), d))
+        #add walls specific to the given type
+        if tower_type == "cylinder":
+            self.walls.append(Cylinder(np.array([0, 0, 0]), s, False))
+        elif tower_type == "rectprism":
+            self.walls.append(Plane(np.array([-s, s, 0]), np.array([-s, -s, 0]), False))
+            self.walls.append(Plane(np.array([-s, -s, 0]), np.array([s, -s, 0]), False))
+            self.walls.append(Plane(np.array([s, -s, 0]), np.array([s, s, 0]), False))
+            self.walls.append(Plane(np.array([s, s, 0]), np.array([-s, s, 0]), False))
+        else:
+            raise NotImplementedError("The specified wall type is not currently supported")
 
     def get_record(self, photon):
-        """Given a photon return the Record corresponding to the first collision"""
+        """Given a photon return the Record corresponding to the first collision. If there is no collision Record's
+            is_exiting field will be true and all other fields will be None or infinity"""
         #find the record with the lowest positive time to collision
-        record = Record(None, float('inf'), None, None)
+        record = Record(False, float('inf'), None, None, True)
         for wall in self.walls:
-            temp = wall.get_collision()
-            """If this record in invalid, skip it"""
+            temp = wall.get_collision(photon)
+            #If this record in invalid, skip it
             if temp is None or temp.time <= 0:
                 continue
             if temp.time < record.time:
                 record = temp
-        #return a valid record or None
+        #no collisions, exiting
+        if record.coordinate is None:
+            return record
+        #a collision occurred above the tower's height, flag this as exiting
+        elif record.coordinate[2] > self.height:
+            record = Record(False, float('inf'), None, None, True)
+        #return a valid record
         return record
 

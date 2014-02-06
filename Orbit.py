@@ -1,12 +1,12 @@
 import math
 import numpy as np
 import random
-import Photon
+from Photon import *
 
 class Orbit(object):
     """Represents the orbit of the ISS in space.
         Is responsible for generating an accurate probability distribution
-        of intial photon parameters (e.g. velocity, wavelength, etc.). Is also responsible for
+        of intial photon parameters (i.e. velocity, wavelength, and position). Is also responsible for
         determining how many photons will be fired per time step."""
 
     def __init__(self):
@@ -16,7 +16,6 @@ class Orbit(object):
 
     #attempt at porting the generate_photon method from Christian's processing code to use as a dummy generate photon for now
     def dummy_generate_photon(self,photon,tower):
-        zenith=photon.zenith*math.PI/180;
         azimuth=photon.azimuth*math.PI/180;
         rho=1
         #TODO: make sure we are using proper angles, different conventions on order in which zenith and azimuth angles are listed and such

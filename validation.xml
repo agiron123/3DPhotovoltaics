@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
+<Simulation>
+<Material_Profile>
+<band_gap>int,float</band_gap>
+<absorption_coefficient>int,float</absorption_coefficient>
+</Material_Profile>
+<Tower>
+<shape>str</shape>
+<pitch>int,float</pitch>
+<width>int,float</width>
+<height>int,float</height>
+</Tower>
+
+<Orbital_Properties>
+<TLE> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
+<line1>
+<line_number1>int,float</line_number1>
+<satellite_number>int,float</satellite_number>
+<classification>str</classification>
+<international_designator>int,float</international_designator>
+<epoch_year>int,float</epoch_year>
+<epoch>int,float</epoch>
+<first_time_derivative>int,float</first_time_derivative>
+<second_time_derivative>int,float</second_time_derivative>
+<bstar_drag>int,float</bstar_drag>
+<ephemeris_type>int,float</ephemeris_type>
+    <element_set>int,float</element_set>
+<checksum>int,float</checksum>
+</line1>
+
+<line2>
+	<line_number2>int,float</line_number2>
+	<satellite_number>int,float</satellite_number>
+	<inclination>int,float</inclination>
+	<right_ascension>int,float</right_ascension>
+	<argument_of_pedigree>int,float</argument_of_pedigree>
+	<mean_anomaly>int,float</mean_anomaly>
+	<mean_motion>int,float</mean_motion>
+	<revolution_number>int,float</revolution_number>
+	<checksum>int,float</checksum>
+</line2>
+</TLE>
+
+<beta_angle>int,float</beta_angle>
+<num_orbits>int,float</num_orbits>
+<panel_orientation>int,float</panel_orientation>
+<earthshine>bool</earthshine>
+</Orbital_Properties>
+
+<Specular_Reflection>bool</Specular_Reflection>
+<Optical_Material>int,float</Optical_Material>
+
+<OutputSettings>
+<powergenratio3D>bool</powergenratio3D>
+<maximum_point_power>bool</maximum_point_power>
+<absorption_efficiency>bool</absorption_efficiency>
+<absorbance>bool</absorbance>
+<average_interactions>bool</average_interactions>
+<average_reflections>bool</average_reflections>
+<integrated_area_ratio>bool</integrated_area_ratio>
+<aspect_ratio>bool</aspect_ratio>
+<tower_spacing_log>bool</tower_spacing_log>
+<tower_height>bool</tower_height>
+<azumithal_angle>bool</azumithal_angle>
+
+<GraphSettings>
+        <MaxPointPowerVsZenithAngle>bool</MaxPointPowerVsZenithAngle>
+<AverageReflectionsVsAzumithal>bool</AverageReflectionsVsAzumithal>
+<AbsorptionEfficiencyVsAzumithal>bool</AbsorptionEfficiencyVsAzumithal>
+<AspectRatioVsAverageReflections>bool</AspectRatioVsAverageReflections>
+<IntegratedAreaRatioVsAvgNumReflections>bool</IntegratedAreaRatioVsAvgNumReflections>
+<PowerRatio3DVsAbsorbance>bool</PowerRatio3DVsAbsorbance>
+<AvgInteractionsVsTowerSpacingLog>bool</AvgInteractionsVsTowerSpacingLog>
+<AvgReflectionsVsTowerHeight>bool</AvgReflectionsVsTowerHeight>
+</GraphSettings>
+</OutputSettings>
+</Simulation>

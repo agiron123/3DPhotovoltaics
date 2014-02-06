@@ -1,49 +1,51 @@
-import Wall
-import Record
+from Record import *
 import numpy as np
 import math
 
 class Cylinder(object):
     """Subclass of wall. Represents a circle"""
-    def __init__(self, center, radius, material):
+    def __init__(self, center, radius, is_boundary):
         """Create a circle with the given center and radius
         :param center: The center of the circle.
         :param radius: The radius of the circle.
         """
         self.center = center
         self.radius = radius
-        self.material = material
+        self.is_boundary = is_boundary
 
     def get_collision(self, photon):
         """Override the default behavior of the wall class to determine if their is a collision.
-            If there is a collision the proper record is generated"""
+            If there is a collision the proper record is generated. If there is no collision None is returned"""
         #TODO : implement me
+        #This is correct, but the first line is unclear, can't multiply vectors
+        #we are solving this, P=photon C=circle
+        #<P.p + t*P.V - C.p , P.p + t*P.v - C.p> = r^2, math works out the same
         # How to implement:
         #       Solve (CP + t*V)^2 == radius^2 in 2D
         #       (CP + t*V) * (CP + t*V) == radius^2
         #       dot(CP,CP) + 2*t*dot(V,CP) + t*t*dot(V,V) == radius^2
         #       solve quadratic equation a*t^2 + b*t + c = 0 for
-        # Pre-processes for a vector
-        CP = photon.position - self.center
-        CP.z = 0
-        V = photon.velocity.copy()
-        V.z = 0
+        cp = photon.position - self.center
+        cp[2] = 0
+        v = photon.velocity.copy()
+        v[2] = 0
 
         # Sets up quadratic system to find time to collision with cylinder
-        a = np.dot(V, V)
-        b = 2.0 * np.dot(V, CP)
-        c = np.dot(CP, CP) - self.radius * self.radius
+        a = np.dot(v, v)
+        b = 2.0 * np.dot(v, cp)
+        c = np.dot(cp, cp) - self.radius * self.radius
         determinant = b * b - 4 * a * c
 
         # Determines which collision occurs first using the smallest positive time
         # Discards invalid collisions
         time = float("inf")
         if determinant < 0:
-            return Record(None, time, None, None)
-        time1 = (-b + determinant) / (2 * a)
-        time2 = (-b - determinant) / (2 * a)
+            return None
+        time1 = (-b + math.sqrt(determinant)) / (2 * a)
+        time2 = (-b - math.sqrt(determinant)) / (2 * a)
+        print(time1, time2)
         if time1 < 0 and time2 < 0:
-            return Record(None, time, None, None)
+            return None
         elif time1 < 0:
             time = time2
         elif time2 < 0:
@@ -54,8 +56,12 @@ class Cylinder(object):
             time = time2
 
         # Computes Record for the first valid collision with the Cylinder wall
-        intersection = CP + (time * photon.velocity)
-        unit_vector = intersection - self.center
-        theta = math.atan2(unit_vector.y, unit_vector.x)
-        normal = (math.cos(theta), math.sin(theta), 0)
-        return Record(self.material, time, intersection, normal)
+        #TODO: Confirm this line, shouldn't it be intersection= photon.position+ (time * photon.velocity)
+        #intersection = CP + (time * photon.velocity)
+        intersection = photon.position + (time * photon.velocity)
+        normal = intersection - self.center
+        unit_normal = normal / math.sqrt(np.dot(normal, normal))
+        #TODO: Confirm this, why are you doing cos and sin stuff the unit vector above is normal to the circle at the point of intersection shouldn't we just use that
+        #theta = math.atan2(unit_vector.y, unit_vector.x)
+        #normal = (math.cos(theta), math.sin(theta), 0)
+        return Record(self.is_boundary, time, intersection, unit_normal, False)
