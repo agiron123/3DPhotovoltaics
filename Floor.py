@@ -22,14 +22,14 @@ class Floor(Wall):
         # Calculates time and coordinate of collision
         # Discards cases where the photon does not collide with the plane
         if np.dot(photon.velocity, self.normal) == 0:
-            return None
+            raise Exception("I think something broke cause there's a photon moving sideways through the simulation.")
         time = np.dot((self.point1 - photon.position), self.normal) / np.dot(photon.velocity, self.normal)
         if time < 0:
             return None
         intersection = photon.position + (time * photon.velocity)
         # check whether intersection point lies in the square of the simulation
-        if intersection[0] < -self.width or intersection[0] > self.width:
-            return None
-        if intersection[1] < -self.width or intersection[1] > self.width:
-            return None
+        #if intersection[0] < -self.width or intersection[0] > self.width:
+        #    return None
+        #if intersection[1] < -self.width or intersection[1] > self.width:
+        #    return None
         return Record(self.is_boundary, time, intersection, self.normal, False)

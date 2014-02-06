@@ -45,15 +45,14 @@ class Plane(object):
         s^2 = <(int - p1), (int - p1> / <(p2 - p1), (p2 - p1)>
         """
         """
-        if AB.x > AB.y:
-            s = (intersection.x - self.point1.x) / AB.x
-        else:
-            s = (intersection.y - self.point1.y) / AB.y
+        s = math.sqrt(np.dot(ai, ai) / np.dot(ab, ab))
             """
         # Discards collisions that collides with the plane outside the bounds of the wall
         ab = self.point2 - self.point1
-        ai = intersection - self.point1
-        s = math.sqrt(np.dot(ai, ai) / np.dot(ab, ab))
+        if ab.x > ab.y:
+            s = (intersection.x - self.point1.x) / ab.x
+        else:
+            s = (intersection.y - self.point1.y) / ab.y
         if s < 0 or s > 1:
             return None
         return Record(self.is_boundary, time, intersection, self.normal, False)

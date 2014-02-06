@@ -43,7 +43,6 @@ class Cylinder(object):
             return None
         time1 = (-b + math.sqrt(determinant)) / (2 * a)
         time2 = (-b - math.sqrt(determinant)) / (2 * a)
-        print(time1, time2)
         if time1 < 0 and time2 < 0:
             return None
         elif time1 < 0:
@@ -57,11 +56,11 @@ class Cylinder(object):
 
         # Computes Record for the first valid collision with the Cylinder wall
         #TODO: Confirm this line, shouldn't it be intersection= photon.position+ (time * photon.velocity)
-        #intersection = CP + (time * photon.velocity)
         intersection = photon.position + (time * photon.velocity)
         normal = intersection - self.center
+        normal[2] = 0.0
         unit_normal = normal / math.sqrt(np.dot(normal, normal))
-        #TODO: Confirm this, why are you doing cos and sin stuff the unit vector above is normal to the circle at the point of intersection shouldn't we just use that
+        # TODO: Confirm this, why are you doing cos and sin stuff the unit vector above is normal to the circle at the point of intersection shouldn't we just use that
         #theta = math.atan2(unit_vector.y, unit_vector.x)
         #normal = (math.cos(theta), math.sin(theta), 0)
         return Record(self.is_boundary, time, intersection, unit_normal, False)
