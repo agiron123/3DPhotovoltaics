@@ -1,7 +1,8 @@
 import xml.dom.minidom
 from xml.dom.minidom import parseString
 from xml.dom.minidom import Node
-#might want to use this xml parser instead, much less code
+
+
 def main():
     file = open("validation.xml",'r')
     data = file.read()
@@ -23,18 +24,19 @@ def main():
     print(test['OutputSettings'])
     validate(valid, test)
 
+
 def recur_map(element):
     """map each tag name to a dictionary, the dictionary maps child nodes to their dictionaires
         the base case is a tag with no children, which just gets mapped to its value"""
     #base case, child node is just the text node
-    if len(element.childNodes)==1:
+    if len(element.childNodes) == 1:
         return str(element.childNodes[0].nodeValue)
     d={}
     #recursively map the child nodes
     for el in element.childNodes:
         #avoid weird nodes
-        if el.nodeName!="#text":
-            d[str(el.nodeName)]=recur_map(el)
+        if el.nodeName != "#text":
+            d[str(el.nodeName)] = recur_map(el)
     return d
 
 
@@ -44,7 +46,7 @@ def validate(valid, test):
     except Exception as e:
         print(e)
         return False
-    print("XMl was alid")
+    print("XMl was Valid")
     return True
 
 
@@ -66,11 +68,12 @@ def recur_validate(valid, test):
                     try:
                         #this is a little hacky here, we are using eval
                         #possible security risk, but its their simulation
-                        if t=='str':
+                        #try catch around the eval for errors in formatting
+                        if t == 'str':
                             typematch = typematch or eval("type('"+test[key]+"') is "+t)
                         else:
                             typematch = typematch or eval("type("+test[key]+") is "+t)
-                    except Exception as e:
+                    except Exception:
                         raise Exception("Improper data type in tag "+key)
                 if not typematch:
                     raise Exception("Improper data type in tag "+key)

@@ -38,6 +38,17 @@ circle = Cylinder(np.array([5, 0, 0]), 1, False)
 r = circle.get_collision(photon)
 print(r)
 
+
+#should collide and reflect back and up
+photon = Photon(np.array([0, -3, 0]), np.array([1, 1, 0]), 0)
+circle = Cylinder(np.array([4, 0, 0]), 1, False)
+r = circle.get_collision(photon)
+print(r.normal)
+print(r.coordinate, r.time)
+photon.specular_reflect(r)
+print(photon.position, photon.velocity)
+
+
 #set up a tower, and test part of simulations main loop
 photon = Photon(np.array([-7, 0, 5]), np.array([1, 0, 0]), 0)
 tower = Tower(10, None, 10, 10, "rectprism")

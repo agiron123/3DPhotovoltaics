@@ -14,7 +14,8 @@ class SimpleOrbit(Orbit):
         self.azimuth = azimuth
 
     def generate_photon(self, photon, tower):
-        """Modify the inputted photon to represent a new photon generated around the given tower. Return the modified photon"""
+        """Modify the inputted photon to represent a new photon generated around the given tower.
+        Return the modified photon"""
         x = self.rho * math.sin(self.zenith) * math.cos(self.azimuth)
         y = self.rho * math.sin(self.zenith) * math.sin(self.azimuth)
         z = self.rho * math.cos(self.zentih)
@@ -34,3 +35,7 @@ class SimpleOrbit(Orbit):
             photon.position = np.array([x, y, z])
         photon.wavelength = random.uniform(200, 827)
         return photon
+
+    def step_azimuth(self, delta):
+        """Update the Orbit's azimuthal angle by the given delta"""
+        self.azimuth += delta
