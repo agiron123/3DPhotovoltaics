@@ -19,27 +19,6 @@ class Analysis(object):
         data = statistic.data
 
         #Creates a CSV file to write to or overwrites an existing file with the same name
-<<<<<<< HEAD
-        filename = csv.open('Simulation_Data.csv','wb')
-
-        #Creates the writer object for a given file
-        writer = csv.writer(filename)
-
-        #Writes the keys of the data dictionary to the first row of the CSV file
-        writer.writerow(data.keys())
-        #Writes the values of the data dictionary to the second row of the CSV file
-        writer.writerow(data.values())
-
-        #Writes the word "Stats" to the third row of the CSV file
-        writer.writerow("Stats")
-
-        #Copies the stat_list from statistics
-        stat_list = statistic.stat_list
-        #TODO: dump the data from a statlist
-
-        #Closes the CSV file
-        filename.close()
-=======
         file_name = open('Simulation_Data.csv', 'wb')
 
         #Creates the writer object for a given file
@@ -67,8 +46,6 @@ class Analysis(object):
 
         #Closes the CSV file
         file_name.close()
->>>>>>> dev
-
 
     def generate_graphs(self, statistics):
         #TODO: check the types of desired graphs and how to graph them
