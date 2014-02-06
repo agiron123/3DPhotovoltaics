@@ -1,12 +1,13 @@
-import Orbit
-import Tower
+from SimpleOrbit import *
+from Tower import *
+
 
 def run(settings,statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #pass relevant arguments to each of these constructor functions, details omitted for now
     #TODO : un-omit details
-    orbit = Orbit()
+    orbit = SimpleOrbit(1, settings.zenith, settings.azimuth)
     tower = Tower()
     #TODO : determine what time scale we will use throughout the program
     t, total_time, delta_t = 0, 10**6, 10
@@ -21,26 +22,29 @@ def run(settings,statistics):
             photon = orbit.generate_photon()
             #generate new stat datum
             stat = Stat(photon)
+            done = False
             #check if the photon is outside a tower, not enough going on yet to write this
             if tower.contains(photon):
                 #TODO : handle photon being spawned at the top of tower
                 raise ValueError
                 continue
-            record = tower.get_record(photon)
-            while record is not None:
+            while not done:
+                #get a collision
+                record = tower.get_record(photon)
                 #check 3 things
-                #-exiting
-                if record.time == float('inf'):
+                #exiting
+                if record.is_exiting:
                     stat.exit(photon)
-                    break  # move onto next photon
-                #-wrap around
+                    done = True  # move onto next photon
+                #wrap around
                 elif record.is_boundary:
                     stat.wrap_around(photon, record)
-                #-absorbed
-                elif settings.absorbing and record.material.is_absorbed(photon):
+                    photon.wrap_around(record)
+                #absorbed
+                elif settings.absorbing and tower.material.is_absorbed(photon):
                     stat.absorb(photon, record)
-                    break  # move onto next photon
-                #-trapped
+                    done = True  # move onto next photon
+                #trapped
                 elif settings.trapping and photon.trapped(record):
                     #TODO : do trapping work here
                     stat.trap(photon, record)
@@ -50,8 +54,6 @@ def run(settings,statistics):
                     photon.specular_reflect(record)
                 else:
                     photon.non_specular_reflect(record)
-                #move onto next collision
-                record = tower.get_record(photon)
             #finish with this photon by updating statistics with its stat datum
             statistics.update(stat)
         #move the ISS in the orbit, update by a time step

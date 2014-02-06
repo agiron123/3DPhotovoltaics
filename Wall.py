@@ -3,6 +3,6 @@ class Wall(object):
         Wall is sub classed to represent straight line walls and circles"""
 
     def get_collision(self,photon):
-        """Determine wheter the given photon collides with the Wall.
-        If so create and return a Record containing the relevant information."""
+        """Determine whether the given photon collides with the Wall.
+        If so create and return a Record containing the relevant information. If not return None"""
         return None

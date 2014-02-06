@@ -31,48 +31,48 @@
 
 <line2>
 	<line_number2>2</line_number2>
-	<satellite_number>23414</satellite_number>
-	<inclination>098</inclination>
+	<satellite_number>10</satellite_number>
+	<inclination>98</inclination>
 	<right_ascension>2345236.234</right_ascension>
-	<argument_of_pedigree>0989</argument_of_pedigree>
+	<argument_of_pedigree>989</argument_of_pedigree>
 	<mean_anomaly>97567</mean_anomaly>
 	<mean_motion>57224</mean_motion>
 	<revolution_number>73345</revolution_number>
-	<checksum>09987</checksum>
+	<checksum>9987</checksum>
 </line2>
 </TLE>
 
-<beta_angle>value</beta_angle>
-<num_orbits>value</num_orbits>
-<panel_orientation>value</panel_orientation>
-<earthshine>value</earthshine>
+<beta_angle>10</beta_angle>
+<num_orbits>10</num_orbits>
+<panel_orientation>10</panel_orientation>
+<earthshine>True</earthshine>
 </Orbital_Properties>
 
-<Specular_Reflection>true</Specular_Reflection>
+<Specular_Reflection>True</Specular_Reflection>
 <Optical_Material>12345</Optical_Material>
 
 <OutputSettings>
-	<powergenratio3D>true</powergenratio3D>
-	<maximum_point_power>true</maximum_point_power>
-	<absorption_efficiency>false</absorption_efficiency>
-	<absorbance>false</absorbance>
-	<average_interactions>true</average_interactions>
-	<average_reflections>true</average_reflections>
-	<integrated_area_ratio>false</integrated_area_ratio>
-	<aspect_ratio>false</aspect_ratio>
-	<tower_spacing_log>true</tower_spacing_log>
-	<tower_height>true</tower_height>
-	<azumithal_angle>true</azumithal_angle>
+	<powergenratio3D>True</powergenratio3D>
+	<maximum_point_power>True</maximum_point_power>
+	<absorption_efficiency>False</absorption_efficiency>
+	<absorbance>False</absorbance>
+	<average_interactions>True</average_interactions>
+	<average_reflections>True</average_reflections>
+	<integrated_area_ratio>False</integrated_area_ratio>
+	<aspect_ratio>False</aspect_ratio>
+	<tower_spacing_log>True</tower_spacing_log>
+	<tower_height>True</tower_height>
+	<azumithal_angle>True</azumithal_angle>
 
 <GraphSettings>
-    <MaxPointPowerVsZenithAngle>true</MaxPointPowerVsZenithAngle>
-	<AverageReflectionsVsAzumithal>true</AverageReflectionsVsAzumithal>
-	<AbsorptionEfficiencyVsAzumithal>false</AbsorptionEfficiencyVsAzumithal>
-	<AspectRatioVsAverageReflections>true</AspectRatioVsAverageReflections>
-	<IntegratedAreaRatioVsAvgNumReflections>false</IntegratedAreaRatioVsAvgNumReflections>
-	<PowerRatio3DVsAbsorbance>false</PowerRatio3DVsAbsorbance>
-	<AvgInteractionsVsTowerSpacingLog>false</AvgInteractionsVsTowerSpacingLog>
-	<AvgReflectionsVsTowerHeight>false</AvgReflectionsVsTowerHeight>
+    <MaxPointPowerVsZenithAngle>True</MaxPointPowerVsZenithAngle>
+	<AverageReflectionsVsAzumithal>True</AverageReflectionsVsAzumithal>
+	<AbsorptionEfficiencyVsAzumithal>False</AbsorptionEfficiencyVsAzumithal>
+	<AspectRatioVsAverageReflections>True</AspectRatioVsAverageReflections>
+	<IntegratedAreaRatioVsAvgNumReflections>False</IntegratedAreaRatioVsAvgNumReflections>
+	<PowerRatio3DVsAbsorbance>False</PowerRatio3DVsAbsorbance>
+	<AvgInteractionsVsTowerSpacingLog>False</AvgInteractionsVsTowerSpacingLog>
+	<AvgReflectionsVsTowerHeight>False</AvgReflectionsVsTowerHeight>
 </GraphSettings>
 </OutputSettings>
 </Simulation>

@@ -1,26 +1,22 @@
-import Wall
 import numpy as np
-import Record
+from Record import *
+import math
 
 
 class Plane(object):
-
-    """Subclass of Wall. Represents a straight line between two points"""
-    def __init__(self, point1, point2, material):
-        """Create a wall with the given points"""
+    """Subclass of Wall. Represents a plane"""
+    def __init__(self, point1, point2, is_boundary):
+        """Create a plane with the given points"""
         self.point1 = point1
         self.point2 = point2
-        self.material = material
-        #compute normal vector to line formed by the 2 points
-        self.normal = np.array([-1, 1]) * (point1-point2)[1::-1]
+        self.is_boundary = is_boundary
+        #compute normal vector to line formed by the 2 points, assuming points have no z component
+        normal = np.cross(np.array([0, 0, 1]), (self.point2 - self.point1))
+        self.normal = normal / math.sqrt(np.dot(normal, normal))
 
-    #TODO :determine how vectors will be passed around including points, R^2 or R^3 ??
     def get_collision(self, photon):
         """Override the default behavior of the wall class to determine if their is a collision.
-            If there is a collision the proper record is generated"""
-        # time = -sum((photon.position-self.point1)*self.normal) / sum(photon.velocity * self.normal)
-        #TODO: check whether intersection lies within the boundaries of the wall
-        # TODO : read this cause I'll tell you how write here.  It's easy
+            If there is a collision the proper record is generated if there is no collision None is returned"""
         """Define intersection as the weighted sum of point1 and point2
             Check if the two sums add up to one and are both positive.
             To cut down on the math and such, defined one weight as (s) and the other as (1-s),
@@ -34,26 +30,30 @@ class Plane(object):
         # Calculates time and coordinate of collision
         # Discards cases where the photon does not collide with the plane
         if np.dot(photon.velocity, self.normal) == 0:
-            return Record(None, float("inf"), None, None)
-        time = -sum((photon.position-self.point1)*self.normal) / sum(photon.velocity * self.normal)
+            return None
+        time = np.dot((self.point1 - photon.position), self.normal) / np.dot(photon.velocity, self.normal)
+        if time < 0:
+            return None
         intersection = photon.position + (time * photon.velocity)
 
-        # Discards collisions that collides with the plane outside the bounds of the wall
-        AB = self.point2 - self.point1
+        """I think this method works better, I don't understand what the vector division above represents but what I have below should work
+        and is definitely mathematically rigorous, let int be intersection
+        s*(p2 - p1) + p1 = int
+        s*(p2 - p1) = (int - p1) , take magnitude of each side
+        <s*(p2 - p1), s*(p2 - p1)> = <(int - p1), (int - p1)>
+        s^2 <(p2 - p1), (p2 - p1)> = <(int - p1), (int - p1)>
+        s^2 = <(int - p1), (int - p1> / <(p2 - p1), (p2 - p1)>
+        """
+        """
         if AB.x > AB.y:
             s = (intersection.x - self.point1.x) / AB.x
         else:
             s = (intersection.y - self.point1.y) / AB.y
+            """
+        # Discards collisions that collides with the plane outside the bounds of the wall
+        ab = self.point2 - self.point1
+        ai = intersection - self.point1
+        s = math.sqrt(np.dot(ai, ai) / np.dot(ab, ab))
         if s < 0 or s > 1:
-            return Record(None, float("inf"), None, None)
-
-        """ The time calc should work as long as normal.z == 0 """
-        """If we are just looking at the plane/line in 2D the time calc above won't work, we can use matrix determinants
-        l1=p1+t*v1
-        l2=p2+s*v2
-        [v1 -v2]*[t s]=p2-p1
-        take inverse of 2x2 matrix to solve for s and t, this might be a little slow, but not sure of faster way"""
-        #don't know material, must be set later by tower
-        #Or we could ask tower as an __init__ parameter...  Why wait?
-        #agreed, we should add material as a field to all wall classes
-        return Record(self.material, time, intersection, self.normal)
+            return None
+        return Record(self.is_boundary, time, intersection, self.normal, False)
