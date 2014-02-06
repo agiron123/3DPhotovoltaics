@@ -6,11 +6,6 @@ class Statistics(object):
 
     def __init__(self):
         """Initialize the statistics object with the given dictionary and update function."""
-<<<<<<< HEAD
-        self.info = info
-        Statistics.update = update
-=======
->>>>>>> dev
 
         #This creates the dictionary that will store all of the aggregated data
         self.data = {'total_absorbed': 0, 'total_trapped': 0, 'avg_number_reflections': 0,
