@@ -4,10 +4,13 @@ class Statistics(object):
         and an update method exists for updating the stats as needed. The update method is passed using a function
         as a first class object at the time of instantiation"""
 
-    def __init__(self, info, update):
+    def __init__(self):
         """Initialize the statistics object with the given dictionary and update function."""
+<<<<<<< HEAD
         self.info = info
         Statistics.update = update
+=======
+>>>>>>> dev
 
         #This creates the dictionary that will store all of the aggregated data
         self.data = {'total_absorbed': 0, 'total_trapped': 0, 'avg_number_reflections': 0,
@@ -64,6 +67,11 @@ class Statistics(object):
             #Increases the zenith total and then calculates the average zenith
             self.total_zenith += stat.zenith
             self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']
+
+
+
+
+
 
 
 
