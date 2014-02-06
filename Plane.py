@@ -49,7 +49,7 @@ class Plane(object):
             """
         # Discards collisions that collides with the plane outside the bounds of the wall
         ab = self.point2 - self.point1
-        if math.abs(ab[0]) > math.abs(ab[1]):
+        if math.fabs(ab[0]) > math.fabs(ab[1]):
             s = (intersection[0] - self.point1[0]) / ab[0]
         else:
             s = (intersection[1] - self.point1[1]) / ab[1]
