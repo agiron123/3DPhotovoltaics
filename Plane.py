@@ -49,10 +49,10 @@ class Plane(object):
             """
         # Discards collisions that collides with the plane outside the bounds of the wall
         ab = self.point2 - self.point1
-        if ab.x > ab.y:
-            s = (intersection.x - self.point1.x) / ab.x
+        if math.abs(ab[0]) > math.abs(ab[1]):
+            s = (intersection[0] - self.point1[0]) / ab[0]
         else:
-            s = (intersection.y - self.point1.y) / ab.y
+            s = (intersection[1] - self.point1[1]) / ab[1]
         if s < 0 or s > 1:
             return None
         return Record(self.is_boundary, time, intersection, self.normal, False)
