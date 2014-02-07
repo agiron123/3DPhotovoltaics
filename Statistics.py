@@ -26,7 +26,7 @@ class Statistics(object):
         if stat is not None:
 
             #Adds a stat object to the stat_list
-            self.stat_list.append(self, stat)
+            self.stat_list.append(stat)
 
             #increments the total number of photons
             self.data['number_photons'] += 1

@@ -1,5 +1,5 @@
 import csv
-##import os this can be used later if csv files with the same name already exist
+import os
 import matplotlib.pyplot as plt
 
 class Analysis(object):
@@ -8,44 +8,82 @@ class Analysis(object):
         into graphs and figures. Methods for generating output in various forms are passed using functions as first
         class objects at the time of instantiation """
 
-    def __init__(self, generate_graphs, generate_output):
+    def __init__(self):
         """Bind the functions passed in too the Analysis object"""
-        Analysis.generate_graphs = generate_graphs
-        Analysis.generate_output = generate_output
 
     #This method creates a CSV file with all of the data from a simulation
     def generate_output(self, statistic):
         #Copies the data dictionary from a statistic
         data = statistic.data
 
+        #The name of the CSV file
+        data_file_name = 'Simulation_Data_'
+        #The name of the folder for the raw data CSV files
+        data_folder_name = 'Simulation Raw Data'
+
+        file_location = self.file_and_folder_creator(data_file_name, data_folder_name)
+
         #Creates a CSV file to write to or overwrites an existing file with the same name
-        file_name = open('Simulation_Data.csv', 'wb')
+        try:
+            file_name = open(file_location, 'wb')
+        except csv.Error as e:
+            print("Couldn't open the csv file. If it is opened in another program, please close it")
+        else:
 
-        #Creates the writer object for a given file
-        writer = csv.writer(file_name)
+            #Creates the writer object for a given file
+            writer = csv.writer(file_name)
 
-        #Write the string to the first row of the CSV file
-        writer.writerow(["Compiled Data"])
+            #Write the string to the first row of the CSV file
+            writer.writerow(["Compiled Data"])
 
-        #Writes the keys of the data dictionary to the second row of the CSV file
-        writer.writerow(data.keys())
-        #Writes the values of the data dictionary to the third row of the CSV file
-        writer.writerow(data.values())
+            #Writes the keys of the data dictionary to the second row of the CSV file
+            writer.writerow(data.keys())
+            #Writes the values of the data dictionary to the third row of the CSV file
+            writer.writerow(data.values())
 
-        #Writes the word "Stats" to the fourth row of the CSV file
-        writer.writerow(["Stats"])
+            #Writes the word "Stats" to the fourth row of the CSV file
+            writer.writerow(["Stats"])
 
-        #Copies the stat_list from statistics
-        stat_list = statistic.stat_list
+            #Copies the stat_list from statistics
+            stat_list = statistic.stat_list
 
-        #This will up date each stat's dictionary and then print its contents in the CSV file
-        for stat in stat_list:
-            stat_dictionary = stat.update_dictionary()
-            writer.writerow(stat_dictionary.keys())
-            writer.writerow(stat_dictionary.values())
+            #Gets the dictionary keys in order the write the stat's attributes to the csv file
+            stat_list[0].update_dictionary()
+            writer.writerow(stat_list[0].attributes_dictionary.keys())
 
-        #Closes the CSV file
-        file_name.close()
+            #This will up date each stat's dictionary and then print its contents in the CSV file
+            for stat in stat_list:
+                stat_dictionary = stat.update_dictionary()
+                writer.writerow(stat_dictionary.values())
+
+            #Closes the CSV file
+            file_name.close()
+
+    """ This function creates a folder, with the name taken from folder_name, that stores all of the CSV files for the
+        output function. It also creates the path to that folder and helps create the CSV file, with the value taken
+        from file_name. To create multiple files for different runs, this function checks the files in the directory
+        to determine the number of the most recent run and then increments it by 1. It then returns the path to the file"""
+    def file_and_folder_creator(self, file_name, folder_name):
+        sim_number = 0
+        #gets the currents scripts directory
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        #adds the new folder to the directory
+        destination_dir = os.path.join(script_dir, folder_name)
+        #creates the new folder
+        try:
+            os.makedirs(destination_dir)
+        except OSError:
+            pass  # already exist
+        #checks the folder for previous data files and determines the current simulation number
+        for files in os.listdir(destination_dir):
+            if files.endswith(".csv") and (files[:-5] == file_name):
+                if int(files[-5]) >= sim_number:
+                    sim_number = int(files[-5])+1
+        #creates the final file name
+        new_file_name = file_name + str(sim_number) + '.csv'
+        #creates the path to the new data file
+        path = os.path.join(destination_dir, new_file_name)
+        return path
 
     def generate_graphs(self, statistics):
-        #TODO: check the types of desired graphs and how to graph them
+    #TODO: check the types of desired graphs and how to graph them
