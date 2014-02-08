@@ -62,13 +62,3 @@ class Statistics(object):
             #Increases the zenith total and then calculates the average zenith
             self.total_zenith += stat.zenith
             self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']
-
-
-
-
-
-
-
-
-
-
