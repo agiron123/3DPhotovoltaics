@@ -17,9 +17,9 @@ class Analysis(object):
         data = statistic.data
 
         #The name of the CSV file
-        data_file_name = 'Simulation_Data_'
+        data_file_name = 'Raw_Simulation_Data_'
         #The name of the folder for the raw data CSV files
-        data_folder_name = 'Simulation Raw Data'
+        data_folder_name = 'Raw Data'
 
         file_location = self.file_and_folder_creator(data_file_name, data_folder_name)
 
@@ -63,12 +63,13 @@ class Analysis(object):
         output function. It also creates the path to that folder and helps create the CSV file, with the value taken
         from file_name. To create multiple files for different runs, this function checks the files in the directory
         to determine the number of the most recent run and then increments it by 1. It then returns the path to the file"""
-    def file_and_folder_creator(self, file_name, folder_name):
+    @staticmethod
+    def file_and_folder_creator(file_name, folder_name):
         sim_number = 0
         #gets the currents scripts directory
         script_dir = os.path.dirname(os.path.abspath(__file__))
         #adds the new folder to the directory
-        destination_dir = os.path.join(script_dir, folder_name)
+        destination_dir = os.path.join(script_dir, "Simulation Data", folder_name)
         #creates the new folder
         try:
             os.makedirs(destination_dir)
@@ -85,5 +86,6 @@ class Analysis(object):
         path = os.path.join(destination_dir, new_file_name)
         return path
 
-    def generate_graphs(self, statistics):
     #TODO: check the types of desired graphs and how to graph them
+    def generate_graphs(self, statistics):
+        raise NotImplementedError("generate_graphs in Analysis.py is not implemented yet.")
