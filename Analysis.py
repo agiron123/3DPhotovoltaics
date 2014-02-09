@@ -1,6 +1,8 @@
 import csv
 import os
 import matplotlib.pyplot as plt
+from re import match, search
+
 
 class Analysis(object):
     """Used to output information from the simulation. Has access to all of the information held in
@@ -10,6 +12,7 @@ class Analysis(object):
 
     def __init__(self):
         """Bind the functions passed in too the Analysis object"""
+        self.folder_dir = ''
 
     #This method creates a CSV file with all of the data from a simulation
     def generate_output(self, statistic):
@@ -21,7 +24,8 @@ class Analysis(object):
         #The name of the folder for the raw data CSV files
         data_folder_name = 'Raw Data'
 
-        file_location = self.file_and_folder_creator(data_file_name, data_folder_name)
+        self.folder_dir = self.folder_creator(data_folder_name)
+        file_location = self.file_creator(self.folder_dir, data_file_name)
 
         #Creates a CSV file to write to or overwrites an existing file with the same name
         try:
@@ -60,12 +64,9 @@ class Analysis(object):
             file_name.close()
 
     """ This function creates a folder, with the name taken from folder_name, that stores all of the CSV files for the
-        output function. It also creates the path to that folder and helps create the CSV file, with the value taken
-        from file_name. To create multiple files for different runs, this function checks the files in the directory
-        to determine the number of the most recent run and then increments it by 1. It then returns the path to the file"""
+        output function. It also creates the path to that folder and returns the path"""
     @staticmethod
-    def file_and_folder_creator(file_name, folder_name):
-        sim_number = 0
+    def folder_creator(folder_name):
         #gets the currents scripts directory
         script_dir = os.path.dirname(os.path.abspath(__file__))
         #adds the new folder to the directory
@@ -75,11 +76,20 @@ class Analysis(object):
             os.makedirs(destination_dir)
         except OSError:
             pass  # already exist
+        return destination_dir
+
+    """ This function helps create the CSV file, with the value taken from file_name. To create multiple files for
+        different runs, this function uses regex to check the files in the directory to determine the number of
+        the most recent run and then increments it by 1. It then returns the path to the file"""
+    @staticmethod
+    def file_creator(destination_dir, file_name):
+        sim_number = 0
         #checks the folder for previous data files and determines the current simulation number
         for files in os.listdir(destination_dir):
-            if files.endswith(".csv") and (files[:-5] == file_name):
-                if int(files[-5]) >= sim_number:
-                    sim_number = int(files[-5])+1
+            if files.endswith(".csv") and (match(r'[^0-9]*', files).group() == file_name):
+                file_number = int(search(r'\d+', files).group())
+                if file_number >= sim_number:
+                    sim_number = file_number+1
         #creates the final file name
         new_file_name = file_name + str(sim_number) + '.csv'
         #creates the path to the new data file
