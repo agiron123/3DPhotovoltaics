@@ -52,8 +52,8 @@ class Analysis(object):
             stat_list = statistic.stat_list
 
             #Gets the dictionary keys in order the write the stat's attributes to the csv file
-            stat_list[0].update_dictionary()
-            writer.writerow(stat_list[0].attributes_dictionary.keys())
+            #stat_list[0].update_dictionary()
+            writer.writerow(vars(stat_list[0]).keys())#stat_list[0].attributes_dictionary.keys())
 
             #This will up date each stat's dictionary and then print its contents in the CSV file
             for stat in stat_list:

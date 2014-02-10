@@ -14,10 +14,6 @@ class Stat(object):
         self.zenith = photon.zenith
         self.wavelength = photon.wavelength
 
-        """This dictionary keeps track of all of the attributes above. It will be used when outputting data
-        Each attribute above should be added to the update_dictionary method below"""
-        self.attributes_dictionary = {}
-
     def absorb(self, photon, record):
         self.interactions += 1
         self.absorbed = True
@@ -43,14 +39,3 @@ class Stat(object):
 
     def add_to_path(self, photon, record):
         self.path.append((photon.position, record.coordinate))
-
-    def update_dictionary(self):
-        self.attributes_dictionary['absorbed'] = self.absorbed
-        self.attributes_dictionary['trapped'] = self.trapped
-        self.attributes_dictionary['path'] = self.path
-        self.attributes_dictionary['reflections'] = self.reflections
-        self.attributes_dictionary['interactions'] = self.interactions
-        self.attributes_dictionary['azimuth'] = self.azimuth
-        self.attributes_dictionary['zenith'] = self.zenith
-        self.attributes_dictionary['wavelength'] = self.wavelength
-        return self.attributes_dictionary
