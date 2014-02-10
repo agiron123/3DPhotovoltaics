@@ -5,6 +5,7 @@
 <absorption_coefficient>15</absorption_coefficient>
 </Material_Profile>
 <Tower>
+    <shape>square</shape>
 	<pitch>256</pitch>
 	<width>13</width>
 	<height>12</height>

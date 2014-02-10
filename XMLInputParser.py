@@ -28,7 +28,7 @@ class XMLInputParser(object):
                                "AspectRatioVsAverageReflections" : 0, "IntegratedAreaRatioVsAvgNumReflections" : 0, "PowerRatio3DVsAbsorbance" : 0,
                                "AvgInteractionsVsTowerSpacingLog" : 0, "AvgReflectionsVsTowerHeight" : 0, "Optical_Material" : 0, "OutputSettings" : 0}
                                 #Need to make sure that we are distinguishing between parameters that appear twice like checksum.
-                                #Keep incrememting that parameter, no need to have it twice in the dictionary.
+                                #Keep incrementing that parameter, no need to have it twice in the dictionary.
 
         tokens = {}
         with open(file, 'rt') as f:
