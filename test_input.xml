@@ -2,11 +2,10 @@
 <!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
 <Simulation>
 <Material_Profile>
-<band_gap>10</band_gap>
 <absorption_coefficient>15</absorption_coefficient>
 </Material_Profile>
 <Tower>
-	<shape>Square</shape>
+    <shape>square</shape>
 	<pitch>256</pitch>
 	<width>13</width>
 	<height>12</height>
