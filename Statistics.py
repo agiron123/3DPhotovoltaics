@@ -55,10 +55,12 @@ class Statistics(object):
             self.total_wavelength += stat.wavelength
             self.data['avg_wavelength'] = self.total_wavelength / self.data['number_photons']
 
+            #TODO: resolve here as well
+            """
             #Increases the azimuth total and then calculates the average azimuth
             self.total_azimuth += stat.azimuth
             self.data['avg_azimuth'] = self.total_azimuth / self.data['number_photons']
 
             #Increases the zenith total and then calculates the average zenith
             self.total_zenith += stat.zenith
-            self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']
+            self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']"""

@@ -10,8 +10,10 @@ class Stat(object):
         self.path = []
         self.reflections = 0
         self.interactions = 0
+        #TODO: resolve this photon does not have these fields anymore, commented out for testing
+        """
         self.azimuth = photon.azimuth
-        self.zenith = photon.zenith
+        self.zenith = photon.zenith"""
         self.wavelength = photon.wavelength
 
         """This dictionary keeps track of all of the attributes above. It will be used when outputting data
@@ -44,6 +46,7 @@ class Stat(object):
     def add_to_path(self, photon, record):
         self.path.append((photon.position, record.coordinate))
 
+    #TODO: Determine why we are storing two copies of everything? If you  want a dictionary use the __dict__
     def update_dictionary(self):
         self.attributes_dictionary['absorbed'] = self.absorbed
         self.attributes_dictionary['trapped'] = self.trapped

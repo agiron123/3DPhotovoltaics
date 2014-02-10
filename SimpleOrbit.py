@@ -1,4 +1,4 @@
-import Orbit
+from Orbit import *
 import math
 import numpy as np
 import random
@@ -18,7 +18,7 @@ class SimpleOrbit(Orbit):
         Return the modified photon"""
         x = self.rho * math.sin(self.zenith) * math.cos(self.azimuth)
         y = self.rho * math.sin(self.zenith) * math.sin(self.azimuth)
-        z = self.rho * math.cos(self.zentih)
+        z = self.rho * math.cos(self.zenith)
         photon.velocity = np.array([x, y, z])
         sim_width = tower.width / 2 + tower.pitch / 2
         epsilon = 10 ** -3
@@ -31,7 +31,7 @@ class SimpleOrbit(Orbit):
             and photon.position[1] >= -tower.width/2 and photon.position[1] <= tower.width / 2:
             x = random.uniform(-sim_width, sim_width)
             y = random.uniform(-sim_width, sim_width)
-            z = tower.height / 2 + epsilon
+            z = tower.height + epsilon
             photon.position = np.array([x, y, z])
         photon.wavelength = random.uniform(200, 827)
         return photon
