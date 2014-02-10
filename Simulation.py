@@ -1,12 +1,16 @@
-from SimpleOrbit import *
-from Tower import *
+#from SimpleOrbit import *
+#from Tower import *
 
+#Note that SimpleOrbit and Tower are classes, not modules so we import them as below:
+import SimpleOrbit
+import Tower
 
 def run(settings,statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #pass relevant arguments to each of these constructor functions, details omitted for now
     #TODO : un-omit details
+    print "Starting to run the simulation"
     orbit = SimpleOrbit(1, settings.zenith, settings.azimuth)
     tower = Tower()
     #TODO : determine what time scale we will use throughout the program
