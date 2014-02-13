@@ -9,9 +9,9 @@ class Statistics(object):
 
         #This creates the dictionary that will store all of the aggregated data
         self.data = {'total_absorbed': 0, 'total_trapped': 0, 'avg_number_reflections': 0,
-                     'avg_number_interactions': 0, 'avg_azimuth': 0, 'avg_zenith': 0,
+                     'avg_number_interactions': 0.0, 'avg_azimuth': 0, 'avg_zenith': 0,
                      'avg_wavelength': 0, 'number_photons': 0, 'total_number_reflections': 0,
-                     'total_number_interactions': 0}
+                     'total_number_interactions': 0.0}
 
         #These values are stored, to calculate the average of each value
         self.total_wavelength = 0
@@ -55,12 +55,10 @@ class Statistics(object):
             self.total_wavelength += stat.wavelength
             self.data['avg_wavelength'] = self.total_wavelength / self.data['number_photons']
 
-            #TODO: resolve here as well
-            """
             #Increases the azimuth total and then calculates the average azimuth
             self.total_azimuth += stat.azimuth
             self.data['avg_azimuth'] = self.total_azimuth / self.data['number_photons']
 
             #Increases the zenith total and then calculates the average zenith
             self.total_zenith += stat.zenith
-            self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']"""
+            self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']

@@ -6,7 +6,8 @@ import random
 
 class SimpleOrbit(Orbit):
     """A substitute orbit class to use until the actual orbit class is complete.
-    Will also be useful for testing the simulation"""
+    Will also be useful for testing the simulation. This simple orbit treats the sun as a point source located
+    at the given spherical coordinates"""
     def __init__(self, rho, zenith, azimuth):
         """Create a simple orbit using the given spherical coordinates"""
         self.rho = rho
@@ -20,20 +21,15 @@ class SimpleOrbit(Orbit):
         y = self.rho * math.sin(self.zenith) * math.sin(self.azimuth)
         z = self.rho * math.cos(self.zenith)
         photon.velocity = np.array([x, y, z])
+        photon.velocity *= -1
         sim_width = tower.width / 2 + tower.pitch / 2
-        epsilon = 10 ** -3
         x = random.uniform(-sim_width, sim_width)
         y = random.uniform(-sim_width, sim_width)
-        #TODO: determine what height photons spawn at, shouldn't it be the top, just copying processing code here
-        z = tower.height / 2 + epsilon
+        z = tower.height / 2
         photon.position = np.array([x, y, z])
-        while photon.position[0] >= -tower.width / 2 and photon.position[0] <= tower.width / 2 \
-            and photon.position[1] >= -tower.width/2 and photon.position[1] <= tower.width / 2:
-            x = random.uniform(-sim_width, sim_width)
-            y = random.uniform(-sim_width, sim_width)
-            z = tower.height + epsilon
-            photon.position = np.array([x, y, z])
         photon.wavelength = random.uniform(200, 827)
+        photon.azimuth = self.azimuth
+        photon.zenith = self.zenith
         return photon
 
     def step_azimuth(self, delta):
