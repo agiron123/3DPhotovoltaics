@@ -13,29 +13,34 @@ def run(settings, statistics):
     and run the simulation in the form of key value pairs"""
     #pass relevant arguments to each of these constructor functions, details omitted for now
     #TODO : actually pull from settings here
-    i, photon_count, absorbing, trapping, specularOnly = 0, 10000, True, False, True
-    orbit = SimpleOrbit(1, math.pi / 2 + math.pi / 4, math.pi / 2 + math.pi / 4)
-    photon = Photon(0, 0, 0)
-    #CZTS
-    material = Material(0.0001, 1.45)
-    #TODO: determine proper realtive scaling here, make sure to leverage aspect ratio
-    tower = Tower(40, material, 10, 40, "rectprism")
-    #TODO : determine what time scale we will use throughout the program
-    #t, total_time, delta_t = 0, 10**6, 10
-    #outer most loop, we either need to run the simulation for some amount of time
-    #or for some distance of orbit, something like that
+    i, photon_count, absorbing, trapping, specular_only = 0, 1000, False, False, True
+    ignore_tower_tops = True
+    #orbit = SimpleOrbit(1, math.pi / 2.0 - math.pi / 4.0, math.pi / 2.0)
+    orbit = SimpleOrbit(1, settings["zenith"], settings["azimuth"])
+    photon = Photon(0, 0, 0, 0, 0)
+    #ignoring absorptions
+    material = None
+    tower = Tower(settings["height"], material, settings["spacing"], settings["width"], "rectprism")
     while i < photon_count:
         #generate a new photon from orbit
         photon = orbit.generate_photon(photon, tower)
         #generate new stat datum
         stat = Stat(photon)
         done = False
-        #check if the photon is outside a tower, not enough going on yet to write this
-        #TODO: implement this
-        """if tower.contains(photon):
-            #TODO : handle photon being spawned at the top of tower
-            raise ValueError
-            continue"""
+        if tower.includes(photon):
+            if not ignore_tower_tops:
+                done = True
+                record = Record(False, 0, photon.position, np.array([0, 0, 1]), True)
+                if absorbing and tower.material.is_absorbed(photon):
+                    stat.absorb(photon, record)
+                elif trapping and photon.is_trapped():
+                    stat.trap(photon, record)
+                else:
+                    stat.reflect(photon, record)
+            else:
+                #completely ignore photons spawned on the top of the tower
+                continue
+        #continue until photon is absorbed, trapped, or exits the simulation
         while not done:
             #get a collision
             record = tower.get_record(photon)
@@ -49,7 +54,7 @@ def run(settings, statistics):
                 stat.wrap_around(photon, record)
                 photon.wrap_around(record)
             #absorbed
-            elif absorbing and random.random() < 0.1: #tower.material.is_absorbed(photon):
+            elif absorbing and tower.material.is_absorbed(photon):
                 stat.absorb(photon, record)
                 done = True  # move onto next photon
             #trapped
@@ -57,14 +62,13 @@ def run(settings, statistics):
                 #TODO : do trapping work here
                 stat.trap(photon, record)
                 #something else?
-                break  # move onto next photon
-            elif specularOnly:
+                done = True  # move onto next photon
+            elif specular_only:
                 photon.specular_reflect(record)
-                stat.reflect(photon,record)
+                stat.reflect(photon, record)
             else:
                 photon.non_specular_reflect(record)
         #finish with this photon by updating statistics with its stat datum
         statistics.update(stat)
         i += 1
-    print(statistics.data["avg_number_interactions"])
-run(None, Statistics())
+    return statistics.data["avg_number_interactions"]

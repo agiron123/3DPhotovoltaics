@@ -3,10 +3,12 @@ import numpy as np
 
 class Photon(object):
     """Represents a photon in the simulation. Only one photon is ever made, it is just reset when needed"""
-    def __init__(self, position, velocity, wavelength,):
+    def __init__(self, position, velocity, wavelength, azimuth, zenith):
         self.position = position
         self.velocity = velocity
         self.wavelength = wavelength
+        self.azimuth = azimuth
+        self.zenith = zenith
 
     def specular_reflect(self, record):
         """Update position and velocity of photon for mirror-like reflection off a wall based upon a
