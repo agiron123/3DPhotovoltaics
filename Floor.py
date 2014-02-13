@@ -7,13 +7,10 @@ from Record import *
 class Floor(Wall):
     """Subclass of Wall representing the floor of the simulation"""
 
-    def __init__(self, point1, width):
-        """Create a floor with the given point """
-        self.point1 = point1
+    def __init__(self, depth):
+        """Create a floor with the given depth """
+        self.depth = depth
         self.is_boundary = False
-        #this tower width + tower pitch
-        #TODO: determine if it is safe to assume a square simulation, implement another way to check bounds
-        self.width = width
         self.normal = np.array([0, 0, 1])
 
     def get_collision(self, photon):
@@ -23,13 +20,9 @@ class Floor(Wall):
         # Discards cases where the photon does not collide with the plane
         if np.dot(photon.velocity, self.normal) == 0:
             raise Exception("I think something broke cause there's a photon moving sideways through the simulation.")
-        time = np.dot((self.point1 - photon.position), self.normal) / np.dot(photon.velocity, self.normal)
+        #Derived from this equation <point1 - (photon.position + t * photon.velocity), normal> = 0
+        time = (photon.position[2]-self.depth) / (-photon.velocity[2])
         if time < 0:
             return None
         intersection = photon.position + (time * photon.velocity)
-        # check whether intersection point lies in the square of the simulation
-        #if intersection[0] < -self.width or intersection[0] > self.width:
-        #    return None
-        #if intersection[1] < -self.width or intersection[1] > self.width:
-        #    return None
         return Record(self.is_boundary, time, intersection, self.normal, False)

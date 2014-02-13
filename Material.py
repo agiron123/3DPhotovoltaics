@@ -10,7 +10,7 @@ class Material(object):
         """Create a material with the given absorption coefficient and band gap"""
         self.abs_coeff = abs_coeff
         lambda_max = Material.hc / band_gap
-        self.extinct_coeff = lambda_max * abs_coeff / (10000000.0 * 4.0 * math.PI)
+        self.extinct_coeff = lambda_max * abs_coeff / (10000000.0 * 4.0 * math.pi)
         self.band_gap = band_gap
 
     #TODO : ported christians code from processing, need to confirm correctness
@@ -19,6 +19,6 @@ class Material(object):
         #TODO : The accuracy of this needs to be confimred, especially units, should probably check in with Ricardo
         if self.band_gap > Material.hc / photon.wavelength:
             return False
-        alpha = 10000000.0 * 4.0 * math.PI * self.extinct_coeff / photon.wavelength  # alpha = 4*PI*k/lambda
-        x = random.uniform(0.0001, 0.01)
-        return random.uniform(1.0) > alpha * x
+        alpha = 10000000.0 * 4.0 * math.pi * self.extinct_coeff / photon.wavelength  # alpha = 4*PI*k/lambda
+        x = random.uniform(0.00001, 0.001)
+        return random.random() < alpha * x

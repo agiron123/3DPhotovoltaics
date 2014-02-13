@@ -38,18 +38,7 @@ class Orbit(object):
         #NOTE : leaving a normal distribution here
         #TODO: do we want a normal distribution here or the distribution from the processing code
 
-    """
-      time[i] = 0.0; // reset time variable to start of path segment
-      vec V = sphericalV(1.0, azimuth, zenith); // calculate new velocity from spherical coordinates (will change in future)
 
-      // generate new photon. if ignore tower top photons is "On", only create photons Not originating above tower
-      photons[i] = Photon(P(random(-simulationWidth/2,simulationWidth/2),random(-simulationWidth/2,simulationWidth/2),simulationHeight/2+tepsilon), V,random(200,827));
-      while(ignoreTowerTopPhotons && photons[i].P.x >= -towerWidth/2 && photons[i].P.x <= towerWidth/2 && photons[i].P.y >= -towerWidth/2 && photons[i].P.y <= towerWidth/2) {
-        photons[i] = Photon(P(random(-simulationWidth/2,simulationWidth/2),random(-simulationWidth/2,simulationWidth/2),simulationHeight/2+tepsilon), V,random(200,827));
-      }
-      displayedPos[i] = copy(photons[i].P); // update display position
-      displayedVelocity[i] = null; // clear display velocity
-    """
     def time_step(self, delta_t):
         #TODO: seems like for release one we could update zenith and azimuth here
         """Move the ISS along the orbit by the given time step. The probability distribution of
