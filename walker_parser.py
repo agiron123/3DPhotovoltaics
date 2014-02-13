@@ -24,7 +24,6 @@ def main():
     print(test['OutputSettings'])
     validate(valid, test)
 
-
 def recur_map(element):
     """map each tag name to a dictionary, the dictionary maps child nodes to their dictionaires
         the base case is a tag with no children, which just gets mapped to its value"""

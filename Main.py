@@ -14,7 +14,7 @@ def Main():
 
     arguments = parser.parse_file(filename)
 
-    #print(arguments)
+    print(arguments)
     #OutputSettings(arguments["OutputSettings"])
     #graph_settings = GraphSettings(arguments["OutputSettings"]["GraphSettings"])
     #statistics = Statistics()

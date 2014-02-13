@@ -40,7 +40,7 @@ class XMLInputParser(object):
         print("Parameters that need to be re entered: \n")
         print (diff)
 
-        #If everything was sucessful, return the dictionary that was parsed.
+        #If everything was succesful, return the dictionary that was parsed.
         return simulations
 
     def parseRecur(self, root):
