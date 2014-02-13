@@ -49,6 +49,9 @@ def validate(valid, test):
     print("XMl was Valid")
     return True
 
+def etree_to_dict(t):
+    return {t.tag : map(etree_to_dict, t.iterchildren()) or t.text}
+
 
 def recur_validate(valid, test):
     """Recursively validate whether the tag names and data types on the test dictionary are valid

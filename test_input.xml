@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 <!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
+<Main>
 <Simulation>
 <Material_Profile>
-<absorption_coefficient>15</absorption_coefficient>
+    <absorption_coefficient>15</absorption_coefficient>
 </Material_Profile>
 <Tower>
     <shape>square</shape>
@@ -12,39 +13,39 @@
 </Tower>
 
 <Orbital_Properties>
-<TLE> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
-<line1>
-	<line_number1>1</line_number1>
-	<satellite_number>123456</satellite_number>
-	<classification>low-orbit satellite</classification>
-	<international_designator>19</international_designator>
-	<epoch_year>14</epoch_year>
-	<epoch>2000</epoch>
-	<first_time_derivative>35</first_time_derivative>
-	<second_time_derivative>40</second_time_derivative>
-	<bstar_drag>98</bstar_drag>
-	<ephemeris_type>45</ephemeris_type>
-   	<element_set>14</element_set>
-	<checksum>001</checksum>
-</line1>
+    <TLE> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
+        <line1>
+            <line_number1>1</line_number1>
+            <satellite_number>123456</satellite_number>
+            <classification>low-orbit satellite</classification>
+            <international_designator>19</international_designator>
+            <epoch_year>14</epoch_year>
+            <epoch>2000</epoch>
+            <first_time_derivative>35</first_time_derivative>
+            <second_time_derivative>40</second_time_derivative>
+            <bstar_drag>98</bstar_drag>
+            <ephemeris_type>45</ephemeris_type>
+            <element_set>14</element_set>
+            <checksum>001</checksum>
+        </line1>
 
-<line2>
-	<line_number2>2</line_number2>
-	<satellite_number>10</satellite_number>
-	<inclination>98</inclination>
-	<right_ascension>2345236.234</right_ascension>
-	<argument_of_pedigree>989</argument_of_pedigree>
-	<mean_anomaly>97567</mean_anomaly>
-	<mean_motion>57224</mean_motion>
-	<revolution_number>73345</revolution_number>
-	<checksum>9987</checksum>
-</line2>
-</TLE>
+        <line2>
+            <line_number2>2</line_number2>
+            <satellite_number>10</satellite_number>
+            <inclination>98</inclination>
+            <right_ascension>2345236.234</right_ascension>
+            <argument_of_pedigree>989</argument_of_pedigree>
+            <mean_anomaly>97567</mean_anomaly>
+            <mean_motion>57224</mean_motion>
+            <revolution_number>73345</revolution_number>
+            <checksum>9987</checksum>
+        </line2>
+    </TLE>
 
-<beta_angle>10</beta_angle>
-<num_orbits>10</num_orbits>
-<panel_orientation>10</panel_orientation>
-<earthshine>True</earthshine>
+    <beta_angle>10</beta_angle>
+    <num_orbits>10</num_orbits>
+    <panel_orientation>10</panel_orientation>
+    <earthshine>True</earthshine>
 </Orbital_Properties>
 
 <Specular_Reflection>True</Specular_Reflection>
@@ -75,3 +76,80 @@
 </GraphSettings>
 </OutputSettings>
 </Simulation>
+
+<Simulation>
+<Material_Profile>
+</Material_Profile>
+<Tower>
+    <shape>SIM2</shape>
+	<pitch>SIM2</pitch>
+	<width>SIM2</width>
+	<height>SIM2</height>
+</Tower>
+
+<Orbital_Properties>
+    <TLE> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
+        <line1>
+            <line_number1>SIM2</line_number1>
+            <satellite_number>SIM2</satellite_number>
+            <classification>SIM2</classification>
+            <international_designator>19</international_designator>
+            <epoch_year>14</epoch_year>
+            <epoch>2000</epoch>
+            <first_time_derivative>35</first_time_derivative>
+            <second_time_derivative>40</second_time_derivative>
+            <bstar_drag>98</bstar_drag>
+            <ephemeris_type>45</ephemeris_type>
+            <element_set>14</element_set>
+            <checksum>001</checksum>
+        </line1>
+
+        <line2>
+            <line_number2>2</line_number2>
+            <satellite_number>10</satellite_number>
+            <inclination>98</inclination>
+            <right_ascension>2345236.234</right_ascension>
+            <argument_of_pedigree>989</argument_of_pedigree>
+            <mean_anomaly>97567</mean_anomaly>
+            <mean_motion>57224</mean_motion>
+            <revolution_number>73345</revolution_number>
+            <checksum>9987</checksum>
+        </line2>
+    </TLE>
+
+    <beta_angle>10</beta_angle>
+    <num_orbits>10</num_orbits>
+    <panel_orientation>10</panel_orientation>
+    <earthshine>True</earthshine>
+</Orbital_Properties>
+
+<Specular_Reflection>True</Specular_Reflection>
+<Optical_Material>12345</Optical_Material>
+
+<OutputSettings>
+	<powergenratio3D>True</powergenratio3D>
+	<maximum_point_power>True</maximum_point_power>
+	<absorption_efficiency>False</absorption_efficiency>
+	<absorbance>False</absorbance>
+	<average_interactions>True</average_interactions>
+	<average_reflections>True</average_reflections>
+	<integrated_area_ratio>False</integrated_area_ratio>
+	<aspect_ratio>False</aspect_ratio>
+	<tower_spacing_log>True</tower_spacing_log>
+	<tower_height>True</tower_height>
+	<azumithal_angle>True</azumithal_angle>
+
+<GraphSettings>
+    <MaxPointPowerVsZenithAngle>True</MaxPointPowerVsZenithAngle>
+	<AverageReflectionsVsAzumithal>True</AverageReflectionsVsAzumithal>
+	<AbsorptionEfficiencyVsAzumithal>False</AbsorptionEfficiencyVsAzumithal>
+	<AspectRatioVsAverageReflections>True</AspectRatioVsAverageReflections>
+	<IntegratedAreaRatioVsAvgNumReflections>False</IntegratedAreaRatioVsAvgNumReflections>
+	<PowerRatio3DVsAbsorbance>False</PowerRatio3DVsAbsorbance>
+	<AvgInteractionsVsTowerSpacingLog>False</AvgInteractionsVsTowerSpacingLog>
+	<AvgReflectionsVsTowerHeight>False</AvgReflectionsVsTowerHeight>
+</GraphSettings>
+</OutputSettings>
+</Simulation>
+
+</Main>

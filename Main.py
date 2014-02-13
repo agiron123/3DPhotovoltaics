@@ -1,15 +1,20 @@
 #import Simulation
 #import Statistics
 #import Analysis
-#from OutputSettings import *
-#from GraphSettings import *
+from OutputSettings import *
+from GraphSettings import *
 from XMLInputParser import *
 
 def Main():
     """Main method for running the entire program"""
+    print "Welcome to 3D Photovoltaics Modeling!"
+    filename = raw_input("Please enter the name of an xml file: ")
+    print("Parsing ", filename)
     parser = XMLInputParser()
-    arguments = parser.parse_file("test_input.xml")
-    print arguments
+
+    arguments = parser.parse_file(filename)
+
+    #print(arguments)
     #OutputSettings(arguments["OutputSettings"])
     #graph_settings = GraphSettings(arguments["OutputSettings"]["GraphSettings"])
     #statistics = Statistics()
@@ -19,6 +24,5 @@ def Main():
     #analysis = Analysis()
     #analysis.generate_graphs()
     #analysis.generate_output()
-
 
 Main()
