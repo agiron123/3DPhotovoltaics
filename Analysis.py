@@ -2,6 +2,7 @@ import csv
 import os
 import matplotlib.pyplot as plt
 from re import match, search
+import GraphSettings
 
 
 class Analysis(object):
@@ -97,5 +98,8 @@ class Analysis(object):
         return path
 
     #TODO: check the types of desired graphs and how to graph them
-    def generate_graphs(self, statistics):
+    def generate_graphs(self, statistics, graph_settings):
         raise NotImplementedError("generate_graphs in Analysis.py is not implemented yet.")
+
+
+
