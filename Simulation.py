@@ -11,11 +11,10 @@ import math
 def run(settings, statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
-    #pass relevant arguments to each of these constructor functions, details omitted for now
-    #TODO : actually pull from settings here
+    #setup the simulation
+    #TODO : actually pull from settings here, and don't have anything hardcoded
     i, photon_count, absorbing, trapping, specular_only = 0, 1000, False, False, True
     ignore_tower_tops = True
-    #orbit = SimpleOrbit(1, math.pi / 2.0 - math.pi / 4.0, math.pi / 2.0)
     orbit = SimpleOrbit(1, settings["zenith"], settings["azimuth"])
     photon = Photon(0, 0, 0, 0, 0)
     #ignoring absorptions
@@ -27,7 +26,7 @@ def run(settings, statistics):
         #generate new stat datum
         stat = Stat(photon)
         done = False
-        if tower.includes(photon):
+        if tower.is_inside(photon):
             if not ignore_tower_tops:
                 done = True
                 record = Record(False, 0, photon.position, np.array([0, 0, 1]), True)

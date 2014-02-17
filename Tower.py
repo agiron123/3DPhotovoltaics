@@ -62,13 +62,15 @@ class Tower(object):
         return record
 
     #called includes because contains is a __ method
-    def includes(self, photon):
+    def is_inside(self, photon):
         """Determine whether the given photon is on the top of the tower"""
         #TODO: use beam sweaper or half space check here
         if self.tower_type == "rectprism":
             return photon.position[0] >= -self.width / 2 and photon.position[0] <= self.width / 2 \
             and photon.position[1] >= -self.width/2 and photon.position[1] <= self.width / 2
         elif self.tower_type == "cylinder":
-            return np.dot(photon.position, photon.position) <= self.width * self.width
+            copy = photon.position
+            copy[2] = 0
+            return np.dot(copy, copy) <= self.width * self.width
         else:
             raise NotImplementedError("Unsupported tower shape")
