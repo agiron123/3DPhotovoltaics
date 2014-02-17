@@ -8,9 +8,8 @@ class OutputSettings(object):
         self.absorbance = settingsDict["absorbance"]
         self.average_interactions = settingsDict["average_interactions"]
         self.average_reflections = settingsDict["average_reflections"]
-        self.integrated_area_ratio = settingsDict["average_area_ratio"]
+        self.integrated_area_ratio = settingsDict["integrated_area_ratio"]
         self.aspect_ratio = settingsDict["aspect_ratio"]
         self.tower_spacing_log = settingsDict["tower_spacing_log"]
         self.tower_height = settingsDict["tower_height"]
         self.azumithal_angle = settingsDict["azumithal_angle"]
-

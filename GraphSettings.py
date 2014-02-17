@@ -1,4 +1,4 @@
-class OutputSettings(object):
+class GraphSettings(object):
     """Class for the GraphSettings that were parsed from the XML file."""
     def __init__(self, settingsDict):
         self.MaxPointPowerVsZenithAngle = settingsDict["MaxPointPowerVsZenithAngle"]

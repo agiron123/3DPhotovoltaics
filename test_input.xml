@@ -48,6 +48,11 @@
     <earthshine>True</earthshine>
 </Orbital_Properties>
 
+<Simple_Orbital_Properties>
+    <zenith_angle>45</zenith_angle><!--Units: Degrees -->
+    <azumithal_angle>60</azumithal_angle><!--Units: Degrees -->
+</Simple_Orbital_Properties>
+
 <Specular_Reflection>True</Specular_Reflection>
 <Optical_Material>12345</Optical_Material>
 

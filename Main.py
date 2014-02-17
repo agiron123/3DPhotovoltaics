@@ -15,8 +15,10 @@ def Main():
     arguments = parser.parse_file(filename)
 
     print(arguments)
-    #OutputSettings(arguments["OutputSettings"])
-    #graph_settings = GraphSettings(arguments["OutputSettings"]["GraphSettings"])
+
+    for i in range(0, len(arguments)):
+        output_settings = OutputSettings(arguments[i]["OutputSettings"])
+        graph_settings = GraphSettings(arguments[i]["OutputSettings"]["GraphSettings"])
     #statistics = Statistics()
     #Simulation.run(arguments, statistics)
 
