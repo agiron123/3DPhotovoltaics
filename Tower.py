@@ -64,13 +64,29 @@ class Tower(object):
     #called includes because contains is a __ method
     def is_inside(self, photon):
         """Determine whether the given photon is on the top of the tower"""
+        sign = lambda x: math.copysign(1.0, x)
         #TODO: use beam sweaper or half space check here
-        if self.tower_type == "rectprism":
-            return photon.position[0] >= -self.width / 2 and photon.position[0] <= self.width / 2 \
-            and photon.position[1] >= -self.width/2 and photon.position[1] <= self.width / 2
+        if self.tower_type == "convex_polygon":
+            base_orientation = Tower.orientation_to_wall(self.walls[0], photon)
+            for wall in self.walls:
+                if base_orientation != Tower.orientation_to_wall(wall, photon):
+                    return False
+            return True
+        elif self.tower_type == "rectprism":
+            return math.fabs(photon.position[0]) <= self.width / 2 and math.abs(photon.position[1]) <= self.width/2
+        elif self.tower_type == "trench":
+            base_orientation = Tower.orientation_to_wall(self.walls[0], photon)
+            for wall in self.walls:
+                if base_orientation != Tower.orientation_to_wall(wall, photon):
+                    return True
+            return False
         elif self.tower_type == "cylinder":
             copy = photon.position
             copy[2] = 0
             return np.dot(copy, copy) <= self.width * self.width
         else:
             raise NotImplementedError("Unsupported tower shape")
+
+    @staticmethod
+    def wall_normal_dot(wall, photon):
+        return np.dot(wall.normal,photon.position-wall.point1)
