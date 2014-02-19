@@ -67,17 +67,17 @@ class Tower(object):
         sign = lambda x: math.copysign(1.0, x)
         #TODO: use beam sweaper or half space check here
         if self.tower_type == "convex_polygon":
-            base_orientation = Tower.orientation_to_wall(self.walls[0], photon)
+            base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
-                if base_orientation != Tower.orientation_to_wall(wall, photon):
+                if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return False
             return True
         elif self.tower_type == "rectprism":
             return math.fabs(photon.position[0]) <= self.width / 2 and math.abs(photon.position[1]) <= self.width/2
         elif self.tower_type == "trench":
-            base_orientation = Tower.orientation_to_wall(self.walls[0], photon)
+            base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
-                if base_orientation != Tower.orientation_to_wall(wall, photon):
+                if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return True
             return False
         elif self.tower_type == "cylinder":
