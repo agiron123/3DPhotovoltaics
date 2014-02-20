@@ -8,7 +8,13 @@ import numpy as np
 class Tower(object):
     """Represents a tower in the simulation. Only one tower will be modeled.
     The Tower is always centered on the origin"""
+    #constants
     epsilon = 10 ** -7
+    RECT_PRISM = "rect_prism"
+    CYLINDER = "cylinder"
+    CONVEX_POLYGON = "convex_polygon"
+    TRENCH = "trench"
+    BOX = "box"
 
     def __init__(self, height, material, pitch, width, tower_type):
         """Initialize a tower with the given parameters"""
@@ -30,9 +36,9 @@ class Tower(object):
         #add a floor
         self.walls.append(Floor(-height/2.0))
         #add walls specific to the given type
-        if tower_type == "cylinder":
+        if tower_type == Tower.CYLINDER:
             self.walls.append(Cylinder(np.array([0, 0, 0]), s, False))
-        elif tower_type == "rectprism":
+        elif tower_type == Tower.RECT_PRISM:
             self.walls.append(Plane(np.array([-s, s, 0]), np.array([-s, -s, 0]), False))
             self.walls.append(Plane(np.array([-s, -s, 0]), np.array([s, -s, 0]), False))
             self.walls.append(Plane(np.array([s, -s, 0]), np.array([s, s, 0]), False))
@@ -64,29 +70,31 @@ class Tower(object):
     #called includes because contains is a __ method
     def is_inside(self, photon):
         """Determine whether the given photon is on the top of the tower"""
-        sign = lambda x: math.copysign(1.0, x)
-        #TODO: use beam sweaper or half space check here
-        if self.tower_type == "convex_polygon":
+        if self.tower_type == Tower.CONVEX_POLYGON:
             base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
                 if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return False
             return True
-        elif self.tower_type == "rectprism":
-            return math.fabs(photon.position[0]) <= self.width / 2 and math.abs(photon.position[1]) <= self.width/2
-        elif self.tower_type == "trench":
+
+        elif self.tower_type == Tower.RECT_PRISM:
+            return math.fabs(photon.position[0]) <= self.width / 2 and math.fabs(photon.position[1]) <= self.width/2
+
+        elif self.tower_type == Tower.TRENCH:
             base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
                 if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return True
             return False
-        elif self.tower_type == "cylinder":
+
+        elif self.tower_type == Tower.CYLINDER:
             copy = photon.position
             copy[2] = 0
             return np.dot(copy, copy) <= self.width * self.width
+
         else:
             raise NotImplementedError("Unsupported tower shape")
 
     @staticmethod
     def wall_normal_dot(wall, photon):
-        return np.dot(wall.normal,photon.position-wall.point1)
+        return math.copysign(1.0, np.dot(wall.normal, photon.position - wall.point1))
