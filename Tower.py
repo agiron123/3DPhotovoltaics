@@ -88,7 +88,7 @@ class Tower(object):
             return False
 
         elif self.tower_type == Tower.CYLINDER:
-            copy = photon.position
+            copy = photon.position.copy()
             copy[2] = 0
             return np.dot(copy, copy) <= self.width * self.width
 
