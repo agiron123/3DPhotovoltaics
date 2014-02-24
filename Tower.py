@@ -13,7 +13,10 @@ class Tower(object):
     RECT_PRISM = "rect_prism"
     CYLINDER = "cylinder"
     CONVEX_POLYGON = "convex_polygon"
-    TRENCH = "trench"
+    #infinite in x direction
+    YTRENCH = "ytrench"
+    #infinite in y direction
+    XTRENCH = "xtrench"
     BOX = "box"
 
     def __init__(self, height, material, pitch, width, tower_type):
@@ -38,11 +41,25 @@ class Tower(object):
         #add walls specific to the given type
         if tower_type == Tower.CYLINDER:
             self.walls.append(Cylinder(np.array([0, 0, 0]), s, False))
+        #trench is infinite in the y direction
+        elif tower_type == Tower.XTRENCH:
+            self.walls.append(Plane(np.array([-s, d, 0]), np.array([-s, -d, 0]), False))
+            self.walls.append(Plane(np.array([s, -d, 0]), np.array([s, d, 0]), False))
+        #trench is infinite in the x direction
+        elif tower_type == Tower.YTRENCH:
+            self.walls.append(Plane(np.array([d, s, 0]), np.array([-d, s, 0]), False))
+            self.walls.append(Plane(np.array([-d, -s, 0]), np.array([d, -s, 0]), False))
+        #distinguised by is inside method
         elif tower_type == Tower.RECT_PRISM:
             self.walls.append(Plane(np.array([-s, s, 0]), np.array([-s, -s, 0]), False))
             self.walls.append(Plane(np.array([-s, -s, 0]), np.array([s, -s, 0]), False))
             self.walls.append(Plane(np.array([s, -s, 0]), np.array([s, s, 0]), False))
             self.walls.append(Plane(np.array([s, s, 0]), np.array([-s, s, 0]), False))
+        elif tower_type == Tower.BOX:
+            self.walls.append(Plane(np.array([-d + s, d - s, 0]), np.array([-d + s, -d + s, 0]), False))
+            self.walls.append(Plane(np.array([-d + s, -d + s, 0]), np.array([d - s, -d + s, 0]), False))
+            self.walls.append(Plane(np.array([d - s, -d + s, 0]), np.array([d - s, d - s, 0]), False))
+            self.walls.append(Plane(np.array([d - s, d - s, 0]), np.array([-d + s, d - s, 0]), False))
         else:
             raise NotImplementedError("The specified wall type is not currently supported")
 
@@ -67,31 +84,25 @@ class Tower(object):
         #return a valid record
         return record
 
-    #called includes because contains is a __ method
     def is_inside(self, photon):
         """Determine whether the given photon is on the top of the tower"""
-        if self.tower_type == Tower.CONVEX_POLYGON:
+        if self.tower_type == Tower.CONVEX_POLYGON or self.tower_type == Tower.YTRENCH or \
+            self.tower_type == Tower.RECT_PRISM or self.tower_type == Tower.XTRENCH:
             base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
                 if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return False
             return True
-
-        elif self.tower_type == Tower.RECT_PRISM:
-            return math.fabs(photon.position[0]) <= self.width / 2 and math.fabs(photon.position[1]) <= self.width/2
-
-        elif self.tower_type == Tower.TRENCH:
+        elif self.tower_type == Tower.CYLINDER:
+            copy = photon.position.copy()
+            copy[2] = 0
+            return np.dot(copy, copy) <= self.width * self.width
+        elif self.tower_type == Tower.BOX:
             base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
             for wall in self.walls:
                 if base_orientation != Tower.wall_normal_dot(wall, photon):
                     return True
             return False
-
-        elif self.tower_type == Tower.CYLINDER:
-            copy = photon.position.copy()
-            copy[2] = 0
-            return np.dot(copy, copy) <= self.width * self.width
-
         else:
             raise NotImplementedError("Unsupported tower shape")
 

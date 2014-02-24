@@ -9,6 +9,7 @@ class Floor(Wall):
 
     def __init__(self, depth):
         """Create a floor with the given depth """
+        self.point1 = np.array([0, 0, -depth])
         self.depth = depth
         self.is_boundary = False
         self.normal = np.array([0, 0, 1])

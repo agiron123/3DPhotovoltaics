@@ -12,14 +12,14 @@ def run(settings, statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #setup the simulation
-    #TODO : actually pull from settings here, and don't have anything hardcoded
-    i, photon_count, absorbing, trapping, specular_only = 0, 1000, False, False, True
+    i, photon_count, absorbing, trapping, = 0, 1000, False, False
+    specular_only = settings.specularReflection
     ignore_tower_tops = True
-    orbit = SimpleOrbit(1, settings["zenith"], settings["azimuth"])
+    orbit = SimpleOrbit(1, settings.simple_orbital_properties["zenith_angle"], settings.simple_orbital_properties["azumithal_angle"])
     photon = Photon(0, 0, 0, 0, 0)
     #ignoring absorptions
-    material = None
-    tower = Tower(settings["height"], material, settings["spacing"], settings["width"], "rectprism")
+    material = Material(settings.materialProfile["absorption_coefficient"], settings.materialProfile["band_gap"])
+    tower = Tower(settings.tower["height"], material, settings.tower["pitch"], settings.tower["width"], settings.tower["shape"])
     while i < photon_count:
         #generate a new photon from orbit
         photon = orbit.generate_photon(photon, tower)
