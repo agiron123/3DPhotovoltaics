@@ -12,7 +12,7 @@ def run(settings, statistics):
     """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #setup the simulation
-    i, photon_count, absorbing, trapping, = 0, 1000, False, False
+    i, photon_count, absorbing, trapping, = 0, 100, False, False
     specular_only = settings.specularReflection
     ignore_tower_tops = True
     orbit = SimpleOrbit(1, settings.simple_orbital_properties["zenith_angle"], settings.simple_orbital_properties["azumithal_angle"])
