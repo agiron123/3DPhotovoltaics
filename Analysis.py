@@ -2,7 +2,6 @@ import csv
 import os
 import matplotlib.pyplot as plt
 from re import match, search
-import GraphSettings
 
 
 class Analysis(object):
@@ -11,12 +10,34 @@ class Analysis(object):
         into graphs and figures. Methods for generating output in various forms are passed using functions as first
         class objects at the time of instantiation """
 
-    def __init__(self):
+    def __init__(self, graph_settings):
         """Bind the functions passed in too the Analysis object"""
         self.folder_dir = ''
+        self.graph_settings = graph_settings
+
+    def save_photon_path(self, statistic):
+        data = statistic.data
+        data_file_name = 'Photon_Path_'
+        data_folder_name = 'Photon Paths'
+        self.folder_dir = self.folder_creator(data_folder_name)
+        file_location = self.file_creator(self.folder_dir, data_file_name)
+        try:
+            file_name = open(file_location, 'wb')
+        except csv.Error as e:
+            print("Couldn't open the csv file. If it is opened in another program, please close it")
+        else:
+            writer = csv.writer(file_name)
+            stat_list = statistic.stat_list
+            writer.writerow(["Photon Paths"])
+            #print(vars(stat_list[0]).values())
+            #print(vars(stat_list[0]).values()[7])
+            for stat in stat_list:
+                writer.writerow(vars(stat).values()[7])
+            file_name.close()
 
     #This method creates a CSV file with all of the data from a simulation
     def generate_output(self, statistic):
+        print("Creating Output CSV File\n")
         #Copies the data dictionary from a statistic
         data = statistic.data
 
@@ -53,16 +74,16 @@ class Analysis(object):
             stat_list = statistic.stat_list
 
             #Gets the dictionary keys in order the write the stat's attributes to the csv file
-            #stat_list[0].update_dictionary()
-            writer.writerow(vars(stat_list[0]).keys())#stat_list[0].attributes_dictionary.keys())
+            writer.writerow(vars(stat_list[0]).keys())
 
             #This will up date each stat's dictionary and then print its contents in the CSV file
             for stat in stat_list:
-                stat_dictionary = stat.update_dictionary()
-                writer.writerow(stat_dictionary.values())
+                writer.writerow(vars(stat).values())
 
             #Closes the CSV file
             file_name.close()
+            print("Data has been outputted in to a CSV file\n")
+            print("The file location is: " + file_location + "\n")
 
     """ This function creates a folder, with the name taken from folder_name, that stores all of the CSV files for the
         output function. It also creates the path to that folder and returns the path"""
@@ -97,9 +118,100 @@ class Analysis(object):
         path = os.path.join(destination_dir, new_file_name)
         return path
 
+    def generate_graphs(self, graph_settings):
+        settings_dict = vars(graph_settings)
+
+        if settings_dict["MaxPointPowerVsZenithAngle"] == True:
+            self.max_power_vs_zenith(self.folder_dir)
+
+        if settings_dict["AverageReflectionsVsAzumithal"] == True:
+            self.avg_reflections_vs_azumithal(self.folder_dir)
+
+        if settings_dict["AbsorptionEfficiencyVsAzumithal"] == True:
+            self.absorption_efficiency_vs_azumithal(self.folder_dir)
+
+        if settings_dict["AspectRatioVsAverageReflections"] == True:
+            self.aspect_ratio_vs_avg_reflections(self.folder_dir)
+
+        if settings_dict["IntegratedAreaRatioVsAvgNumReflections"] == True:
+            self.integrated_area_ratio_vs_avg_num_reflections(self.folder_dir)
+
+        if settings_dict["PowerRatio3DVsAbsorbance"] == True:
+            self.power_ratio_vs_absorbance(self.folder_dir)
+
+        if settings_dict["AvgInteractionsVsTowerSpacingLog"] == True:
+            self.avg_interactions_vs_tower_spacing(self.folder_dir)
+
+        if settings_dict["AvgReflectionsVsTowerHeight"] == True:
+            self.avg_reflections_vs_tower_height(self.folder_dir)
+
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+
+    #TODO: change the default x and y values to ""
+    def read_files(self, folder_directory, x_value="", y_value=""):
+        print(folder_directory)
+        fol_dir = ''
+        plot_x = []
+        plot_y = []
+        for files in os.listdir(folder_directory):
+            fol_dir = os.path.join(folder_directory, files)
+            try:
+                file_name = open(fol_dir, 'rb')
+            except csv.Error as e:
+                print("Couldn't open the csv file. If it is opened in another program, please close it")
+            reader = csv.reader(file_name)
+            data_type = reader.next()
+            keys = reader.next()
+            values = reader.next()
+            try:
+                x = keys.index(x_value)
+            except ValueError as e:
+                print("The X value is not in the list. Check if you are looking for the correct value and in the correct list")
+            try:
+                y = keys.index(y_value)
+            except ValueError as e:
+                print("The Y value is not in the list. Check if you are looking for the correct value and in the correct list")
+            plot_x.append(float(values[x]))
+            plot_y.append(float(values[y]))
+##            print(data_type)
+##            print(keys)
+##            print(values)
+##            attributes = list(reader)
+##            print(attributes[0])
+##            print(reader.next())
+            file_name.close()
+##            plt.show()
+##            break
+##            plt.plot(float(values[0]),float(values[2]))
+        plt.plot(plot_x, plot_y, color = 'b', marker='o', linestyle='-')
+        plt.ylabel(y_value)
+        plt.xlabel(x_value)
+        plt.show()
+
+
     #TODO: check the types of desired graphs and how to graph them
-    def generate_graphs(self, statistics, graph_settings):
-        raise NotImplementedError("generate_graphs in Analysis.py is not implemented yet.")
+    def max_power_vs_zenith(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
+    def avg_reflections_vs_azumithal(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
+    def absorption_efficiency_vs_azumithal(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+    def aspect_ratio_vs_avg_reflections(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+    def integrated_area_ratio_vs_avg_num_reflections(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+    def power_ratio_vs_absorbance(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+    def avg_interactions_vs_tower_spacing(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+
+    def avg_reflections_vs_tower_height(self, folder_directory):
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
