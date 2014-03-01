@@ -12,6 +12,11 @@
 	<height>12</height>
 </Tower>
 
+<Simple_Orbital_Properties>
+    <zenith_angle>45</zenith_angle><!--Units: Degrees -->
+    <azumithal_angle>60</azumithal_angle><!--Units: Degrees -->
+</Simple_Orbital_Properties>
+
 <Orbital_Properties>
     <TLE> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
         <line1>
@@ -47,11 +52,6 @@
     <panel_orientation>10</panel_orientation>
     <earthshine>True</earthshine>
 </Orbital_Properties>
-
-<Simple_Orbital_Properties>
-    <zenith_angle>45</zenith_angle><!--Units: Degrees -->
-    <azumithal_angle>60</azumithal_angle><!--Units: Degrees -->
-</Simple_Orbital_Properties>
 
 <Specular_Reflection>True</Specular_Reflection>
 <Optical_Material>12345</Optical_Material>
@@ -126,6 +126,11 @@
     <panel_orientation>10</panel_orientation>
     <earthshine>True</earthshine>
 </Orbital_Properties>
+
+<Simple_Orbital_Properties>
+    <zenith_angle>45</zenith_angle><!--Units: Degrees -->
+    <azumithal_angle>60</azumithal_angle><!--Units: Degrees -->
+</Simple_Orbital_Properties>
 
 <Specular_Reflection>True</Specular_Reflection>
 <Optical_Material>12345</Optical_Material>

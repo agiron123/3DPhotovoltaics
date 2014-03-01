@@ -1,7 +1,10 @@
 import csv
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 from re import match, search
+from shutil import copy
+
 
 
 class Analysis(object):
@@ -10,80 +13,140 @@ class Analysis(object):
         into graphs and figures. Methods for generating output in various forms are passed using functions as first
         class objects at the time of instantiation """
 
-    def __init__(self, graph_settings):
+    def __init__(self):#, graph_settings):
         """Bind the functions passed in too the Analysis object"""
         self.folder_dir = ''
-        self.graph_settings = graph_settings
+        self.most_recent_dir = ''
+        #self.graph_settings = vars(graph_settings)
 
+    """This function creates csv files that save only a photon's path. This is only for debugging"""
     def save_photon_path(self, statistic):
+        #gets the statistic's data
         data = statistic.data
+        #name of the folder and csv files
         data_file_name = 'Photon_Path_'
         data_folder_name = 'Photon Paths'
+        #creates the folder and file
         self.folder_dir = self.folder_creator(data_folder_name)
         file_location = self.file_creator(self.folder_dir, data_file_name)
+        #attempts to open the file for reading
         try:
             file_name = open(file_location, 'wb')
         except csv.Error as e:
             print("Couldn't open the csv file. If it is opened in another program, please close it")
         else:
+            #begins writing to the file
             writer = csv.writer(file_name)
+            #gets the list of stats
             stat_list = statistic.stat_list
             writer.writerow(["Photon Paths"])
             #print(vars(stat_list[0]).values())
             #print(vars(stat_list[0]).values()[7])
+            #for each stat it gets the path of the photon at index 7
             for stat in stat_list:
                 writer.writerow(vars(stat).values()[7])
             file_name.close()
 
-    #This method creates a CSV file with all of the data from a simulation
-    def generate_output(self, statistic):
-        print("Creating Output CSV File\n")
-        #Copies the data dictionary from a statistic
-        data = statistic.data
-
+    """This method creates a CSV file with all of the data from a simulation. It takes in  a list of statistics
+    and whether or not to save a photon's path, it then generates a csv file for each statistic/simulation"""
+    def generate_output(self, statistics, sim_settings, save_path=True):
         #The name of the CSV file
         data_file_name = 'Raw_Simulation_Data_'
-        #The name of the folder for the raw data CSV files
+        #The name of the folders for the raw data CSV files
         data_folder_name = 'Raw Data'
-
+        most_recent_dir_name = 'Most_Recent_Run'
+        #Creates the folders
         self.folder_dir = self.folder_creator(data_folder_name)
-        file_location = self.file_creator(self.folder_dir, data_file_name)
+        self.most_recent_dir = self.folder_creator(most_recent_dir_name)
 
-        #Creates a CSV file to write to or overwrites an existing file with the same name
-        try:
-            file_name = open(file_location, 'wb')
-        except csv.Error as e:
-            print("Couldn't open the csv file. If it is opened in another program, please close it")
-        else:
+        #This empties the most_recent_dir folder so more recent files can be save there
+        for files in os.listdir(self.most_recent_dir):
+            path = os.path.join(self.most_recent_dir, files)
+            try:
+                os.remove(path)
+            except WindowsError as e:
+                print("NOT deleted: "+path+"\n")
+                pass
 
-            #Creates the writer object for a given file
-            writer = csv.writer(file_name)
+        print("Creating Output CSV File\n")
 
-            #Write the string to the first row of the CSV file
-            writer.writerow(["Compiled Data"])
+        #Checks if the given stat is in a list, if not it puts it into a list
+        if type(statistics) != list:
+            statistics = [statistics]
+        if type(sim_settings) != list:
+            sim_settings = [sim_settings]
 
-            #Writes the keys of the data dictionary to the second row of the CSV file
-            writer.writerow(data.keys())
-            #Writes the values of the data dictionary to the third row of the CSV file
-            writer.writerow(data.values())
+        if len(statistics) != len(sim_settings):
+            raise ValueError("Number of statistics doesn't match number of simulations settings. Should be equal")
 
-            #Writes the word "Stats" to the fourth row of the CSV file
-            writer.writerow(["Stats"])
+        #This for loop allows it to output data for multiple simulations
+        for index in range(len(statistics)):
+            #Copies the data dictionary from a statistic
+            data = statistics[index].data
 
-            #Copies the stat_list from statistics
-            stat_list = statistic.stat_list
+            #gets the tower's setting from the simulation settings
+            tower_settings = vars(sim_settings[index])['tower']
+            #TODO: remove print statements and remove the overwrite of tower settings
+            print("\n Tower settings changes\n")
+            tower_settings = {'width': '4', 'shape': 'square', 'height': '4' , 'pitch': '4'}
+            #adds the aspect ratio and log of the tower pitch to the tower settings
+            self.add_tower_info(tower_settings)
+            print("\nEnd of Tower Settings Changes\n")
 
-            #Gets the dictionary keys in order the write the stat's attributes to the csv file
-            writer.writerow(vars(stat_list[0]).keys())
+            #Creates the csv file and stores the location for later use
+            file_location = self.file_creator(self.folder_dir, data_file_name)
 
-            #This will up date each stat's dictionary and then print its contents in the CSV file
-            for stat in stat_list:
-                writer.writerow(vars(stat).values())
+            #Creates a CSV file to write to or overwrites an existing file with the same name
+            try:
+                file_name = open(file_location, 'wb')
+            except csv.Error as e:
+                print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
+            else:
+                #Creates the writer object for a given file
+                writer = csv.writer(file_name)
 
-            #Closes the CSV file
-            file_name.close()
-            print("Data has been outputted in to a CSV file\n")
-            print("The file location is: " + file_location + "\n")
+                #Write the string to the first row of the CSV file
+                writer.writerow(["Tower Data"])
+
+                #Writes the keys of the tower_settings dictionary to the second row of the CSV file
+                writer.writerow(tower_settings.keys())
+                #Writes the values of the tower_settings dictionary to the third row of the CSV file
+                writer.writerow(tower_settings.values())
+
+                #Write the string to the fourth row of the CSV file
+                writer.writerow(["Compiled Data"])
+
+                #Writes the keys of the data dictionary to the fifth row of the CSV file
+                writer.writerow(data.keys())
+                #Writes the values of the data dictionary to the sixth row of the CSV file
+                writer.writerow(data.values())
+
+                #Writes the word "Stats" to the next row of the CSV file
+                writer.writerow(["Stats"])
+
+                #Copies the stat_list from statistics
+                stat_list = statistics[index].stat_list
+                if len(stat_list) != 0:
+                    #Gets the dictionary keys in order the write the stat's attributes to the csv file
+                    writer.writerow(vars(stat_list[0]).keys())
+
+                    #This will up date each stat's dictionary and then print its contents in the CSV file
+                    for stat in stat_list:
+                        if save_path == True:
+                            writer.writerow(vars(stat).values())
+                        else:
+                            writer.writerow(vars(stat).values()[:-1])
+                    #Closes the CSV file
+                    file_name.close()
+
+                    #Copies the new file to the most_recent_dir folder
+                    copy(file_location, self.most_recent_dir)
+
+                    print("Data has been outputted in to a CSV file\n")
+                    print("The file location is: " + file_location + "\n")
+                else:
+                    file_name.close()
+                    os.remove(file_location)
 
     """ This function creates a folder, with the name taken from folder_name, that stores all of the CSV files for the
         output function. It also creates the path to that folder and returns the path"""
@@ -147,7 +210,6 @@ class Analysis(object):
 
         raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
-
     #TODO: change the default x and y values to ""
     def read_files(self, folder_directory, x_value="", y_value=""):
         print(folder_directory)
@@ -159,7 +221,7 @@ class Analysis(object):
             try:
                 file_name = open(fol_dir, 'rb')
             except csv.Error as e:
-                print("Couldn't open the csv file. If it is opened in another program, please close it")
+                print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
             reader = csv.reader(file_name)
             data_type = reader.next()
             keys = reader.next()
@@ -184,7 +246,7 @@ class Analysis(object):
 ##            plt.show()
 ##            break
 ##            plt.plot(float(values[0]),float(values[2]))
-        plt.plot(plot_x, plot_y, color = 'b', marker='o', linestyle='-')
+        plt.plot(plot_x, plot_y, color='b', marker='o', linestyle='-')
         plt.ylabel(y_value)
         plt.xlabel(x_value)
         plt.show()
@@ -215,3 +277,7 @@ class Analysis(object):
     def avg_reflections_vs_tower_height(self, folder_directory):
         raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
+    #This function taking in tower settings dictionary and adds the aspect ration and log of the tower pitch
+    def add_tower_info(self, tower_settings):
+        tower_settings["aspect_ratio"] = float(tower_settings['width'])/float(tower_settings['height'])
+        tower_settings["log_pitch"] = np.log(float(tower_settings['pitch']))
