@@ -8,15 +8,15 @@ class Statistics(object):
         """Initialize the statistics object with the given dictionary and update function."""
 
         #This creates the dictionary that will store all of the aggregated data
-        self.data = {'total_absorbed': 0, 'total_trapped': 0, 'avg_number_reflections': 0,
-                     'avg_number_interactions': 0.0, 'avg_azimuth': 0, 'avg_zenith': 0,
-                     'avg_wavelength': 0, 'number_photons': 0, 'total_number_reflections': 0,
-                     'total_number_interactions': 0.0}
+        self.data = {'total_absorbed': 0.0, 'total_trapped': 0.0, 'avg_number_reflections': 0.0,
+                     'avg_number_interactions': 0.0, 'avg_azimuth': 0.0, 'avg_zenith': 0.0,
+                     'avg_wavelength': 0.0, 'number_photons': 0.0, 'total_number_reflections': 0.0,
+                     'total_number_interactions': 0.0, 'absorption_efficiency': 0.0}
 
         #These values are stored, to calculate the average of each value
-        self.total_wavelength = 0
-        self.total_azimuth = 0
-        self.total_zenith = 0
+        self.total_wavelength = 0.0
+        self.total_azimuth = 0.0
+        self.total_zenith = 0.0
 
         #This is a list that wil store all of the stat objects from a photon
         self.stat_list = []
@@ -62,3 +62,6 @@ class Statistics(object):
             #Increases the zenith total and then calculates the average zenith
             self.total_zenith += stat.zenith
             self.data['avg_zenith'] = self.total_zenith / self.data['number_photons']
+
+            #Calculates the absorption_efficiency
+            self.data['absorption_efficiency'] = self.data['total_absorbed'] / self.data['number_photons']

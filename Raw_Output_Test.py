@@ -17,7 +17,7 @@ from SimulationSettings import *
 def Main():
     """Main method for running the entire program"""
     print "Welcome to 3D Photovoltaics Modeling!"
-    filename = raw_input("Please enter the name of an xml file: ")
+    filename = "viral_test_input.xml"#raw_input("Please enter the name of an xml file: ")
     print("Parsing ", filename)
     parser = XMLInputParser()
 
@@ -27,13 +27,16 @@ def Main():
     for i in range(0, len(arguments)):
         output_settings = OutputSettings(arguments[i]["OutputSettings"])
         graph_settings = GraphSettings(arguments[i]["OutputSettings"]["GraphSettings"])
-        print(arguments[i]["Simple_Orbital_Properties"])
+        #print(arguments[i]["Simple_Orbital_Properties"])
         sim_settings = SimulationSettings(arguments[i])
     #print(sim_settings)
     #print(vars(sim_settings)['tower'])
     #print(vars(sim_settings)['tower']['width'])
     tower_settings = {'width': '4', 'shape': 'square', 'height': '4' , 'pitch': '4'}
 
+    print(vars(graph_settings))
+
+    analysis = Analysis()
 
     print("making photon\n")
     azimuth = random.randint(1, 30) + 0.0
@@ -63,28 +66,37 @@ def Main():
     print("made stats\n")
 
     statistic = Statistics()
-    #statistic1 = Statistics()
-    #statistic2 = Statistics()
+    statistic1 = Statistics()
+    statistic2 = Statistics()
 
     #this must be changed later when graph output is implemented
     temp = {}
-    analysis = Analysis()#Analysis(graph_settings)
+    #analysis = Analysis()#Analysis(graph_settings)
 
     print("updating statistic\n")
     for stats in stat_list:
         statistic.update(stats)
-        #statistic1.update(stats)
-        #statistic2.update(stats)
+        statistic1.update(stats)
+        statistic2.update(stats)
     print("updated statistic\n")
 
-    #statistics_list = [statistic, statistic1, statistic2]
+    statistics_list = [statistic, statistic1, statistic2]
+    sim_sets_list = []
+    for i in range(len(statistics_list)):
+        sim_sets_list.append(sim_settings)
+
     print("outputting data\n")
-    analysis.generate_output(statistic,sim_settings,True)
+    analysis.generate_output(statistic, sim_settings)
+    #analysis.generate_output(statistics_list,sim_sets_list,True)
     #analysis.save_photon_path(statistic)
     print("outputted data\n")
 
+    print("creating graphs\n")
+    analysis.generate_graphs(graph_settings)
+    print("created graphs\n")
+
     #print("reading files\n")
-    #analysis.read_files(analysis.folder_dir, "avg_azimuth", "number_photons")
+    #analysis.read_files("Raw Data", "avg_azimuth", "avg_number_reflections")
     #print("read files\n")
 
 
