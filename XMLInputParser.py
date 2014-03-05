@@ -15,7 +15,6 @@ class XMLInputParser(object):
             tree = ET.parse(f)
 
         print("Testing out the recursive parse function: ")
-
         simulations = list()
 
         #Need to loop through multiple Simulation tags
