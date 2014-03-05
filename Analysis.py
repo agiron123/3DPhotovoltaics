@@ -6,7 +6,6 @@ from re import match, search
 from shutil import copy
 
 
-
 class Analysis(object):
     """Used to output information from the simulation. Has access to all of the information held in
         Statistics. This information can be outputted in raw form, or analyzed further, including transformation
@@ -141,7 +140,7 @@ class Analysis(object):
                     writer.writerow(stat_dict.keys())
                     writer.writerow(stat_dict.values())
 
-                    #This will up date each stat's dictionary and then print its contents in the CSV file
+                    #This will print each stat's contents in the CSV file
                     for stat in stat_list[1:]:
                         stat_dict = vars(stat)
                         if save_path != True:
@@ -201,52 +200,63 @@ class Analysis(object):
         path = os.path.join(destination_dir, new_file_name)
         return path
 
+    """This function takes in a graph_settings object and determines which graph to make"""
     def generate_graphs(self, graph_settings):
+        #TODO: Add a check to see if there is more than 1 file in raw data then remove line from read_simulation
         settings_dict = vars(graph_settings)
         if settings_dict["MaxPointPowerVsZenithAngle"] == 'True':
-            self.folder_creator("Max_Point_Power_vs_Zenith Angle")
-            #self.max_power_vs_zenith(self.folder_dir)
+            output_dir = self.folder_creator("Max_Point_Power_vs_Zenith_Angle")
+            file_location = self.file_path_creator(output_dir, "Max_Point_Power_vs_Zenith_", ".csv")
+            #TODO: finish implementing
+            #self.max_power_vs_zenith(file_location)
 
-        if settings_dict["AverageReflectionsVsAzumithal"] == 'True':
-            output_dir = self.folder_creator("Average_Reflections_vs_Azumithal")
-            file_location = self.file_path_creator(output_dir, "AverageReflectionsVsAzumithal_", ".csv")
-            self.avg_reflections_vs_azumithal(file_location)
+        if settings_dict["AverageReflectionsVsAzimuthal"] == 'True':
+            output_dir = self.folder_creator("Average_Reflections_vs_Azimuth_Angle")
+            file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Azimuthal_", ".csv")
+            self.avg_reflections_vs_azimuthal(file_location)
             self.create_graph(output_dir, file_location)
 
-        if settings_dict["AbsorptionEfficiencyVsAzumithal"] == 'True':
-            output_dir = self.folder_creator("Absorption_Efficiency_vs_Azumithal")
-            file_location = self.file_path_creator(output_dir, "AbsorptionEfficiencyVsAzumithal_", ".csv")
-            self.absorption_efficiency_vs_azumithal(file_location)
+        if settings_dict["AbsorptionEfficiencyVsAzimuthal"] == 'True':
+            output_dir = self.folder_creator("Absorption_Efficiency_vs_Azimuth_Angle")
+            file_location = self.file_path_creator(output_dir, "Absorption_Efficiency_vs_Azimuthal_", ".csv")
+            self.absorption_efficiency_vs_azimuthal(file_location)
             self.create_graph(output_dir, file_location)
-            #self.absorption_efficiency_vs_azumithal(self.folder_dir)
 
         if settings_dict["AspectRatioVsAverageReflections"] == 'True':
-            output_dir = self.folder_creator("Aspect_Ratio_vs_Average_Reflections")
-            file_location = self.file_path_creator(output_dir, "AspectRatioVsAverageReflections_", ".csv")
+            output_dir = self.folder_creator("Aspect_Ratio_vs_Average_Number_of_Reflections")
+            file_location = self.file_path_creator(output_dir, "Aspect_Ratio_vs_Avg_Reflections_", ".csv")
             self.aspect_ratio_vs_avg_reflections(file_location)
             self.create_graph(output_dir, file_location)
-            #self.aspect_ratio_vs_avg_reflections(self.folder_dir)
 
         if settings_dict["IntegratedAreaRatioVsAvgNumReflections"] == 'True':
-            self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
-            #self.integrated_area_ratio_vs_avg_num_reflections(self.folder_dir)
+            output_dir = self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
+            file_location = self.file_path_creator(output_dir, "Integrated_Area_Ratio_vs_Avg_Num_Reflections_", ".csv")
+            #TODO: finish implementing
+            #self.integrated_area_ratio_vs_avg_num_reflections(file_location)
 
         if settings_dict["PowerRatio3DVsAbsorbance"] == 'True':
-            self.folder_creator("Power_Ratio_3D_vs_Absorbance")
-            #self.power_ratio_vs_absorbance(self.folder_dir)
+            output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
+            file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
+            #TODO: finish implementing
+            #self.power_ratio_vs_absorbance(file_location)
 
         if settings_dict["AvgInteractionsVsTowerSpacingLog"] == 'True':
-            self.folder_creator("Avg_Interactions_vs_Tower_Spacing_Log")
-            #self.avg_interactions_vs_tower_spacing(self.folder_dir)
+            output_dir = self.folder_creator("Average_Number_of_Interactions_vs_Tower_Pitch_Log")
+            file_location = self.file_path_creator(output_dir, "Avg_Interactions_vs_Tower_Pitch_Log_", ".csv")
+            self.avg_interactions_vs_tower_spacing(file_location)
+            self.create_graph(output_dir, file_location)
 
         if settings_dict["AvgReflectionsVsTowerHeight"] == 'True':
-            self.folder_creator("Avg_Reflections_vs_Tower_Height")
-            #self.avg_reflections_vs_tower_height(self.folder_dir)
+            output_dir = self.folder_creator("Average_Number_of_Reflections_vs_Tower_Height")
+            file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Tower_Height_", ".csv")
+            self.avg_reflections_vs_tower_height(file_location)
+            self.create_graph(output_dir, file_location)
 
-        #raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
-
-    def read_simulation_data(self, data_directory, file_location, x_value="", y_value=""):
-        if os.listdir(data_directory) != []:
+    """This function creates the csv file needed to create a graph. It takes in the x and y values, the it goes through
+    the files in the given directory and pulls out the data for the x and y value. It then writes it to a csv file and
+    stores it at the given file location."""
+    def read_simulation_data(self, data_directory, file_location, x_value="", y_value="", tower_val=False):
+        if len(os.listdir(data_directory)) > 1:
             file_dir = ''
             try:
                 graph_file = open(file_location, 'ab')
@@ -263,71 +273,103 @@ class Analysis(object):
                     reader = csv.reader(file_name)
 
                     data_type = reader.next()
-                    while data_type[0] != self.compiled_data_tag:
-                        data_type = reader.next()
-
-                    #Wanted compiled data
-                    keys = reader.next()
-                    values = reader.next()
+                    if tower_val == True:
+                        if data_type[0] == self.tower_data_tag:
+                            tower_keys = reader.next()
+                            tower_values = reader.next()
+                        else:
+                            while data_type[0] != self.tower_data_tag:
+                                data_type = reader.next()
+                            tower_keys = reader.next()
+                            tower_values = reader.next()
+                    if data_type[0] == self.compiled_data_tag:
+                        keys = reader.next()
+                        values = reader.next()
+                    else:
+                        while data_type[0] != self.compiled_data_tag:
+                            data_type = reader.next()
+                        keys = reader.next()
+                        values = reader.next()
 
                     file_name.close()
-
-                    try:
-                        x = keys.index(x_value)
-                    except ValueError as e:
-                        print("The X value is not in the list. Check if you are looking for the correct value and in the correct list")
                     try:
                         y = keys.index(y_value)
                     except ValueError as e:
-                        print("The Y value is not in the list. Check if you are looking for the correct value and in the correct list")
-                    writer.writerow([float(values[x]),float(values[y])])
+                        print("The"+y_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
+
+                    if tower_val == True:
+                        try:
+                            x = tower_keys.index(x_value)
+                        except ValueError as e:
+                            print("The"+x_value+"is not in"+self.tower_data_tag+"Check if you are looking for the correct value and in the correct list")
+                        writer.writerow([float(tower_values[x]), float(values[y])])
+                    else:
+                        try:
+                            x = keys.index(x_value)
+                        except ValueError as e:
+                            print("The"+x_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
+                        writer.writerow([float(values[x]), float(values[y])])
             graph_file.close()
             copy(file_location, self.most_recent_dir)
+        else:
+            print("Need to run more simulations before being able to create a graph")
 
     #TODO: check the types of desired graphs and how to graph them
     def max_power_vs_zenith(self, file_location):
+        #TODO: finish implementing
         raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
-    def avg_reflections_vs_azumithal(self, file_location):
-        title = "Average Number of Reflections vs Azumithal Angle"
-        x_label = "Azumithal Angle (Degrees)"
+    def avg_reflections_vs_azimuthal(self, file_location):
+        title = "Average Number of Reflections vs Azimuthal Angle"
+        x_label = "Azimuthal Angle (Degrees)"
         y_label = "Average Number of Reflections"
         self.write_graph_labels(file_location, title, x_label, y_label)
         self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "avg_number_reflections")
 
-    def absorption_efficiency_vs_azumithal(self, file_location):
-        title = "Absorption Efficiency vs Azumithal Angle"
-        x_label = "Azumithal Angle (Degrees)"
+    def absorption_efficiency_vs_azimuthal(self, file_location):
+        title = "Absorption Efficiency vs Azimuthal Angle"
+        x_label = "Azimuthal Angle (Degrees)"
         y_label = "Absorption Efficiency"
         self.write_graph_labels(file_location, title, x_label, y_label)
         self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "absorption_efficiency")
-        #raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
     def aspect_ratio_vs_avg_reflections(self, file_location):
         title = "Aspect Ratio vs Average Number of Reflections"
         x_label = "Aspect Ration (microns)"
         y_label = "Average Number of Reflections"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        self.read_simulation_data(self.folder_dir, file_location, "aspect_ratio", "avg_number_reflections")
-        #raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+        self.read_simulation_data(self.folder_dir, file_location, "aspect_ratio", "avg_number_reflections", True)
 
     def integrated_area_ratio_vs_avg_num_reflections(self, file_location):
+        #TODO: finish implementing
         raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
     def power_ratio_vs_absorbance(self, file_location):
+        #TODO: finish implementing
         raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
     def avg_interactions_vs_tower_spacing(self, file_location):
-        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+        title = "Average Number of Interactions vs Tower Pitch"
+        x_label = "Tower Pitch (microns)"
+        y_label = "Average Number of Interactions"
+        self.write_graph_labels(file_location, title, x_label, y_label)
+        self.read_simulation_data(self.folder_dir, file_location, "pitch", "avg_number_interactions", True)
+        #raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
     def avg_reflections_vs_tower_height(self, file_location):
-        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+        title = "Average Number of Reflections vs Tower Height"
+        x_label = "Tower Height (microns)"
+        y_label = "Average Number of Reflections"
+        self.write_graph_labels(file_location, title, x_label, y_label)
+        self.read_simulation_data(self.folder_dir, file_location, "height", "avg_number_reflections", True)
+        #raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
 
     """This function taking in tower settings dictionary and adds the aspect ration and log of the tower pitch"""
     def add_tower_info(self, tower_settings):
         tower_settings["aspect_ratio"] = float(tower_settings['width'])/float(tower_settings['height'])
         tower_settings["log_pitch"] = np.log(float(tower_settings['pitch']))
 
+    """This function writes the title and axis labels to a graph's csv file"""
     def write_graph_labels(self, file_location, title="", x_label="", y_label=""):
         #Opens a CSV file to write to or overwrites an existing file with the same name
         try:
@@ -341,6 +383,7 @@ class Analysis(object):
             writer.writerow([title])
             writer.writerow([x_label, y_label])
 
+    """This function creates a graph from a given csv file and saves it at the given location"""
     def create_graph(self, folder_location, file_location):
         try:
             file_name = open(file_location, 'rb')
@@ -364,6 +407,6 @@ class Analysis(object):
             plt.plot(*zip(*values), marker='o', color='b', ls='-')
             plt.savefig(graph_path)
             plt.clf()
-            plt.cla()
-            plt.close()
+            #plt.cla()
+            #plt.close()
             copy(graph_path, self.most_recent_dir)
