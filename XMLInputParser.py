@@ -26,21 +26,25 @@ class XMLInputParser(object):
             validTree = ET.parse(f)
 
         validSim = list()
+        missingkeylist = list()
         #Need to loop through multiple Simulation tags
         for valid in validTree.findall("Simulation"):
             validSim.append(self.parseRecur(valid))
 
-        diff = list()
-        #TODO: Find the difference between the two dictionaries, and do type checking.
-        #This is not done, need to do a deep compare of the two dictionaries.
-        #This should be a list full of Simulations dicts
-        for i in range(0, len(simulations)):
-            diff.append(set(validSim[0].keys()) - set(simulations[i].keys()))
+        for i in range(0, len(validSim)):
+            missingkeylist = self.compareDict(validSim[i], simulations[i]) #just going to print out the missing simulation tags.
+            if len(missingkeylist) > 0:
+                print "Keys Missing in Simulation Tag " + str(i+1) + ": \n"
+                print missingkeylist
+                print "\n"
 
-        print("Parameters that need to be re entered: \n")
-        print (diff)
+        #print("missingkeylist: \n")
+        print str(missingkeylist)
 
         #If everything was successful, return the dictionary that was parsed.
+        #Should we just return null here if there is a missing key?
+        if len(missingkeylist) > 0:
+            return None #return none because the parsing was not completely successful
         return simulations
 
     def parseRecur(self, root):
@@ -53,3 +57,30 @@ class XMLInputParser(object):
         for child_of_root in children:
             resultDict[child_of_root.tag] = self.parseRecur(child_of_root)
         return resultDict
+
+    def compareDict(self, validDict, parsed):
+        missingkeylist = set()    #using set. As long as all the tags have different names, we're golden.
+        for k,v in validDict.iteritems():
+            if isinstance(v,dict):
+                try:
+                    missingkeylist.update(self.compareDictHelper(v,parsed[k], missingkeylist))
+                except KeyError:
+                    missingkeylist.add(k)
+            elif not parsed.has_key(k):
+                if k not in missingkeylist:
+                    missingkeylist.add(k)
+        return missingkeylist
+
+    def compareDictHelper(self, validDict, parsed, missingkeylist):
+        if isinstance(validDict, dict) and not isinstance(validDict, dict):
+            if validDict not in missingkeylist:
+                missingkeylist.add(validDict.keys())
+        elif not isinstance(validDict, dict) and isinstance(parsed, dict):
+            if validDict not in missingkeylist:
+                missingkeylist.add(validDict)
+        elif parsed == None:
+            if validDict not in missingkeylist:
+                missingkeylist.add(validDict)
+        elif isinstance(parsed, dict) and isinstance(validDict, dict):
+            missingkeylist.update(self.compareDict(validDict, parsed))
+        return missingkeylist
