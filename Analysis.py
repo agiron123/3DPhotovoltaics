@@ -12,9 +12,13 @@ class Analysis(object):
         into graphs and figures. Methods for generating output in various forms are passed using functions as first
         class objects at the time of instantiation """
 
+    """This variables are generic tags used through the this python file
+    they determine the name of files and headers in csv files"""
+    #CSV Headers
     tower_data_tag = "Tower Data"
     compiled_data_tag = "Compiled Data"
     stats_tag = "Stats"
+    #Folder names
     output_folder_tag = "Simulation Data"
     most_recent_tag = "Most_Recent_Run"
     raw_data_tag = "Raw Data"
@@ -27,8 +31,6 @@ class Analysis(object):
 
     """This function creates csv files that save only a photon's path. This is only for debugging"""
     def save_photon_path(self, statistic):
-        #gets the statistic's data
-        data = statistic.data
         #name of the folder and csv files
         data_file_name = 'Photon_Path_'
         data_folder_name = 'Photon Paths'
@@ -81,6 +83,7 @@ class Analysis(object):
         if type(sim_settings) != list:
             sim_settings = [sim_settings]
 
+        #checks there are an equal number of statistics as there are simulation settings
         if len(statistics) != len(sim_settings):
             raise ValueError("Number of statistics doesn't match number of simulations settings. Should be equal")
 
@@ -157,6 +160,7 @@ class Analysis(object):
                     print("Data has been outputted in to a CSV file\n")
                     print("The file location is: " + file_location + "\n")
                 else:
+                    #close and removes the files since it does not have any data
                     file_name.close()
                     os.remove(file_location)
 
@@ -200,119 +204,137 @@ class Analysis(object):
         path = os.path.join(destination_dir, new_file_name)
         return path
 
-    """This function takes in a graph_settings object and determines which graph to make"""
+    """This function takes in a graph_settings object and determines which graph to make. It first creates the folder
+    for each type of graph. Then it creates a path to that file location. It then calls the correct method to
+    make a the CSV file used to generate the graph. Finally it calls the function to generate the graph."""
     def generate_graphs(self, graph_settings):
-        #TODO: Add a check to see if there is more than 1 file in raw data then remove line from read_simulation
-        settings_dict = vars(graph_settings)
-        if settings_dict["MaxPointPowerVsZenithAngle"] == 'True':
-            output_dir = self.folder_creator("Max_Point_Power_vs_Zenith_Angle")
-            file_location = self.file_path_creator(output_dir, "Max_Point_Power_vs_Zenith_", ".csv")
-            #TODO: finish implementing
-            #self.max_power_vs_zenith(file_location)
+        data_dir = os.path.join(self.folder_dir, self.raw_data_tag)
+        #checks if there are multiple simulations before creating graph
+        if len(os.listdir(data_dir)) > 1:
+            settings_dict = vars(graph_settings)
+            if settings_dict["MaxPointPowerVsZenithAngle"] == 'True':
+                output_dir = self.folder_creator("Max_Point_Power_vs_Zenith_Angle")
+                file_location = self.file_path_creator(output_dir, "Max_Point_Power_vs_Zenith_", ".csv")
+                #TODO: finish implementing
+                #self.max_power_vs_zenith(file_location)
 
-        if settings_dict["AverageReflectionsVsAzimuthal"] == 'True':
-            output_dir = self.folder_creator("Average_Reflections_vs_Azimuth_Angle")
-            file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Azimuthal_", ".csv")
-            self.avg_reflections_vs_azimuthal(file_location)
-            self.create_graph(output_dir, file_location)
+            if settings_dict["AverageReflectionsVsAzimuthal"] == 'True':
+                output_dir = self.folder_creator("Average_Reflections_vs_Azimuth_Angle")
+                file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Azimuthal_", ".csv")
+                #TODO: finish implementing
+                #self.avg_reflections_vs_azimuthal(file_location)
+                #self.create_graph(output_dir, file_location)
 
-        if settings_dict["AbsorptionEfficiencyVsAzimuthal"] == 'True':
-            output_dir = self.folder_creator("Absorption_Efficiency_vs_Azimuth_Angle")
-            file_location = self.file_path_creator(output_dir, "Absorption_Efficiency_vs_Azimuthal_", ".csv")
-            self.absorption_efficiency_vs_azimuthal(file_location)
-            self.create_graph(output_dir, file_location)
+            if settings_dict["AbsorptionEfficiencyVsAzimuthal"] == 'True':
+                output_dir = self.folder_creator("Absorption_Efficiency_vs_Azimuth_Angle")
+                file_location = self.file_path_creator(output_dir, "Absorption_Efficiency_vs_Azimuthal_", ".csv")
+                #TODO: finish implementing
+                #self.absorption_efficiency_vs_azimuthal(file_location)
+                #self.create_graph(output_dir, file_location)
 
-        if settings_dict["AspectRatioVsAverageReflections"] == 'True':
-            output_dir = self.folder_creator("Aspect_Ratio_vs_Average_Number_of_Reflections")
-            file_location = self.file_path_creator(output_dir, "Aspect_Ratio_vs_Avg_Reflections_", ".csv")
-            self.aspect_ratio_vs_avg_reflections(file_location)
-            self.create_graph(output_dir, file_location)
+            if settings_dict["AspectRatioVsAverageReflections"] == 'True':
+                output_dir = self.folder_creator("Aspect_Ratio_vs_Average_Number_of_Reflections")
+                file_location = self.file_path_creator(output_dir, "Aspect_Ratio_vs_Avg_Reflections_", ".csv")
+                self.aspect_ratio_vs_avg_reflections(file_location)
+                self.create_graph(output_dir, file_location)
 
-        if settings_dict["IntegratedAreaRatioVsAvgNumReflections"] == 'True':
-            output_dir = self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
-            file_location = self.file_path_creator(output_dir, "Integrated_Area_Ratio_vs_Avg_Num_Reflections_", ".csv")
-            #TODO: finish implementing
-            #self.integrated_area_ratio_vs_avg_num_reflections(file_location)
+            if settings_dict["IntegratedAreaRatioVsAvgNumReflections"] == 'True':
+                output_dir = self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
+                file_location = self.file_path_creator(output_dir, "Integrated_Area_Ratio_vs_Avg_Num_Reflections_", ".csv")
+                #TODO: finish implementing
+                #self.integrated_area_ratio_vs_avg_num_reflections(file_location)
 
-        if settings_dict["PowerRatio3DVsAbsorbance"] == 'True':
-            output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
-            file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
-            #TODO: finish implementing
-            #self.power_ratio_vs_absorbance(file_location)
+            if settings_dict["PowerRatio3DVsAbsorbance"] == 'True':
+                output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
+                file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
+                #TODO: finish implementing
+                #self.power_ratio_vs_absorbance(file_location)
 
-        if settings_dict["AvgInteractionsVsTowerSpacingLog"] == 'True':
-            output_dir = self.folder_creator("Average_Number_of_Interactions_vs_Tower_Pitch_Log")
-            file_location = self.file_path_creator(output_dir, "Avg_Interactions_vs_Tower_Pitch_Log_", ".csv")
-            self.avg_interactions_vs_tower_spacing(file_location)
-            self.create_graph(output_dir, file_location)
+            if settings_dict["AvgInteractionsVsTowerSpacingLog"] == 'True':
+                output_dir = self.folder_creator("Average_Number_of_Interactions_vs_Tower_Pitch_Log")
+                file_location = self.file_path_creator(output_dir, "Avg_Interactions_vs_Tower_Pitch_Log_", ".csv")
+                self.avg_interactions_vs_tower_spacing(file_location)
+                self.create_graph(output_dir, file_location)
 
-        if settings_dict["AvgReflectionsVsTowerHeight"] == 'True':
-            output_dir = self.folder_creator("Average_Number_of_Reflections_vs_Tower_Height")
-            file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Tower_Height_", ".csv")
-            self.avg_reflections_vs_tower_height(file_location)
-            self.create_graph(output_dir, file_location)
+            if settings_dict["AvgReflectionsVsTowerHeight"] == 'True':
+                output_dir = self.folder_creator("Average_Number_of_Reflections_vs_Tower_Height")
+                file_location = self.file_path_creator(output_dir, "Avg_Reflections_vs_Tower_Height_", ".csv")
+                self.avg_reflections_vs_tower_height(file_location)
+                self.create_graph(output_dir, file_location)
+        else:
+            print("Need to run more simulations before being able to create a graph")
 
     """This function creates the csv file needed to create a graph. It takes in the x and y values, the it goes through
     the files in the given directory and pulls out the data for the x and y value. It then writes it to a csv file and
-    stores it at the given file location."""
+    stores it at the given file location. tower_val is a boolean used to state whether the x_value is a tower
+    property"""
     def read_simulation_data(self, data_directory, file_location, x_value="", y_value="", tower_val=False):
-        if len(os.listdir(data_directory)) > 1:
-            file_dir = ''
-            try:
-                graph_file = open(file_location, 'ab')
-            except csv.Error as e:
-                print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
-            writer = csv.writer(graph_file)
-            for files in os.listdir(data_directory):
-                if files.endswith(".csv"):
-                    file_dir = os.path.join(data_directory, files)
-                    try:
-                        file_name = open(file_dir, 'rb')
-                    except csv.Error as e:
-                        print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
-                    reader = csv.reader(file_name)
+        #opens the graph CSV file to be appended to
+        try:
+            graph_file = open(file_location, 'ab')
+        except csv.Error as e:
+            print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
+        #creates writer object
+        writer = csv.writer(graph_file)
 
-                    data_type = reader.next()
-                    if tower_val == True:
-                        if data_type[0] == self.tower_data_tag:
-                            tower_keys = reader.next()
-                            tower_values = reader.next()
-                        else:
-                            while data_type[0] != self.tower_data_tag:
-                                data_type = reader.next()
-                            tower_keys = reader.next()
-                            tower_values = reader.next()
-                    if data_type[0] == self.compiled_data_tag:
-                        keys = reader.next()
-                        values = reader.next()
+        #Looks through all of the files in the given data_directory and opens CSV files for reading
+        for files in os.listdir(data_directory):
+            if files.endswith(".csv"):
+                file_dir = os.path.join(data_directory, files)
+                try:
+                    file_name = open(file_dir, 'rb')
+                except csv.Error as e:
+                    print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
+                reader = csv.reader(file_name)
+
+                #gets the first line in the CSV file
+                data_type = reader.next()
+                #checks tower_val to determine whether or not to get the tower data
+                if tower_val == True:
+                    #gets the tower data
+                    if data_type[0] == self.tower_data_tag:
+                        tower_keys = reader.next()
+                        tower_values = reader.next()
                     else:
-                        while data_type[0] != self.compiled_data_tag:
+                        while data_type[0] != self.tower_data_tag:
                             data_type = reader.next()
-                        keys = reader.next()
-                        values = reader.next()
+                        tower_keys = reader.next()
+                        tower_values = reader.next()
 
-                    file_name.close()
+                #Gets the Compiled Data
+                if data_type[0] == self.compiled_data_tag:
+                    keys = reader.next()
+                    values = reader.next()
+                else:
+                    while data_type[0] != self.compiled_data_tag:
+                        data_type = reader.next()
+                    keys = reader.next()
+                    values = reader.next()
+
+                file_name.close()
+
+                #Gets the index of the desired y_value
+                try:
+                    y = keys.index(y_value)
+                except ValueError as e:
+                    print("The"+y_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
+
+                if tower_val == True:
+                    #Gets the index of the desired x_value and then writes the data point to the graph CSV file
                     try:
-                        y = keys.index(y_value)
+                        x = tower_keys.index(x_value)
                     except ValueError as e:
-                        print("The"+y_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
-
-                    if tower_val == True:
-                        try:
-                            x = tower_keys.index(x_value)
-                        except ValueError as e:
-                            print("The"+x_value+"is not in"+self.tower_data_tag+"Check if you are looking for the correct value and in the correct list")
-                        writer.writerow([float(tower_values[x]), float(values[y])])
-                    else:
-                        try:
-                            x = keys.index(x_value)
-                        except ValueError as e:
-                            print("The"+x_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
-                        writer.writerow([float(values[x]), float(values[y])])
-            graph_file.close()
-            copy(file_location, self.most_recent_dir)
-        else:
-            print("Need to run more simulations before being able to create a graph")
+                        print("The"+x_value+"is not in"+self.tower_data_tag+"Check if you are looking for the correct value and in the correct list")
+                    writer.writerow([float(tower_values[x]), float(values[y])])
+                else:
+                    try:
+                        x = keys.index(x_value)
+                    except ValueError as e:
+                        print("The"+x_value+"is not in"+self.compiled_data_tag+"Check if you are looking for the correct value and in the correct list")
+                    writer.writerow([float(values[x]), float(values[y])])
+        #closes the graph CSV file and copies it to Most_Recent_Run folder.
+        graph_file.close()
+        copy(file_location, self.most_recent_dir)
 
     #TODO: check the types of desired graphs and how to graph them
     def max_power_vs_zenith(self, file_location):
@@ -323,15 +345,19 @@ class Analysis(object):
         title = "Average Number of Reflections vs Azimuthal Angle"
         x_label = "Azimuthal Angle (Degrees)"
         y_label = "Average Number of Reflections"
-        self.write_graph_labels(file_location, title, x_label, y_label)
-        self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "avg_number_reflections")
+        #TODO: finish implementing
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+        #self.write_graph_labels(file_location, title, x_label, y_label)
+        #self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "avg_number_reflections")
 
     def absorption_efficiency_vs_azimuthal(self, file_location):
         title = "Absorption Efficiency vs Azimuthal Angle"
         x_label = "Azimuthal Angle (Degrees)"
         y_label = "Absorption Efficiency"
-        self.write_graph_labels(file_location, title, x_label, y_label)
-        self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "absorption_efficiency")
+        #TODO: finish implementing
+        raise NotImplementedError("generate_graphs in Analysis.py is not fully implemented yet.")
+        #self.write_graph_labels(file_location, title, x_label, y_label)
+        #self.read_simulation_data(self.folder_dir, file_location, "avg_azimuth", "absorption_efficiency")
 
     def aspect_ratio_vs_avg_reflections(self, file_location):
         title = "Aspect Ratio vs Average Number of Reflections"
@@ -379,7 +405,7 @@ class Analysis(object):
         else:
             #Creates the writer object for a given file
             writer = csv.writer(file_name)
-            #Write the string to the first row of the CSV file
+            #Writes the title and axis labels to the file
             writer.writerow([title])
             writer.writerow([x_label, y_label])
 
@@ -390,23 +416,28 @@ class Analysis(object):
         except csv.Error as e:
             print("++++ERROR++++ Couldn't open the csv file. If it is opened in another program, please close it and run the program again")
         else:
-            #Creates the writer object for a given file
             values = []
+            #creates the reader object for the file
             reader = csv.reader(file_name)
+            #gets the graph's title and axis labels
             title = reader.next()[0]
             axes = reader.next()
-
+            #creates a path the store the graph image
             graph_path = self.file_path_creator(folder_location, title+"_", ".png")
-
+            #defines the graph's title and axis labels
             plt.title(title)
             plt.xlabel(axes[0])
             plt.ylabel(axes[1])
+            #reads each row in the file and store the points to graph in the values list
             for row in reader:
                 values.append((float(row[0]), float(row[1])))
+            #Sorts values
             values.sort()
+            #plots the points onto the graph
             plt.plot(*zip(*values), marker='o', color='b', ls='-')
+            #saves the graph's images
             plt.savefig(graph_path)
+            #clears the graph for the next graph
             plt.clf()
-            #plt.cla()
-            #plt.close()
+            #copies the graph image to the most recent run folder
             copy(graph_path, self.most_recent_dir)

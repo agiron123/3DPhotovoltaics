@@ -16,6 +16,7 @@ from SimulationSettings import *
 
 def Main():
     """Main method for running the entire program"""
+    """
     print "Welcome to 3D Photovoltaics Modeling!"
     filename = "viral_test_input.xml"#raw_input("Please enter the name of an xml file: ")
     print("Parsing ", filename)
@@ -34,10 +35,17 @@ def Main():
     #print(vars(sim_settings)['tower']['width'])
     tower_settings = {'width': '4', 'shape': 'square', 'height': '4' , 'pitch': '4'}
 
-    print(vars(graph_settings))
+    print(vars(graph_settings))"""
 
+    settings_dict = {"MaxPointPowerVsZenithAngle":"False","AverageReflectionsVsAzumithal":"False",
+                     "AbsorptionEfficiencyVsAzumithal":"False", "AspectRatioVsAverageReflections":"False",
+                     "IntegratedAreaRatioVsAvgNumReflections":"False", "PowerRatio3DVsAbsorbance":"False",
+                     "AvgInteractionsVsTowerSpacingLog":"False","AvgReflectionsVsTowerHeight":"False"}
+
+    graph_settings = GraphSettings(settings_dict)
     analysis = Analysis()
 
+    """
     print("making photon\n")
     azimuth = random.randint(1, 30) + 0.0
     zenith = random.randint(1, 40) + 0.0
@@ -84,9 +92,9 @@ def Main():
     sim_sets_list = []
     for i in range(len(statistics_list)):
         sim_sets_list.append(sim_settings)
-
+    """
     print("outputting data\n")
-    analysis.generate_output(statistic, sim_settings)
+    #analysis.generate_output(statistic, sim_settings)
     #analysis.generate_output(statistics_list,sim_sets_list,True)
     #analysis.save_photon_path(statistic)
     print("outputted data\n")
