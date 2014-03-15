@@ -1,79 +1,79 @@
 <?xml version="1.0" ?>
 <!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
 <Main>
-<Simulation datatype="object">
-<Material_Profile datatype="object">
-<band_gap datatype="double">10</band_gap>
-<absorption_coefficient datatype="double">15</absorption_coefficient>
+<Simulation datatype="object"><!-- Contains settings for a single simulation. -->
+<Material_Profile datatype="object"><!-- Information on Material used for the simulation -->
+<band_gap datatype="double">double</band_gap><!-- The band gap for the material -->
+<absorption_coefficient datatype="double">15</absorption_coefficient><!-- The absorption coefficient for the material -->
 </Material_Profile>
-<Tower datatype="object">
-	<shape datatype="string">Square</shape>
-	<pitch datatype="int">256</pitch>
-	<width datatype="int">13</width>
-	<height datatype="int">12</height>
+<Tower datatype="object"><!-- The tower for the simulation -->
+	<shape datatype="string">string</shape><!-- Shape of the tower. Can be Configured between: Rectangular Prism, Box, YTrench, XTrench, cylinder -->
+	<pitch datatype="int">integer</pitch><!-- Pitch of the tower. How far the towers are separated -->
+	<width datatype="int">integer</width><!-- Width of the tower. -->
+	<height datatype="int">integer</height><!-- Height of the tower. -->
 </Tower>
 
-
-<Orbital_Properties datatype="object">
+<Orbital_Properties datatype="object"><!-- Settings for the Orbital Properties of the simulation. -->
 <TLE datatype="object"> <!-- Contains each element that a Two line element would. Separated into two child objects- Line1 and Line 2 -->
-<line1 datatype="object">
-	<line_number1 datatype="int">1</line_number1>
-	<satellite_number datatype="int">123456</satellite_number>
-	<classification datatype="string">low-orbit satellite</classification>
-	<international_designator datatype="int">19</international_designator>
-	<epoch_year datatype="int">14</epoch_year>
-	<epoch datatype="int">2000</epoch>
-	<first_time_derivative datatype="int/double">35</first_time_derivative>
-	<second_time_derivative datatype="int/double">40</second_time_derivative>
-	<bstar_drag datatype="int/double">98</bstar_drag>
-	<ephemeris_type datatype="int/double">45</ephemeris_type>
-   	<element_set datatype="int/double">14</element_set>
-	<checksum datatype="int">001</checksum>
+<line1 datatype="object"><!-- First line of the two line element -->
+	<line_number1 datatype="int">1</line_number1><!-- Line number -->
+	<satellite_number datatype="int">25544</satellite_number><!-- Satellite number -->
+	<classification datatype="string">U</classification><!-- Classification (U=Unclassified) -->
+	<international_designator datatype="int">98067A</international_designator><!-- International Designator (Last two digits of launch year) -->
+	<epoch_year datatype="int">08</epoch_year><!-- Epoch Year (Last two digits of year)  -->
+	<epoch datatype="int">264.51782528</epoch><!-- Epoch (Day of the year and fractional portion of the day) -->
+	<first_time_derivative datatype="int/double">−.00002182</first_time_derivative><!-- First Time Derivative of the Mean Motion divided by two -->
+	<second_time_derivative datatype="int/double">00000-0</second_time_derivative><!-- Second Time Derivative of Mean Motion divided by six (decimal point assumed) -->
+	<bstar_drag datatype="int/double">-11606-4</bstar_drag><!-- BSTAR drag term (decimal point assumed) -->
+	<ephemeris_type datatype="int/double">0</ephemeris_type><!-- The number 0 (Originally this should have been "Ephemeris type") -->
+   	<element_set datatype="int/double">292</element_set><!-- Element set number. incremented when a new TLE is generated for this object. -->
+	<checksum datatype="int">7</checksum><!-- Checksum (Modulo 10) -->
 </line1>
-<line2 datatype="object">
-	<line_number2 datatype="int">2</line_number2>
-	<satellite_number datatype="int">10</satellite_number>
-	<inclination datatype="int">98</inclination>
-	<right_ascension datatype="double">2345236.234</right_ascension>
-	<argument_of_pedigree datatype="int/double">989</argument_of_pedigree>
-	<mean_anomaly datatype="int">97567</mean_anomaly>
-	<mean_motion datatype="int/double">57224</mean_motion>
-	<revolution_number datatype="int">73345</revolution_number>
-	<checksum datatype="int">9987</checksum>
+<line2 datatype="object"><!-- Second line of the two line element -->
+	<line_number2 datatype="int">2</line_number2><!-- Line number. -->
+	<satellite_number datatype="int">25544</satellite_number><!-- Satellite number. -->
+	<inclination datatype="int">51.6416</inclination><!-- Inclination (Degrees) -->
+	<right_ascension datatype="double">247.4627</right_ascension><!-- Right Ascension of the Ascending Node (Degrees) -->
+	<eccentricity datatype="double">0006703</eccentricity><!-- Eccentricity (decimal point assumed) -->
+    <argument_of_pedigree datatype="int/double">130.5360</argument_of_pedigree><!-- Argument of Perigee [Degrees] -->
+	<mean_anomaly datatype="int">325.0288</mean_anomaly><!-- Mean Anomaly [Degrees] -->
+	<mean_motion datatype="int/double">15.72125391</mean_motion><!-- Mean Motion [Revs per day] -->
+	<revolution_number datatype="int">56353</revolution_number><!-- Revolution number at epoch [Revs] -->
+	<checksum datatype="int">7</checksum><!-- Checksum (Modulo 10) -->
 </line2>
 </TLE>
 
-<beta_angle datatype="double">10</beta_angle>
-<num_orbits datatype="int">10</num_orbits>
-<panel_orientation datatype="double">10</panel_orientation>
-<earthshine datatype="boolean">True</earthshine>
+<beta_angle datatype="double">double</beta_angle><!-- Beta angle for the simulation. -->
+<num_orbits datatype="int">integer</num_orbits><!-- How many orbits the simulation should be run for. -->
+<panel_orientation datatype="double">double</panel_orientation><!-- Orientation of the solar panel. -->
+<earthshine datatype="boolean">True/False</earthshine><!-- Whether or not Earthshine should be accounted for in the simulation. -->
 </Orbital_Properties>
 
-<Specular_Reflection datatype="boolean">True</Specular_Reflection>
-<Optical_Material datatype="string">optical_material</Optical_Material>
+<Specular_Reflection datatype="boolean">True</Specular_Reflection><!-- Whether or not Specular Reflection should be accounted for in the simulation. -->
+<Optical_Material datatype="string">optical_material</Optical_Material><!-- TODO -->
 
-<OutputSettings datatype="object">
-	<powergenratio3D datatype="boolean">True</powergenratio3D>
-	<maximum_point_power datatype="boolean">True</maximum_point_power>
-	<absorption_efficiency datatype="boolean">False</absorption_efficiency>
-	<absorbance datatype="boolean">False</absorbance>
-	<average_interactions datatype="boolean">True</average_interactions>
-	<average_reflections datatype="boolean">True</average_reflections>
-	<integrated_area_ratio datatype="boolean">False</integrated_area_ratio>
-	<aspect_ratio datatype="boolean">False</aspect_ratio>
-	<tower_spacing_log datatype="boolean">True</tower_spacing_log>
-	<tower_height datatype="boolean">True</tower_height>
-	<azumithal_angle datatype="boolean">True</azumithal_angle>
+<OutputSettings datatype="object"><!-- Boolean values specifying whether or not the field should be output. -->
+	<powergenratio3D datatype="boolean">True/False</powergenratio3D><!-- Whether or not the 3D power generation ratio should be output. -->
+	<maximum_point_power datatype="boolean">True/False</maximum_point_power><!-- Output maximum point power. -->
+	<absorption_efficiency datatype="boolean">True/False</absorption_efficiency><!-- Output absorption efficiency. -->
+	<absorbance datatype="boolean">True/False</absorbance><!-- Output absorbance -->
+	<average_interactions datatype="boolean">True/False</average_interactions><!-- Output average interactions.-->
+	<average_reflections datatype="boolean">True</average_reflections><!-- Output average reflections. -->
+	<integrated_area_ratio datatype="boolean">True/False</integrated_area_ratio><!-- Output integrated area ratio. -->
+	<aspect_ratio datatype="boolean">True/False</aspect_ratio><!-- Output aspect ratio. -->
+	<tower_spacing_log datatype="boolean">True/False</tower_spacing_log><!-- Output the logarithm of tower spacing. -->
+	<tower_height datatype="boolean">True/False</tower_height><!-- Output tower height. -->
+	<azumithal_angle datatype="boolean">True/False</azumithal_angle><!-- Output azumithal angle. -->
 
-<GraphSettings datatype="object">
-    <MaxPointPowerVsZenithAngle datatype="boolean">True</MaxPointPowerVsZenithAngle>
-	<AverageReflectionsVsAzumithal datatype="boolean">True</AverageReflectionsVsAzumithal>
-	<AbsorptionEfficiencyVsAzumithal datatype="boolean">False</AbsorptionEfficiencyVsAzumithal>
-	<AspectRatioVsAverageReflections datatype="boolean">True</AspectRatioVsAverageReflections>
-	<IntegratedAreaRatioVsAvgNumReflections datatype="boolean">False</IntegratedAreaRatioVsAvgNumReflections>
-	<PowerRatio3DVsAbsorbance datatype="boolean">False</PowerRatio3DVsAbsorbance>
-	<AvgInteractionsVsTowerSpacingLog datatype="boolean">False</AvgInteractionsVsTowerSpacingLog>
-	<AvgReflectionsVsTowerHeight datatype="boolean">False</AvgReflectionsVsTowerHeight>
+<GraphSettings datatype="object"><!-- Boolean values specifying whether or not the graphs should be output. -->
+    <MaxPointPowerVsZenithAngle datatype="boolean">True/False</MaxPointPowerVsZenithAngle><!-- Output Max Point Power vs Zenith Angle graph.-->
+	<AverageReflectionsVsAzumithal datatype="boolean">True/False</AverageReflectionsVsAzumithal><!-- Output Average Reflections vs Azumithal Angle graph. -->
+	<AbsorptionEfficiencyVsAzumithal datatype="boolean">True/False</AbsorptionEfficiencyVsAzumithal><!-- Output Absorption Efficiency vs Azumithal Angle graph. -->
+	<AspectRatioVsAverageReflections datatype="boolean">True/False</AspectRatioVsAverageReflections><!-- Output Aspect Ratio vs Average Reflections graph. -->
+	<IntegratedAreaRatioVsAvgNumReflections datatype="boolean">True/False</IntegratedAreaRatioVsAvgNumReflections><!-- Output Integrated Area Ratio vs Average Number of Reflections graph. -->
+	<PowerRatio3DVsAbsorbance datatype="boolean">True/False</PowerRatio3DVsAbsorbance><!-- Output 3D Power Generation Ratio vs Absorbance graph. -->
+	<AvgInteractionsVsTowerSpacingLog datatype="boolean">True/False</AvgInteractionsVsTowerSpacingLog><!-- Output Average Interactions vs Tower Spacing Log graph. -->
+	<AvgReflectionsVsTowerHeight datatype="boolean">True/False</AvgReflectionsVsTowerHeight><!-- Output Average Reflections vs Tower Height graph. -->
 </GraphSettings>
 </OutputSettings>
 </Simulation>

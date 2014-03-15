@@ -37,7 +37,6 @@ class XMLInputParser(object):
                 print missingkeylist
                 print "\n"
 
-        #print("missingkeylist: \n")
         print str(missingkeylist)
 
         #If everything was successful, return the dictionary that was parsed.
@@ -48,9 +47,12 @@ class XMLInputParser(object):
 
     def parseRecur(self, root):
         resultDict = {}
+        dataTypeDict = {}
         children = list(root)
         if(len(children) == 0):
             resultDict[root.tag] = root.text
+            print "Attrib: " + str(root.attrib)
+            dataTypeDict[root.tag] = root.attrib
             return resultDict[root.tag]
 
         for child_of_root in children:
