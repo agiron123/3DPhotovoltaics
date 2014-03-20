@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from re import match, search
 from shutil import copy
+from datetime import datetime
 
 
 class Analysis(object):
@@ -19,9 +20,9 @@ class Analysis(object):
     compiled_data_tag = "Compiled Data"
     stats_tag = "Stats"
     #Folder names
-    output_folder_tag = "Simulation Data"
+    output_folder_tag = "Simulation_Data"
     most_recent_tag = "Most_Recent_Run"
-    raw_data_tag = "Raw Data"
+    raw_data_tag = "Raw_Data"
 
     def __init__(self):#, graph_settings):
         """Bind the functions passed in too the Analysis object"""
@@ -187,7 +188,7 @@ class Analysis(object):
         the most recent run and then increments it by 1. It then returns the path to the file"""
     @staticmethod
     def file_path_creator(destination_dir, file_name, extension):
-        sim_number = 0
+        """sim_number = 0
         #checks the folder for previous data files and determines the current simulation number
         for files in os.listdir(destination_dir):
             if files.endswith(extension) and (match(r'[^0-9]*', files).group() == file_name):
@@ -198,8 +199,12 @@ class Analysis(object):
         if sim_number<10:
             sim_number = "0"+str(sim_number)
         else:
-            sim_number = str(sim_number)
-        new_file_name = file_name + sim_number + extension
+            sim_number = str(sim_number)"""
+
+        # gets the timestamp and converts it to a string in with a "YYYY-MM-DD HH:MM:SS.ss" format
+        time_stamp = str(datetime.now())
+        #new_file_name = file_name + sim_number + extension
+        new_file_name = file_name + time_stamp + extension
         #creates the path to the new data file
         path = os.path.join(destination_dir, new_file_name)
         return path
