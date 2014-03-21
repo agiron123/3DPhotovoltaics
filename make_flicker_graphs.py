@@ -1,8 +1,11 @@
-import Simulation
-from SimulationSettings import *
-from Statistics import *
-import matplotlib.pyplot as plt
 import math
+
+import matplotlib.pyplot as plt
+
+import Simulation.Simulation as Simulation
+from XML_Input.SimulationSettings import *
+from Data_Output.Statistics import *
+
 
 #recreating a few graphs from flickers paper on derivation of power gain
 #rect prism
@@ -22,9 +25,9 @@ def vary_azimuth():
     settings["Tower"]["shape"] = "rect_prism"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     maxerror = 0
@@ -65,9 +68,9 @@ def vary_azimuth():
     settings["Tower"]["shape"] = "xtrench"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in range(0, 95, 5):
@@ -103,9 +106,9 @@ def vary_azimuth():
     settings["Tower"]["shape"] = "box"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in range(0, 95, 5):
@@ -149,9 +152,9 @@ def vary_height():
     settings["Tower"]["shape"] = "rect_prism"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     maxerror = 0
@@ -188,9 +191,9 @@ def vary_height():
     settings["Tower"]["shape"] = "xtrench"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in range(500, 4000, 500):
@@ -228,9 +231,9 @@ def vary_height():
     settings["Tower"]["shape"] = "box"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in range(500, 4000, 500):
@@ -271,9 +274,9 @@ def vary_spacing():
     settings["Tower"]["shape"] = "rect_prism"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     maxerror = 0
@@ -310,9 +313,9 @@ def vary_spacing():
     settings["Tower"]["shape"] = "xtrench"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in [1, 10, 100, 1000, 10000]:
@@ -349,9 +352,9 @@ def vary_spacing():
     settings["Tower"]["shape"] = "box"
     settings["Specular_Reflection"] = True
     #not used in these basic test
-    settings["Material_profile"] = {}
-    settings["Material_profile"]["absorption_coefficient"] = 1
-    settings["Material_profile"]["band_gap"] = 1
+    settings["Material_Profile"] = {}
+    settings["Material_Profile"]["absorption_coefficient"] = 1
+    settings["Material_Profile"]["band_gap"] = 1
     settings["Orbital_Properties"] = None
     settings["Optical_Material"] = None
     for i in [10, 10, 100, 1000, 10000]:
@@ -375,4 +378,4 @@ def vary_spacing():
     plt.tight_layout()
     plt.show()
 
-vary_spacing()
+vary_azimuth()

@@ -1,6 +1,7 @@
 from xml.etree import ElementTree
 import xml.etree.ElementTree as ET
 
+
 class XMLInputParser(object):
 
     def __int__(self, filename):

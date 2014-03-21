@@ -1,7 +1,6 @@
 import math
-import numpy as np
 import random
-from Photon import *
+from Simulation.Photon import *
 
 class Orbit(object):
     """Represents the orbit of the ISS in space.

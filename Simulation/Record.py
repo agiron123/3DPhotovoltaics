@@ -3,8 +3,8 @@ class Record(object):
 
     def __init__(self, is_boundary, time, coordinate, normal, is_exiting):
         """Create a Record with the given parameters"""
-        #this is good, avoid using null as a flag and use this boolean field instead
         self.is_boundary = is_boundary
+        #time, coordinate, and normal are all relative to the collision point
         self.time = time
         self.coordinate = coordinate
         self.normal = normal

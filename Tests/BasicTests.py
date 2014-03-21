@@ -1,9 +1,9 @@
-from Photon import *
-import numpy as np
 from random import *
-from Plane import *
-from Cylinder import *
-from Tower import *
+
+from Simulation.Photon import *
+from Tower.Plane import *
+from Tower.Cylinder import *
+
 
 """These are just some very basic tests I ran will I was writing stuff"""
 #really basic tests, should collide and reflect simply

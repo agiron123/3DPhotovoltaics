@@ -1,11 +1,13 @@
-from Record import *
-import numpy as np
 import math
+
+import numpy as np
+
+from Simulation.Record import *
 from Wall import *
 
 
 class Cylinder(Wall):
-    """Subclass of wall. Represents a circle"""
+    """Subclass of wall. Represents a Cylinder"""
     def __init__(self, center, radius, is_boundary):
         """Create a circle with the given center and radius
         :param center: The center of the circle.

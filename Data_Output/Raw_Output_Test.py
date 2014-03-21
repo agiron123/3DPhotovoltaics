@@ -1,13 +1,5 @@
-from Analysis import *
-from Statistics import *
-from Stat import *
-import Photon
-import numpy as np
-import random
-from OutputSettings import *
-from GraphSettings import *
-from XMLInputParser import *
-from SimulationSettings import *
+from Data_Output.Analysis import *
+from XML_Input.GraphSettings import *
 
 
 """This class just test if a Raw data dump works correctly. It does not use all of the functions as they should be used,

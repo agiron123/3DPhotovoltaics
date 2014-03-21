@@ -1,9 +1,7 @@
 #import Simulation
 #import Statistics
 #import Analysis
-from OutputSettings import *
-from GraphSettings import *
-from XMLInputParser import *
+from XML_Input.XMLInputParser import *
 
 def Main():
     """Main method for running the entire program"""

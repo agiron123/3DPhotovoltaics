@@ -1,8 +1,6 @@
-from Record import *
 from Cylinder import *
 from Plane import *
 from Floor import *
-import numpy as np
 
 
 class Tower(object):

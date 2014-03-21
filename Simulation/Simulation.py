@@ -1,15 +1,14 @@
-from SimpleOrbit import *
-from Tower import *
+
+from Orbit.SimpleOrbit import *
 from Photon import *
-from Stat import *
-from Material import *
-from Statistics import *
-import random
-import math
+from Data_Output.Stat import *
+from Tower.Material import *
+from Tower.Tower import *
 
 
 def run(settings, statistics):
-    """Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
+    """Run the simulation using the given settings. Record the output to the given
+    statistics object. Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
     and run the simulation in the form of key value pairs"""
     #setup the simulation
     i, photon_count, absorbing, trapping, = 0, 1000, False, False

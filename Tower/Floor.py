@@ -1,7 +1,6 @@
 import numpy as np
 from Wall import *
-import math
-from Record import *
+from Simulation.Record import *
 
 
 class Floor(Wall):
