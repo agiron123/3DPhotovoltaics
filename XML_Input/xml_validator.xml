@@ -47,6 +47,7 @@
 <num_orbits datatype="int">integer</num_orbits><!-- How many orbits the simulation should be run for. -->
 <panel_orientation datatype="double">double</panel_orientation><!-- Orientation of the solar panel. -->
 <earthshine datatype="boolean">True/False</earthshine><!-- Whether or not Earthshine should be accounted for in the simulation. -->
+<orbit_interval datatype="double">double</orbit_interval><!--interval of the orbit-->
 </Orbital_Properties>
 
 <Specular_Reflection datatype="boolean">True</Specular_Reflection><!-- Whether or not Specular Reflection should be accounted for in the simulation. -->
