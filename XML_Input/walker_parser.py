@@ -9,7 +9,7 @@ def main():
     file.close()
     dom = parseString(data)
     valid = recur_map(dom.getElementsByTagName("Simulation")[0])
-    file = open("test_input.xml",'r')
+    file = open("example.xml",'r')
     data = file.read()
     file.close()
     dom = parseString(data)

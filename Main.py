@@ -3,9 +3,10 @@
 #import Analysis
 from XML_Input.XMLInputParser import *
 
-def Main():
-    """Main method for running the entire program"""
-    print "Welcome to 3D Photovoltaics Modeling!"
+
+def main():
+    """Main method for running the entire program. Will prompt the user for input and then run the simulation"""
+    print ("Welcome to 3D Photovoltaics Modeling!")
     filename = raw_input("Please enter the name of an xml file: ")
     print("Parsing ", filename)
     parser = XMLInputParser()
@@ -33,4 +34,6 @@ def Main():
     #analysis.generate_graphs()
     #analysis.generate_output()
 
-Main()
+#if the user is calling this script from the command line
+if  __name__ =='__main__':
+    main()

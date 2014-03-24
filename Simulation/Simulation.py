@@ -4,17 +4,19 @@ from Photon import *
 from Data_Output.Stat import *
 from Tower.Material import *
 from Tower.Tower import *
+import math
 
 
 def run(settings, statistics):
     """Run the simulation using the given settings. Record the output to the given
-    statistics object. Run receives an arguments dictionary from main, this contains all of the relevant information needed to setup
-    and run the simulation in the form of key value pairs"""
+    statistics object. Run receives a settings object from main, this contains all of the relevant information needed to set up
+    and run the simulation."""
     #setup the simulation
     i, photon_count, absorbing, trapping, = 0, 1000, False, False
     specular_only = settings.specularReflection
     ignore_tower_tops = True
-    orbit = SimpleOrbit(1, settings.simple_orbital_properties["zenith_angle"], settings.simple_orbital_properties["azumithal_angle"])
+    orbit = SimpleOrbit(1, math.PI / 4, 0.0)
+    #orbit = SimpleOrbit(1, settings.simple_orbital_properties["zenith_angle"], settings.simple_orbital_properties["azumithal_angle"])
     photon = Photon(0, 0, 0, 0, 0)
     #ignoring absorptions
     material = Material(settings.materialProfile["absorption_coefficient"], settings.materialProfile["band_gap"])
