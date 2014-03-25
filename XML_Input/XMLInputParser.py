@@ -1,8 +1,13 @@
 from xml.etree import ElementTree
 import xml.etree.ElementTree as ET
+import codecs
+import StringIO
+
+dataTypeDict = {}
 
 
 class XMLInputParser(object):
+
 
     def __int__(self, filename):
         self.fileName = filename
@@ -13,7 +18,10 @@ class XMLInputParser(object):
 
         tokens = {}
         with open(file, 'rt') as f:
+            #xmlfile = unicode(f,'utf-8')
             tree = ET.parse(f)
+            #content = unicode(f.strip(codecs.BOM_UTF8), 'utf-8')
+            #tree = ET.parse(StringIO.StringIO(content))
 
         print("Testing out the recursive parse function: ")
         simulations = list()
@@ -22,6 +30,7 @@ class XMLInputParser(object):
         for sim in tree.findall("Simulation"):
             simulations.append(self.parseRecur(sim))
 
+        #added filepath for XML validator here:
         with open("xml_validator.xml", 'rt') as f:
             validTree = ET.parse(f)
 
@@ -48,12 +57,13 @@ class XMLInputParser(object):
 
     def parseRecur(self, root):
         resultDict = {}
-        dataTypeDict = {}
+        global dataTypeDict
         children = list(root)
         if(len(children) == 0):
             resultDict[root.tag] = root.text
             print "Attrib: " + str(root.attrib)
             dataTypeDict[root.tag] = root.attrib
+            print dataTypeDict
             return resultDict[root.tag]
 
         for child_of_root in children:
@@ -61,6 +71,7 @@ class XMLInputParser(object):
         return resultDict
 
     def compareDict(self, validDict, parsed):
+        global dataTypeDict
         missingkeylist = set()    #using set. As long as all the tags have different names, we're golden.
         for k,v in validDict.iteritems():
             if isinstance(v,dict):
@@ -71,6 +82,12 @@ class XMLInputParser(object):
             elif not parsed.has_key(k):
                 if k not in missingkeylist:
                     missingkeylist.add(k)
+            elif parsed.has_key(k):
+                print str(parsed[k].encode('utf-8')) #IMPORTANT LINE HERE. Make sure we encode to unicode, or we won't be able to print it out.
+                #Need to do this for when you are printint out or writing to disk. see farmdev.com/talks/unicode for more information.
+                #print "Parsed[k]: " + str(parsed[k]) + " dataTypeDict[k]: " + str(dataTypeDict)
+                #check if not str(type(parsed[k])) == dataTypeDict[k]:
+                    #print ("Datatype Mismatch")
         return missingkeylist
 
     def compareDictHelper(self, validDict, parsed, missingkeylist):
