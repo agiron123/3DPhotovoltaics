@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
+<configurations>
+<simulation datatype="NA"><!-- Contains settings for a single simulation. -->
+<absorbing datatype="bool">True</absorbing> <!-- Whether or not the simulation should account for absorbtions -->
+<tower_tops datatype="bool">True</tower_tops><!--Whether the simulation should model the photons which strike the tops of the towers or ignore them -->
+<trapping datatype="bool">True</trapping><!-- Whether the simulation should model photons becoming trapped -->
+
+
+<material_profile datatype="NA"><!-- Information on Material used for the simulation -->
+<band_gap datatype="float">1.0</band_gap><!-- The band gap for the material -->
+<absorption_coefficient datatype="float">1.0</absorption_coefficient><!-- The absorption coefficient for the material -->
+</material_profile>
+
+
+<tower datatype="NA"><!-- The tower for the simulation, all tower units are in micro meters -->
+	<shape datatype="str" validset="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">
+    box</shape><!-- Shape of the tower. Shape must be chosen from the valid set-->
+	<pitch datatype="float">1.0</pitch><!-- Pitch of the tower. How far the towers are separated -->
+</tower>
+
+<!-- Note only one child from the childset may be present
+ meaning that you must chose either a RealOrbit or a SimpleOrbit but cannot have both
+ -->
+<orbital_properties datatype="NA" childset="RealOrbit, FixedOrbit"><!-- Settings for the Orbital Properties of the simulation. -->
+<err><!-- Contains all of the information for a orbit in which nothing is moving and the sun is a fixed point source -->
+    <zentih_angle datatype="float">-1.0</zentih_angle> <!-- Zenith Angle for point source sun -->
+    <azimuth_angle datatype="float">0.0</azimuth_angle> <!-- Azimuth Angle for the point source sun -->
+    <photon_count datatype="int">10</photon_count> <!-- Number of photons to run the simulation for -->
+</err>
+
+
+</orbital_properties>
+
+<specular_reflection datatype="bool">True</specular_reflection><!-- Whether or not Specular Reflection should be accounted for in the simulation. -->
+<optical_material datatype="str">blah</optical_material><!-- TODO -->
+
+<output_settings datatype="NA"><!-- Lists specifying what forms of data should be outputted -->
+
+<include_path datatype="bool"></include_path><!-- Whether to include photon paths in the CSV output files-->
+<graph_settings datatype="str" list="true" validset="
+    MaxPofloatPowerVsZenithAngle
+	AverageReflectionsVsAzumithal
+	AbsorptionEfficiencyVsAzumithal
+	AspectRatioVsAverageReflections
+	IntegratedAreaRatioVsAvgNumReflections
+	PowerRatio3DVsAbsorbance
+	AvgInteractionsVsTowerSpacingLog
+	AvgReflectionsVsTowerHeight"><!-- List of which graphs to include, names must be chosen from the valid set -->
+blah</graph_settings>
+</output_settings>
+</simulation>
+</configurations>
