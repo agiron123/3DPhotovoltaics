@@ -68,59 +68,7 @@
       <string>Number of Orbits</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>70</y>
-       <width>151</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Solar Panel Orientation</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>20</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Tower Shape</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>70</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Tower Height</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>120</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Tower Spacing</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="Specular_Reflection">
      <property name="geometry">
       <rect>
        <x>560</x>
@@ -146,7 +94,7 @@
       <string>Profile</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="general_SaveProfileButton">
      <property name="geometry">
       <rect>
        <x>580</x>
@@ -159,7 +107,7 @@
       <string>Save Profile</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="general_LoadProfileButton">
      <property name="geometry">
       <rect>
        <x>580</x>
@@ -172,7 +120,7 @@
       <string>Load Profile</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="panel_orientation">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -182,7 +130,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="num_orbits">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -192,7 +140,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="beta_angle">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -202,50 +150,10 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QPushButton" name="general_RunButton">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>90</y>
-       <width>113</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_5">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>40</y>
-       <width>113</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_6">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>90</y>
-       <width>113</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_7">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>140</y>
-       <width>113</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
+       <x>250</x>
        <y>190</y>
        <width>114</width>
        <height>32</height>
@@ -255,10 +163,10 @@
       <string>Run/Pause</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="general_CancelButton">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>400</x>
        <y>190</y>
        <width>114</width>
        <height>32</height>
@@ -268,12 +176,58 @@
       <string>Cancel</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>120</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Earthshine</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="earthshine">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>140</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>70</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Orbit Interval</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="orbit_interval">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>90</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
      <string>Orbital Properties</string>
     </attribute>
-    <widget class="QRadioButton" name="radioButton">
+    <widget class="QRadioButton" name="TLE_radioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -286,7 +240,7 @@
       <string>Two Line Element</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit">
+    <widget class="QPlainTextEdit" name="TLE">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -434,7 +388,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="orbitalProperties_DoneButton">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -447,7 +401,7 @@
       <string>Done</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="orbitalProperties_SaveDefaultButton">
      <property name="geometry">
       <rect>
        <x>340</x>
@@ -460,7 +414,7 @@
       <string>Save Default</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="orbitalProperties_CancelButton">
      <property name="geometry">
       <rect>
        <x>470</x>
@@ -532,7 +486,7 @@
       <string>Absorption Coefficient</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_14">
+    <widget class="QLineEdit" name="absorption_coefficient">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -555,7 +509,7 @@
       <string>Band Gap</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_15">
+    <widget class="QLineEdit" name="band_gap">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -569,7 +523,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>190</y>
+       <y>230</y>
        <width>114</width>
        <height>32</height>
       </rect>
@@ -582,13 +536,130 @@
      <property name="geometry">
       <rect>
        <x>390</x>
-       <y>190</y>
+       <y>230</y>
        <width>114</width>
        <height>32</height>
       </rect>
      </property>
      <property name="text">
       <string>Cancel</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="shape">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>40</y>
+       <width>161</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Rectangular Prism</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Cylinder</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Convex Polygon</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Y Trench</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X Trench</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>20</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tower Shape</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>70</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tower Pitch</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="pitch">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>90</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>120</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tower Width</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="width">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>140</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>170</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tower Height</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="height">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>190</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -608,7 +679,7 @@
      <property name="title">
       <string>Output Fields</string>
      </property>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="powergenratio3D">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -621,7 +692,7 @@
        <string>3D Power Generation Ratio</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_3">
+     <widget class="QCheckBox" name="maximum_point_power">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -634,7 +705,7 @@
        <string>Max Point Power</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_4">
+     <widget class="QCheckBox" name="absorption_efficiency">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -647,7 +718,7 @@
        <string>Absorption Efficiency</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_5">
+     <widget class="QCheckBox" name="absorbance">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -660,7 +731,7 @@
        <string>Absorbance</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_6">
+     <widget class="QCheckBox" name="average_interactions">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -673,7 +744,7 @@
        <string>Average Interactions</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_7">
+     <widget class="QCheckBox" name="average_reflections">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -686,7 +757,7 @@
        <string>Average Reflections</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_8">
+     <widget class="QCheckBox" name="integrated_area_ratio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -699,7 +770,7 @@
        <string>Integrated Area Ratio</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_9">
+     <widget class="QCheckBox" name="aspect_ratio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -712,7 +783,7 @@
        <string>Aspect Ratio</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_10">
+     <widget class="QCheckBox" name="tower_spacing_log">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -725,7 +796,7 @@
        <string>Tower Spacing Log</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_11">
+     <widget class="QCheckBox" name="tower_height">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -738,7 +809,7 @@
        <string>Tower Height</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_12">
+     <widget class="QCheckBox" name="azumithal_angle">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -764,20 +835,20 @@
      <property name="title">
       <string>Output Graphs</string>
      </property>
-     <widget class="QCheckBox" name="checkBox_13">
+     <widget class="QCheckBox" name="MaxPointPowerVsZenithAngle">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>211</width>
+        <width>231</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>3D Power Generation Ratio</string>
+       <string>MaxPointPowerVsZenithAngle</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_14">
+     <widget class="QCheckBox" name="AverageReflectionsVsAzumithal">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -790,7 +861,7 @@
        <string>AverageReflectionsVsAzumithal</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_15">
+     <widget class="QCheckBox" name="AbsorptionEfficiencyVsAzumithal">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -803,12 +874,12 @@
        <string>AbsorptionEfficiencyVsAzumithal</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_16">
+     <widget class="QCheckBox" name="AspectRatioVsAverageReflections">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>80</y>
-        <width>221</width>
+        <width>241</width>
         <height>20</height>
        </rect>
       </property>
@@ -816,7 +887,7 @@
        <string>AspectRatioVsAverageReflections</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_17">
+     <widget class="QCheckBox" name="IntegratedAreaRatioVsAvgNumReflections">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -829,7 +900,7 @@
        <string>IntegratedAreaRatioVsAvgNumReflections</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_18">
+     <widget class="QCheckBox" name="PowerRatio3DVsAbsorbance">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -842,7 +913,7 @@
        <string>PowerRatio3DVsAbsorbance</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_19">
+     <widget class="QCheckBox" name="AvgInteractionsVsTowerSpacingLog">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -855,7 +926,7 @@
        <string>AvgInteractionsVsTowerSpacingLog</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_20">
+     <widget class="QCheckBox" name="AvgReflectionsVsTowerHeight">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -897,6 +968,8 @@
     </widget>
    </widget>
   </widget>
+  <zorder>tabWidget</zorder>
+  <zorder>panel_orientation</zorder>
  </widget>
  <resources/>
  <connections/>

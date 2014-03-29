@@ -23,8 +23,8 @@
 	<epoch_year datatype="int">08</epoch_year><!-- Epoch Year (Last two digits of year)  -->
 	<epoch datatype="int">264.51782528</epoch><!-- Epoch (Day of the year and fractional portion of the day) -->
 	<first_time_derivative datatype="int/double">−.00002182</first_time_derivative><!-- First Time Derivative of the Mean Motion divided by two -->
-	<second_time_derivative datatype="int/double">00000-0</second_time_derivative><!-- Second Time Derivative of Mean Motion divided by six (decimal point assumed) -->
-	<bstar_drag datatype="int/double">-11606-4</bstar_drag><!-- BSTAR drag term (decimal point assumed) -->
+	<second_time_derivative datatype="int/double">000000</second_time_derivative><!-- Second Time Derivative of Mean Motion divided by six (decimal point assumed) -->
+	<bstar_drag datatype="int/double">116064</bstar_drag><!-- BSTAR drag term (decimal point assumed) -->
 	<ephemeris_type datatype="int/double">0</ephemeris_type><!-- The number 0 (Originally this should have been "Ephemeris type") -->
    	<element_set datatype="int/double">292</element_set><!-- Element set number. incremented when a new TLE is generated for this object. -->
 	<checksum datatype="int">7</checksum><!-- Checksum (Modulo 10) -->
@@ -54,27 +54,27 @@
 <Optical_Material datatype="string">optical_material</Optical_Material><!-- TODO -->
 
 <OutputSettings datatype="object"><!-- Boolean values specifying whether or not the field should be output. -->
-	<powergenratio3D datatype="boolean">True/False</powergenratio3D><!-- Whether or not the 3D power generation ratio should be output. -->
-	<maximum_point_power datatype="boolean">True/False</maximum_point_power><!-- Output maximum point power. -->
-	<absorption_efficiency datatype="boolean">True/False</absorption_efficiency><!-- Output absorption efficiency. -->
-	<absorbance datatype="boolean">True/False</absorbance><!-- Output absorbance -->
-	<average_interactions datatype="boolean">True/False</average_interactions><!-- Output average interactions.-->
-	<average_reflections datatype="boolean">True</average_reflections><!-- Output average reflections. -->
-	<integrated_area_ratio datatype="boolean">True/False</integrated_area_ratio><!-- Output integrated area ratio. -->
-	<aspect_ratio datatype="boolean">True/False</aspect_ratio><!-- Output aspect ratio. -->
-	<tower_spacing_log datatype="boolean">True/False</tower_spacing_log><!-- Output the logarithm of tower spacing. -->
-	<tower_height datatype="boolean">True/False</tower_height><!-- Output tower height. -->
-	<azumithal_angle datatype="boolean">True/False</azumithal_angle><!-- Output azumithal angle. -->
+	<powergenratio3D datatype="boolean">TrueFalse</powergenratio3D><!-- Whether or not the 3D power generation ratio should be output. -->
+	<maximum_point_power datatype="boolean">TrueFalse</maximum_point_power><!-- Output maximum point power. -->
+	<absorption_efficiency datatype="boolean">TrueFalse</absorption_efficiency><!-- Output absorption efficiency. -->
+	<absorbance datatype="boolean">TrueFalse</absorbance><!-- Output absorbance -->
+	<average_interactions datatype="boolean">TrueFalse</average_interactions><!-- Output average interactions.-->
+	<average_reflections datatype="boolean">TrueFalse</average_reflections><!-- Output average reflections. -->
+	<integrated_area_ratio datatype="boolean">TrueFalse</integrated_area_ratio><!-- Output integrated area ratio. -->
+	<aspect_ratio datatype="boolean">TrueFalse</aspect_ratio><!-- Output aspect ratio. -->
+	<tower_spacing_log datatype="boolean">TrueFalse</tower_spacing_log><!-- Output the logarithm of tower spacing. -->
+	<tower_height datatype="boolean">TrueFalse</tower_height><!-- Output tower height. -->
+	<azumithal_angle datatype="boolean">TrueFalse</azumithal_angle><!-- Output azumithal angle. -->
 
 <GraphSettings datatype="object"><!-- Boolean values specifying whether or not the graphs should be output. -->
-    <MaxPointPowerVsZenithAngle datatype="boolean">True/False</MaxPointPowerVsZenithAngle><!-- Output Max Point Power vs Zenith Angle graph.-->
-	<AverageReflectionsVsAzumithal datatype="boolean">True/False</AverageReflectionsVsAzumithal><!-- Output Average Reflections vs Azumithal Angle graph. -->
-	<AbsorptionEfficiencyVsAzumithal datatype="boolean">True/False</AbsorptionEfficiencyVsAzumithal><!-- Output Absorption Efficiency vs Azumithal Angle graph. -->
-	<AspectRatioVsAverageReflections datatype="boolean">True/False</AspectRatioVsAverageReflections><!-- Output Aspect Ratio vs Average Reflections graph. -->
-	<IntegratedAreaRatioVsAvgNumReflections datatype="boolean">True/False</IntegratedAreaRatioVsAvgNumReflections><!-- Output Integrated Area Ratio vs Average Number of Reflections graph. -->
-	<PowerRatio3DVsAbsorbance datatype="boolean">True/False</PowerRatio3DVsAbsorbance><!-- Output 3D Power Generation Ratio vs Absorbance graph. -->
-	<AvgInteractionsVsTowerSpacingLog datatype="boolean">True/False</AvgInteractionsVsTowerSpacingLog><!-- Output Average Interactions vs Tower Spacing Log graph. -->
-	<AvgReflectionsVsTowerHeight datatype="boolean">True/False</AvgReflectionsVsTowerHeight><!-- Output Average Reflections vs Tower Height graph. -->
+    <MaxPointPowerVsZenithAngle datatype="boolean">TrueFalse</MaxPointPowerVsZenithAngle><!-- Output Max Point Power vs Zenith Angle graph.-->
+	<AverageReflectionsVsAzumithal datatype="boolean">TrueFalse</AverageReflectionsVsAzumithal><!-- Output Average Reflections vs Azumithal Angle graph. -->
+	<AbsorptionEfficiencyVsAzumithal datatype="boolean">TrueFalse</AbsorptionEfficiencyVsAzumithal><!-- Output Absorption Efficiency vs Azumithal Angle graph. -->
+	<AspectRatioVsAverageReflections datatype="boolean">TrueFalse</AspectRatioVsAverageReflections><!-- Output Aspect Ratio vs Average Reflections graph. -->
+	<IntegratedAreaRatioVsAvgNumReflections datatype="boolean">TrueFalse</IntegratedAreaRatioVsAvgNumReflections><!-- Output Integrated Area Ratio vs Average Number of Reflections graph. -->
+	<PowerRatio3DVsAbsorbance datatype="boolean">TrueFalse</PowerRatio3DVsAbsorbance><!-- Output 3D Power Generation Ratio vs Absorbance graph. -->
+	<AvgInteractionsVsTowerSpacingLog datatype="boolean">TrueFalse</AvgInteractionsVsTowerSpacingLog><!-- Output Average Interactions vs Tower Spacing Log graph. -->
+	<AvgReflectionsVsTowerHeight datatype="boolean">TrueFalse</AvgReflectionsVsTowerHeight><!-- Output Average Reflections vs Tower Height graph. -->
 </GraphSettings>
 </OutputSettings>
 </Simulation>
