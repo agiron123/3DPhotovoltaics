@@ -1,5 +1,10 @@
 from Data_Output.Analysis import *
+from Data_Output.Statistics import *
+from Data_Output.Stat import *
 from XML_Input.GraphSettings import *
+import random
+import numpy as np
+from Simulation import Photon
 
 
 """This class just test if a Raw data dump works correctly. It does not use all of the functions as they should be used,
@@ -32,12 +37,12 @@ def Main():
     settings_dict = {"MaxPointPowerVsZenithAngle":"False","AverageReflectionsVsAzumithal":"False",
                      "AbsorptionEfficiencyVsAzumithal":"False", "AspectRatioVsAverageReflections":"False",
                      "IntegratedAreaRatioVsAvgNumReflections":"False", "PowerRatio3DVsAbsorbance":"False",
-                     "AvgInteractionsVsTowerSpacingLog":"False","AvgReflectionsVsTowerHeight":"False"}
+                     "AvgInteractionsVsTowerSpacingLog":"False","AvgReflectionsVsTowerHeight":"True"}
 
     graph_settings = GraphSettings(settings_dict)
     analysis = Analysis()
 
-    """
+
     print("making photon\n")
     azimuth = random.randint(1, 30) + 0.0
     zenith = random.randint(1, 40) + 0.0
@@ -83,11 +88,13 @@ def Main():
     statistics_list = [statistic, statistic1, statistic2]
     sim_sets_list = []
     for i in range(len(statistics_list)):
-        sim_sets_list.append(sim_settings)
-    """
+        #sim_sets_list.append(sim_settings)
+        sim_sets_list.append("tower data") # this is overwritten in analysis for the time being, until the parser works
+
+    sim_sets="tower data"
     print("outputting data\n")
-    #analysis.generate_output(statistic, sim_settings)
-    #analysis.generate_output(statistics_list,sim_sets_list,True)
+    analysis.generate_output(statistic, sim_sets)
+    #analysis.generate_output(statistics_list, sim_sets_list)
     #analysis.save_photon_path(statistic)
     print("outputted data\n")
 

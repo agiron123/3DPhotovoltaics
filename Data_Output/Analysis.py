@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from re import match, search
+from random import *
 from shutil import copy
 from datetime import datetime
 
@@ -58,9 +59,10 @@ class Analysis(object):
 
     """This method creates a CSV file with all of the data from a simulation. It takes in  a list of statistics
     and whether or not to save a photon's path, it then generates a csv file for each statistic/simulation"""
-    def generate_output(self, statistics, sim_settings, save_path=True):
+    #TODO: Add units
+    def generate_output(self, statistics, sim_settings, save_path=False):
         #The name of the CSV file
-        data_file_name = 'Raw_Simulation_Data_'
+        data_file_name = 'Raw_Sim_Data_'
         #The name of the folders for the raw data CSV files
         data_folder_name = self.raw_data_tag
 
@@ -94,10 +96,13 @@ class Analysis(object):
             data = statistics[index].data
 
             #gets the tower's setting from the simulation settings
-            tower_settings = vars(sim_settings[index])['tower']
+            #tower_settings = vars(sim_settings[index])['tower']
             #TODO: remove print statements and remove the overwrite of tower settings
             print("\n Tower settings changes\n")
-            tower_settings = {'width': '4', 'shape': 'square', 'height': '4' , 'pitch': '4'}
+            width = randint(1, 10)*10
+            height = randint(1, 10)*10
+            pitch = randint(1, 10)*10
+            tower_settings = {'width': str(width), 'shape': 'square', 'height': str(height), 'pitch': str(pitch)}
             #adds the aspect ratio and log of the tower pitch to the tower settings
             self.add_tower_info(tower_settings)
             print("\nEnd of Tower Settings Changes\n")
@@ -137,9 +142,9 @@ class Analysis(object):
                 stat_list = statistics[index].stat_list
                 if len(stat_list) != 0:
 
-                    #Gets the dictionary keys in order the write the stat's attributes to the csv file
+                    #Gets a stat's dictionary in order to write the stat's attributes to the csv file
                     stat_dict = vars(stat_list[0])
-                    if save_path != True:
+                    if save_path == False and stat_dict.has_key("path"):
                         del stat_dict["path"]
                     writer.writerow(stat_dict.keys())
                     writer.writerow(stat_dict.values())
@@ -147,8 +152,8 @@ class Analysis(object):
                     #This will print each stat's contents in the CSV file
                     for stat in stat_list[1:]:
                         stat_dict = vars(stat)
-                        if save_path != True:
-                            del stat_dict["path"]
+                        if save_path == False and stat_dict.has_key("path"):
+                            del stat_dict['path']
                         stat_dict = stat_dict.values()
                         writer.writerow(stat_dict)
 
@@ -203,6 +208,8 @@ class Analysis(object):
 
         # gets the timestamp and converts it to a string in with a "YYYY-MM-DD HH:MM:SS.ss" format
         time_stamp = str(datetime.now())
+        # formats the timestamp to: "YYYY-MM-DD HH-MM-SS.ss" format
+        time_stamp = time_stamp.replace(':', '-')
         #new_file_name = file_name + sim_number + extension
         new_file_name = file_name + time_stamp + extension
         #creates the path to the new data file
@@ -213,8 +220,10 @@ class Analysis(object):
     for each type of graph. Then it creates a path to that file location. It then calls the correct method to
     make a the CSV file used to generate the graph. Finally it calls the function to generate the graph."""
     def generate_graphs(self, graph_settings):
-        data_dir = os.path.join(self.folder_dir, self.raw_data_tag)
+        #data_dir = os.path.join(self.folder_dir, self.raw_data_tag)
+        data_dir = self.folder_dir
         #checks if there are multiple simulations before creating graph
+        print(data_dir)
         if len(os.listdir(data_dir)) > 1:
             settings_dict = vars(graph_settings)
             if settings_dict["MaxPointPowerVsZenithAngle"] == 'True':
