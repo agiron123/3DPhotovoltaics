@@ -8,13 +8,13 @@
 
 
 <material_profile datatype="NA"><!-- Information on Material used for the simulation -->
-<band_gap datatype="float">float</band_gap><!-- The band gap for the material -->
-<absorption_coefficient datatype="float">float</absorption_coefficient><!-- The absorption coefficient for the material -->
+<band_gap datatype="float"></band_gap><!-- The band gap for the material -->
+<absorption_coefficient datatype="float"></absorption_coefficient><!-- The absorption coefficient for the material -->
 </material_profile>
 
 
 <tower datatype="NA"><!-- The tower for the simulation, all tower units are in micro meters -->
-	<shape datatype="str" valid_set="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">
+	<shape datatype="str" valid_set="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">rect_prism
     </shape><!-- Shape of the tower. Shape must be chosen from the valid set-->
 	<pitch datatype="float"></pitch><!-- Pitch of the tower. How far the towers are separated -->
 	<width datatype="float"></width><!-- Width of the tower. -->
@@ -36,23 +36,23 @@
 </line2>
 </tle>
 
-<beta_angle datatype="float">float</beta_angle><!-- Beta angle for the simulation. -->
-<interval datatype="float">float</interval><!-- How many orbits the simulation should be run for. -->
-<earthshine datatype="bool">bool</earthshine><!-- Whether or not Earthshine should be accounted for in the simulation. -->
+<beta_angle datatype="float"></beta_angle><!-- Beta angle for the simulation. -->
+<interval datatype="float"></interval><!-- How many orbits the simulation should be run for. -->
+<earthshine datatype="bool"></earthshine><!-- Whether or not Earthshine should be accounted for in the simulation. -->
 </real_orbit>
 
 
 <fixed_orbit><!-- Contains all of the information for a orbit in which nothing is moving and the sun is a fixed point source -->
-    <zentih_angle datatype="float" range="0.0 - 100"></zentih_angle> <!-- Zenith Angle for point source sun -->
-    <azimuth_angle datatype="float"></azimuth_angle> <!-- Azimuth Angle for the point source sun -->
+    <zenith_angle datatype="float" range="0.0 - 360.0"></zenith_angle> <!-- Zenith Angle for point source sun -->
+    <azimuth_angle datatype="float" range="0.0 - 360.0"></azimuth_angle> <!-- Azimuth Angle for the point source sun -->
     <photon_count datatype="int"></photon_count> <!-- Number of photons to run the simulation for -->
 </fixed_orbit>
 
 
 </orbital_properties>
 
-<specular_reflection datatype="bool">bool</specular_reflection><!-- Whether or not Specular Reflection should be accounted for in the simulation. -->
-<optical_material datatype="str">optical_material</optical_material><!-- TODO -->
+<non_specular_reflection datatype="bool"></non_specular_reflection><!-- Whether or not Non Specular Reflection should be accounted for in the simulation. -->
+<optical_material datatype="str"></optical_material><!-- TODO -->
 
 <output_settings datatype="NA"><!-- Lists specifying what forms of data should be outputted -->
 

@@ -12,14 +12,13 @@ def run(settings, statistics):
     statistics object. Run receives a settings object from main, this contains all of the relevant information needed to set up
     and run the simulation."""
     #setup the simulation
-    i, photon_count, absorbing, trapping, = 0, 1000, False, False
-    specular_only = settings.specularReflection
-    ignore_tower_tops = True
-    orbit = SimpleOrbit(1, math.PI / 4, 0.0)
-    #orbit = SimpleOrbit(1, settings.simple_orbital_properties["zenith_angle"], settings.simple_orbital_properties["azumithal_angle"])
+    i, photon_count, absorbing, trapping, = 0, settings.fixed_orbit['photon_count'], settings.absorbing, settings.trapping
+    specular_only = not settings.non_specular_reflection
+    ignore_tower_tops = settings.tower_tops
+    orbit = SimpleOrbit(1, settings.fixed_orbit['zenith_angle'], settings.fixed_orbit['azimuth_angle'])
     photon = Photon(0, 0, 0, 0, 0)
     #ignoring absorptions
-    material = Material(settings.materialProfile["absorption_coefficient"], settings.materialProfile["band_gap"])
+    material = Material(settings.material_profile["absorption_coefficient"], settings.material_profile["band_gap"])
     tower = Tower(settings.tower["height"], material, settings.tower["pitch"], settings.tower["width"], settings.tower["shape"])
     while i < photon_count:
         #generate a new photon from orbit
@@ -71,4 +70,3 @@ def run(settings, statistics):
         #finish with this photon by updating statistics with its stat datum
         statistics.update(stat)
         i += 1
-    return statistics.data["avg_number_interactions"]

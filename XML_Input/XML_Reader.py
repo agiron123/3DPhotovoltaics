@@ -79,7 +79,16 @@ def map_validate_xml(input_el, valid_el, errors):
                             return None
                     return val
                 elif valid_el.attrib['datatype'] == 'bool':
-                    return bool(input_el.text)
+                    if input_el.text == "false" or input_el.text == "False":
+                        val = False
+                    elif input_el.text == "true" or input_el.text == "True":
+                        val = True
+                    else:
+                        error = "The data in tag " + input_el.tag + " is not valid. "
+                        error += "Please specify 'True', 'true', 'False', or 'false'"
+                        errors.append(error)
+                        val = None
+                    return val
                 elif valid_el.attrib['datatype'] == 'str':
                     val = input_el.text.strip()
                     if 'valid_set' in valid_el.attrib:
@@ -199,8 +208,6 @@ def test():
     """
     #note, you will have to set up errors like this so you have a reference
     errors = []
-    print(map_validate_xml(ET.parse('test2.xml')._root, ET.parse('example2.xml')._root, errors))
-    print(errors)
-
-
-test()
+    print(map_validate_xml(ET.parse('test2.xml')._root, ET.parse('newvalidation.xml')._root, errors))
+    for err in errors:
+        print(err)
