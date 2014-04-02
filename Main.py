@@ -54,7 +54,6 @@ def main():
         for setting in setting_objects:
             s = Statistics()
             Simulation.run(setting[0], s)
-            print(s.data['avg_number_interactions'])
             a = Analysis()
             a.generate_output(s, setting[0])
             a.generate_graphs(setting[1])
