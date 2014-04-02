@@ -2,23 +2,22 @@
 <!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
 <configurations>
 <simulation datatype="NA"><!-- Contains settings for a single simulation. -->
-<absorbing datatype="bool">False</absorbing> <!-- Whether or not the simulation should account for absorbtions -->
+<absorbing datatype="bool">False</absorbing> <!-- Whether or not the simulation should model absorptions -->
 <tower_tops datatype="bool">False</tower_tops><!--Whether the simulation should model the photons which strike the tops of the towers or ignore them -->
 <trapping datatype="bool">False</trapping><!-- Whether the simulation should model photons becoming trapped -->
 
 
 <material_profile datatype="NA"><!-- Information on Material used for the simulation -->
-<band_gap datatype="float">10.0</band_gap><!-- The band gap for the material -->
-<absorption_coefficient datatype="float">10.0</absorption_coefficient><!-- The absorption coefficient for the material -->
+<band_gap datatype="float" range="0.0 - 9.0">2.0</band_gap><!-- The band gap for the material in electron volts (eV) -->
+<absorption_coefficient datatype="float" range="10 - 10e7">10e5</absorption_coefficient><!-- The absorption coefficient for the material in (cm^-1) -->
 </material_profile>
 
 
 <tower datatype="NA"><!-- The tower for the simulation, all tower units are in micro meters -->
-	<shape datatype="str" valid_set="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">
-    rect_prism</shape><!-- Shape of the tower. Shape must be chosen from the valid set-->
-	<pitch datatype="float">10</pitch><!-- Pitch of the tower. How far the towers are separated -->
-	<width datatype="float">40</width><!-- Width of the tower. -->
-	<height datatype="float">40</height><!-- Height of the tower. -->
+	<shape datatype="str" valid_set="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">rect_prism</shape><!-- Shape of the tower. Shape must be chosen from the valid set-->
+	<pitch datatype="float" range="0 - inf">10.0</pitch><!-- Pitch of the tower. How far the towers are separated -->
+	<width datatype="float" range="0 - inf">40.0</width><!-- Width of the tower. -->
+	<height datatype="float" range="0 - inf">40.0</height><!-- Height of the tower. -->
 </tower>
 
 <!-- Note only one child from the childset may be present
@@ -27,25 +26,36 @@
 <orbital_properties datatype="NA" child_set="real_orbit, fixed_orbit"><!-- Settings for the Orbital Properties of the simulation. -->
 
 <fixed_orbit><!-- Contains all of the information for a orbit in which nothing is moving and the sun is a fixed point source -->
-    <zenith_angle datatype="float" range="0.0 - 360.0"> 45</zenith_angle> <!-- Zenith Angle for point source sun -->
-    <azimuth_angle datatype="float" range="0.0 - 360.0">45</azimuth_angle> <!-- Azimuth Angle for the point source sun -->
-    <photon_count datatype="int">1000</photon_count> <!-- Number of photons to run the simulation for -->
+    <zenith_angle datatype="float" range="0.0 - 360.0">45.0</zenith_angle> <!-- Zenith Angle in degrees for point source sun -->
+    <azimuth_angle datatype="float" range="0.0 - 360.0">45.0</azimuth_angle> <!-- Azimuth Angle in degrees for the point source sun -->
+    <photon_count datatype="int" range="0 - inf">1000</photon_count> <!-- Number of photons to run the simulation for -->
 </fixed_orbit>
 
 
 </orbital_properties>
 
 <non_specular_reflection datatype="bool">False</non_specular_reflection><!-- Whether or not Non Specular Reflection should be accounted for in the simulation. -->
-<optical_material datatype="str">dummy data</optical_material><!-- TODO -->
+<optical_material datatype="str">NA</optical_material><!-- Optical materials currently not supported. Should be specified NA for now-->
 
 <output_settings datatype="NA"><!-- Lists specifying what forms of data should be outputted -->
 
 <include_path datatype="bool">False</include_path><!-- Whether to include photon paths in the CSV output files-->
 <graph_settings datatype="str" list="true" valid_set="
+    MaxPofloatPowerVsZenithAngle
+	AverageReflectionsVsAzumithal
+	AbsorptionEfficiencyVsAzumithal
 	AspectRatioVsAverageReflections
+	IntegratedAreaRatioVsAvgNumReflections
+	PowerRatio3DVsAbsorbance
 	AvgInteractionsVsTowerSpacingLog
 	AvgReflectionsVsTowerHeight"><!-- List of which graphs to include, names must be chosen from the valid set -->
-
+    <!-- Currently only 	AspectRatioVsAverageReflections
+	                        AvgInteractionsVsTowerSpacingLog
+	                        AvgReflectionsVsTowerHeight
+	    are supported -->
+    AspectRatioVsAverageReflections
+	AvgInteractionsVsTowerSpacingLog
+	AvgReflectionsVsTowerHeight
 </graph_settings>
 </output_settings>
 </simulation>

@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import sys
 
 
 def map_validate_xml(input_el, valid_el, errors):
@@ -73,7 +74,12 @@ def map_validate_xml(input_el, valid_el, errors):
                     val = int(input_el.text)
                     if 'range' in valid_el.attrib:
                         bounds = valid_el.attrib['range'].split('-')
-                        if val < int(bounds[0].strip()) or val > int(bounds[1].strip()):
+                        #int function doesn't handle inf like float does
+                        if bounds[1].strip() == 'inf':
+                            upper = sys.maxint
+                        else:
+                            upper = int(bounds[1].strip())
+                        if val < int(bounds[0].strip()) or val > upper:
                             error = "The data in tag " + input_el.tag + " is out of the valid range."
                             errors.append(error)
                             return None
@@ -113,6 +119,7 @@ def map_validate_xml(input_el, valid_el, errors):
                     return None
             except Exception as e:
                 error = "The data in tag " + input_el.tag + " is of the wrong type."
+                error += " The expected type is " + valid_el.attrib['datatype'] + "."
                 errors.append(error)
                 return None
 
@@ -208,6 +215,6 @@ def test():
     """
     #note, you will have to set up errors like this so you have a reference
     errors = []
-    print(map_validate_xml(ET.parse('test2.xml')._root, ET.parse('newvalidation.xml')._root, errors))
+    print(map_validate_xml(ET.parse('test2.xml')._root, ET.parse('validation.xml')._root, errors))
     for err in errors:
         print(err)

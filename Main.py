@@ -1,4 +1,5 @@
 import Simulation.Simulation as Simulation
+from XML_Input.GraphSettings import *
 from Data_Output.Statistics import *
 from Data_Output.Analysis import  *
 from XML_Input.SimulationSettings import *
@@ -20,7 +21,7 @@ def main():
         done = True
         filename = raw_input("Please enter the file path for your XML configuration file: ")
         try:
-            valid = list(ET.parse("XML_Input/newvalidation.xml")._root)[0]
+            valid = list(ET.parse("XML_Input/validation.xml")._root)[0]
         except Exception as e:
             done = False
             print("Validation file was not found. Validation file must be present inside of the XML_Input directory and should be named"
@@ -46,16 +47,17 @@ def main():
         else:
             simulation_dicts.append(result)
     if passed_validation:
-        print(simulation_dicts[0])
         #run all of the simulations here
         setting_objects = []
         for d in simulation_dicts:
-            setting_objects.append(SimulationSettings(d))
+            setting_objects.append((SimulationSettings(d), GraphSettings(d)))
         for setting in setting_objects:
             s = Statistics()
-            Simulation.run(setting, s)
+            Simulation.run(setting[0], s)
+            print(s.data['avg_number_interactions'])
             a = Analysis()
-            a.generate_output(s, setting)
+            a.generate_output(s, setting[0])
+            a.generate_graphs(setting[1])
 
 
     #statistics = Statistics()
@@ -68,5 +70,5 @@ def main():
 
 #if the user is calling this script from the command line call the main method
 if  __name__ =='__main__':
-    ET.parse("XML_Input/newvalidation.xml")
+    ET.parse("XML_Input/validation.xml")
     main()
