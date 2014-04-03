@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += uitools
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,12 +14,16 @@ TARGET = XMLWidget
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
         mainwindow.cpp \
-        inputpage.cpp
+        inputpage.cpp \
 
 HEADERS  += mainwindow.h \
-         inputpage.h
+         inputpage.h \
 
 FORMS    += mainwindow.ui \
-         inputpage.ui
+         inputpage.ui \
+
+CONFIG += console
+
+CONFIG   -= x86_64
