@@ -85,13 +85,13 @@ def map_validate_xml(input_el, valid_el, errors):
                             return None
                     return val
                 elif valid_el.attrib['datatype'] == 'bool':
-                    if input_el.text == "false" or input_el.text == "False":
+                    if input_el.text.lower() == "false":
                         val = False
-                    elif input_el.text == "true" or input_el.text == "True":
+                    elif input_el.text.lower() == "true":
                         val = True
                     else:
                         error = "The data in tag " + input_el.tag + " is not valid. "
-                        error += "Please specify 'True', 'true', 'False', or 'false'"
+                        error += "Please specify 'true', or 'false'"
                         errors.append(error)
                         val = None
                     return val
