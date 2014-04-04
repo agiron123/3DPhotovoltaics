@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QWidget>
 #include <QCheckBox>
+#include <QDomElement>
 
 namespace Ui {
 class InputPage;
@@ -17,6 +18,10 @@ public:
     explicit InputPage(QWidget *parent = 0);
     ~InputPage();
     QWidget* loadUiFile();
+    QDomElement addElement( QDomDocument &doc, QDomNode &node,
+                            const QString &tag,
+                            const QString &value = QString::null );
+
 
 
 private slots:

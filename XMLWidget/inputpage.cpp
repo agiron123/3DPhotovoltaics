@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QTabWidget>
 #include <QGroupBox>
+#include <QDomElement>
 
 InputPage::InputPage(QWidget *parent) :
     QDialog(parent),
@@ -46,6 +47,15 @@ QWidget* InputPage::loadUiFile()
 
 void InputPage::on_pushButton_10_clicked(bool checked)
 {
+    QDomDocument doc; //root element for the XML file
+    QDomProcessingInstruction instr = doc.createProcessingInstruction(
+                     "xml", "version='1.0' encoding='UTF-8'");
+    doc.appendChild(instr);
+
+    // generate configurations tag as root, and then add simulations to that configurations Element
+    QDomElement configurationsElement = addElement( doc, doc, "configurations" );
+    QDomElement simulationsElement = addElement(doc, configurationsElement, "simulation");
+
     QTabWidget* root = findChild<QTabWidget*>("tab_widget");
 
     //First load the general properties tab
@@ -53,17 +63,25 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QLineEdit* panel_orientationEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_orientation");
     QString panel_orientationString = panel_orientationEdit->text();
     qDebug() << "Panel Orientation: " + panel_orientationString; //verified
+    addElement(doc, simulationsElement, "panel_orientation", panel_orientationString);
+
+    qDebug() << "XML Contents:";
+    qDebug() << doc.toString();
 
     //Specular_Reflection
     QCheckBox* specularReflectionCheckBox = generalPropertiesTab->findChild<QCheckBox*>("Non_Specular_Reflection");
     if(specularReflectionCheckBox->isChecked())
     {
         qDebug() << "Non-Specular Reflection: True"; //verified
+        addElement(doc, simulationsElement, "non_specular_reflection", "True");
     }
     else
     {
         qDebug() << "Non-Specular Reflection: False"; //verified
+        addElement(doc, simulationsElement, "non_specular_reflection", "False");
     }
+
+    ///////////////////////////////////////////Orbital Properties/////////////////////////////////////////////////////////////////////////
 
     //Orbital Properties Tab (orbital_properties_tab
     QWidget* orbitalPropertiesTab = root->findChild<QWidget*>("orbital_properties_tab");
@@ -71,34 +89,55 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QString tlePlainTextEditString = tlePlainTextEdit->toPlainText();
     qDebug() << "TLE: " + tlePlainTextEditString; //verified
 
+    QDomElement orbitalPropertiesElement = addElement(doc, simulationsElement, "orbital_properties");
+    QDomElement realOrbitElement = addElement(doc, orbitalPropertiesElement, "real_orbit");
+
+    QDomElement tle = addElement(doc, realOrbitElement, "tle", tlePlainTextEditString);
+    addElement(doc, tle, "line1", "line1text");
+    addElement(doc, tle, "line2", "line2text");
+
     //TODO: Access orbital properties form inputs here
     QLineEdit* beta_angleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("beta_angle");
     QString beta_angleString = beta_angleEdit->text();
     qDebug() << "Beta Angle: " + beta_angleString; //verified
+    addElement(doc, realOrbitElement, "beta_angle", beta_angleString);
 
     QLineEdit* earthshineEdit = orbitalPropertiesTab->findChild<QLineEdit*>("earthshine");
     QString earthshineString = earthshineEdit->text();
     qDebug() << "Earthshine: " + earthshineString; //verified
+    addElement(doc, realOrbitElement, "earthshine", earthshineString);
 
     //orbit_interval
     QLineEdit* orbitIntervalEdit = orbitalPropertiesTab->findChild<QLineEdit*>("interval");
     QString orbitIntervalString = orbitIntervalEdit->text();
     qDebug() << "Orbit Interval: " + orbitIntervalString; //verified
+    addElement(doc, realOrbitElement, "interval", orbitIntervalString);
+
+    ///////////////////////////////////////////Fixed Orbit/////////////////////////////////////////////////////////////////////////
+
+    QDomElement fixedOrbitElement = addElement(doc, orbitalPropertiesElement, "tle", tlePlainTextEditString);
 
     //Zenith Angle
     QLineEdit* zenithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("zenith_angle");
     QString zenithAngleString = zenithAngleEdit->text();
     qDebug() << "Zenith Angle: " + zenithAngleString; //verified
+    addElement(doc, fixedOrbitElement, "zenith_angle", zenithAngleString);
 
     //azimuth_angle
     QLineEdit* azumithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("azimuth_angle");
     QString azumithAngleString = azumithAngleEdit->text();
     qDebug() << "Azumith Angle: " + azumithAngleString; //verified
+    addElement(doc, fixedOrbitElement, "azimuth_angle", azumithAngleString);
 
     //photon_count
     QLineEdit* photonCountEdit = orbitalPropertiesTab->findChild<QLineEdit*>("photon_count");
     QString photonCountString = photonCountEdit->text();
     qDebug() << "Photon Count: " + photonCountString; //verified
+    addElement(doc, fixedOrbitElement, "photon_count", photonCountString);
+
+    //////////////////////////////////////////END Fixed Orbit//////////////////////////////////////////////////////////////////////
+
+    QDomElement materialProfileElement = addElement(doc, simulationsElement, "material_profile", NULL);
 
     //Material Profiles Tab
     QWidget* materialProfilesTab = root->findChild<QWidget*>("material_profiles_tab");
@@ -110,10 +149,13 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     if(absorptionCheckbox->isChecked())
     {
         qDebug() << "Absorption: True"; //verified
+        addElement(doc, simulationsElement,"absorbing", "True");
     }
     else
     {
         qDebug() << "Absorption: False"; //verified
+        addElement(doc, simulationsElement, "absorbing", "False");
+
     }
 
     //Tower tops
@@ -121,10 +163,12 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     if(towerTopsCheckbox->isChecked())
     {
         qDebug() << "Tower Tops: True"; //verified
+        addElement(doc, simulationsElement, "tower_tops", "True");
     }
     else
     {
         qDebug() << "Tower Tops: False"; //verified
+        addElement(doc, simulationsElement, "tower_tops", "False");
     }
 
     //Trapping
@@ -132,10 +176,12 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     if(trappingCheckbox->isChecked())
     {
         qDebug() << "Trapping: True"; //verified
+        addElement(doc, simulationsElement, "trapping", "True");
     }
     else
     {
         qDebug() << "Trapping: False"; //verified
+        addElement(doc, simulationsElement, "trapping", "False");
     }
 
     //Tower Shape
@@ -143,8 +189,18 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QComboBox* shapeComboBox = materialProfilesTab->findChild<QComboBox*>("shape");
     qDebug() << "Selected Shape: " + shapeComboBox->itemText(shapeComboBox->currentIndex());
 
+    //Tower Pitch
+    //TODO
+
+    //Tower Width
+    //TODO
+
+    //Tower Height
+
 
     //Output Tab
+    QDomElement outputSettingsElement = addElement(doc, simulationsElement, "output_settings",NULL);
+
     QWidget* outputTab = root->findChild<QWidget*>("output_tab");
 
     //TODO: Access output tab form input here
@@ -242,4 +298,19 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     {
         qDebug() << "message, Pressed the damn button";
     }
+}
+
+/* Helper function to generate a DOM Element for the given DOM document
+   and append it to the children of the given node. */
+QDomElement InputPage::addElement( QDomDocument &doc, QDomNode &node,
+                        const QString &tag,
+                        const QString &value)
+{
+  QDomElement el = doc.createElement( tag );
+  node.appendChild( el );
+  if ( !value.isNull() ) {
+    QDomText txt = doc.createTextNode( value );
+    el.appendChild( txt );
+  }
+  return el;
 }
