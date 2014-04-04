@@ -2,6 +2,7 @@ from Data_Output.Analysis import *
 from Data_Output.Statistics import *
 from Data_Output.Stat import *
 from XML_Input.GraphSettings import *
+from XML_Input.SimulationSettings import *
 import random
 import numpy as np
 from Simulation import Photon
@@ -34,40 +35,48 @@ def Main():
 
     print(vars(graph_settings))"""
 
-    settings_dict = {"MaxPointPowerVsZenithAngle":"False","AverageReflectionsVsAzumithal":"False",
-                     "AbsorptionEfficiencyVsAzumithal":"False", "AspectRatioVsAverageReflections":"False",
-                     "IntegratedAreaRatioVsAvgNumReflections":"False", "PowerRatio3DVsAbsorbance":"False",
-                     "AvgInteractionsVsTowerSpacingLog":"False","AvgReflectionsVsTowerHeight":"True"}
+    settings_dict = {"MaxPointPowerVsZenithAngle":False,"AverageReflectionsVsAzumithal":False,
+                     "AbsorptionEfficiencyVsAzumithal":False, "AspectRatioVsAverageReflections":False,
+                     "IntegratedAreaRatioVsAvgNumReflections":False, "PowerRatio3DVsAbsorbance":False,
+                     "AvgInteractionsVsTowerSpacingLog":False,"AvgReflectionsVsTowerHeight":True}
 
-    graph_settings = GraphSettings(settings_dict)
+    settings_list = ["AbsorptionEfficiencyVsAzumithal"]
+    graph_dict = {'graph_settings': settings_list}
+    out_dict = {'output_settings': graph_dict}
+
+    graph_settings = GraphSettings(out_dict)
+    print(vars(graph_settings))
     analysis = Analysis()
 
 
     print("making photon\n")
-    azimuth = random.randint(1, 30) + 0.0
-    zenith = random.randint(1, 40) + 0.0
-    wavelength = random.randint(1, 50) + 0.0
-    photon = Photon.Photon(np.array([0, -1, 0]), np.array([1, 1, 0]),wavelength,azimuth,zenith)
+    photon_list = []
+    for j in range(10):
+        azimuth = random.randint(1, 30) + 0.0
+        zenith = random.randint(1, 40) + 0.0
+        wavelength = random.randint(1, 50) + 0.0
+        photon = Photon.Photon(np.array([0, -1, 0]), np.array([1, 1, 0]),wavelength,azimuth,zenith)
+        photon_list.append(photon)
     print("made photon\n")
 
     print("making stats\n")
     stat_list = []
-    for i in range(100):
+    for j in range(10):
+        for i in range(10):
+            stat = Stat(photon_list[j])
+            if random.randint(1, 10) % 2 == 0:
+                stat.absorbed = False
+            else:
+                stat.absorbed = True
+            if random.randint(1, 10) % 2 == 0:
+                stat.trapped = False
+            else:
+                stat.trapped = True
+            stat.path = [1,2,3,4]
+            stat.reflections = random.randint(1, 10) + 0.0
+            stat.interactions = random.randint(1, 10) + 0.0
 
-        stat = Stat(photon)
-        if random.randint(1, 10) % 2 == 0:
-            stat.absorbed = False
-        else:
-            stat.absorbed = True
-        if random.randint(1, 10) % 2 == 0:
-            stat.trapped = False
-        else:
-            stat.trapped = True
-        stat.path = [1,2,3,4]
-        stat.reflections = random.randint(1, 10) + 0.0
-        stat.interactions = random.randint(1, 10) + 0.0
-
-        stat_list.append(stat)
+            stat_list.append(stat)
     print("made stats\n")
 
     statistic = Statistics()
@@ -91,9 +100,11 @@ def Main():
         #sim_sets_list.append(sim_settings)
         sim_sets_list.append("tower data") # this is overwritten in analysis for the time being, until the parser works
 
-    sim_sets="tower data"
+    #sim_sets="tower data"
+    tower_sets_dict = {'width': 40, 'shape': 'square', 'height': 10, 'pitch': 10}
+    tower_dict = {'tower': tower_sets_dict}
     print("outputting data\n")
-    analysis.generate_output(statistic, sim_sets)
+    analysis.generate_output(statistic, tower_dict)
     #analysis.generate_output(statistics_list, sim_sets_list)
     #analysis.save_photon_path(statistic)
     print("outputted data\n")
