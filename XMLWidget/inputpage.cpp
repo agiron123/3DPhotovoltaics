@@ -16,7 +16,6 @@ InputPage::InputPage(QWidget *parent) :
     ui->setupUi(this);
 
     //Initialize the member variables
-
     //General Properties Tab
     root = findChild<QTabWidget*>("tab_widget");
     generalPropertiesTab = root->findChild<QWidget*>("general_properties_tab");
@@ -55,7 +54,7 @@ InputPage::InputPage(QWidget *parent) :
     AvgInteractionsVsTowerSpacingLogCheckbox = outputTab->findChild<QCheckBox*>("AvgInteractionsVsTowerSpacingLog");
     AvgReflectionsVsTowerHeightCheckbox = outputTab->findChild<QCheckBox*>("AvgReflectionsVsTowerHeight");
     AbsorptionEfficiencyVsAzumithalCheckbox = outputTab->findChild<QCheckBox*>("AbsorptionEfficiencyVsAzumithal");
-
+    includePathsCheckbox = outputTab->findChild<QCheckBox*>("include_paths");
 }
 
 InputPage::~InputPage()
@@ -223,94 +222,83 @@ void InputPage::on_pushButton_10_clicked(bool checked)
 
     ///////////////////////////////////////////Output Settings/////////////////////////////////////////////////////////////////////
 
+    QString graphsList = "";
+
     //Output Tab
     QDomElement outputSettingsElement = addElement(doc, simulationsElement, "output_settings",NULL);
+    QDomElement graphSettingsElement = addElement(doc, outputSettingsElement, "graph_settings", NULL);
+    QDomElement includePathsElement = addElement(doc, outputSettingsElement, "include_paths", NULL);
 
     //MaxPointPowerVsZenithAngle
     if(maxPointPowerVsZenithAngleCheckbox->isChecked())
     {
         qDebug() << "MaxPointPowerVsZenithAngle: True"; //verified
-    }
-    else
-    {
-        qDebug() << "MaxPointPowerVsZenithAngle: False"; //verified
+        graphsList += "MaxPointPowerVsZenithAngle, \n";
     }
 
     //AverageReflectionsVsAzumithal
     if(AverageReflectionsVsAzumithalCheckbox->isChecked())
     {
         qDebug() << "AverageReflectionsVsAzumithal: True"; //verified
-    }
-    else
-    {
-        qDebug() << "AverageReflectionsVsAzumithal: False"; //verified
+        graphsList += "AverageReflectionsVsAzumithal, \n";
     }
 
     //AbsorptionEfficiencyVsAzumithal
     if(AbsorptionEfficiencyVsAzumithalCheckbox->isChecked())
     {
         qDebug() << "AbsorptionEfficiencyVsAzumithal: True"; //verified
-    }
-    else
-    {
-        qDebug() << "AbsorptionEfficiencyVsAzumithal: False"; //verified
+        graphsList += "AbsorptionEfficiencyVsAzumithal,\n";
     }
 
     //AspectRatioVsAverageReflections
     if(AspectRatioVsAverageReflectionsCheckbox->isChecked())
     {
         qDebug() << "AspectRatioVsAverageReflections: True"; //verified
-    }
-    else
-    {
-        qDebug() << "AspectRatioVsAverageReflections: False"; //verified
+        graphsList += "AspectRatioVsAverageReflections,\n";
     }
 
     //IntegratedAreaRatioVsAvgNumReflections
     if(IntegratedAreaRatioVsAvgNumReflectionsCheckbox->isChecked())
     {
         qDebug() << "IntegratedAreaRatioVsAvgNumReflections: True"; //verified
-    }
-    else
-    {
-        qDebug() << "IntegratedAreaRatioVsAvgNumReflections: False"; //verified
+        graphsList += "IntegratedAreaRatioVsAvgNumReflections,\n";
     }
 
     //PowerRatio3DVsAbsorbance
     if(PowerRatio3DVsAbsorbanceCheckbox->isChecked())
     {
         qDebug() << "PowerRatio3DVsAbsorbance: True"; //verified
-    }
-    else
-    {
-        qDebug() << "PowerRatio3DVsAbsorbance: False"; //verified
+        graphsList += "PowerRatio3DVsAbsorbance,\n";
     }
 
     //AvgInteractionsVsTowerSpacingLog
     if(AvgInteractionsVsTowerSpacingLogCheckbox->isChecked())
     {
         qDebug() << "AvgInteractionsVsTowerSpacingLog: True"; //verified
-    }
-    else
-    {
-        qDebug() << "AvgInteractionsVsTowerSpacingLog: False"; //verified
+        graphsList += "AvgInteractionsVsTowerSpacingLog,\n";
     }
 
     //AvgReflectionsVsTowerHeight
     if(AvgReflectionsVsTowerHeightCheckbox->isChecked())
     {
         qDebug() << "AvgReflectionsVsTowerHeight: True"; //verified
+        graphsList += "AvgReflectionsVsTowerHeight\n";
     }
-    else
+
+    if(includePathsCheckbox->isChecked())
     {
-        qDebug() << "AvgReflectionsVsTowerHeight: False"; //verified
+        addElement(doc, includePathsElement, "true");
     }
+
+    addElement(doc, graphSettingsElement, graphsList);
 
     ///////////////////////////////////////////END Output Settings/////////////////////////////////////////////////////////////////
 
-
     qDebug() << "XML Contents:";
     qDebug() << doc.toString();
+
+    qDebug() << "Graphs List:";
+    qDebug() << graphsList;
 
     //TODO: Remove this later
     if(checked)
@@ -349,10 +337,8 @@ bool InputPage::validateFormInput()
 
     //Make sure that each input is within specified range.
 
-
     return true;
 }
-
 
 void InputPage::on_doneButton_clicked()
 {

@@ -707,7 +707,7 @@
        <x>260</x>
        <y>0</y>
        <width>331</width>
-       <height>261</height>
+       <height>191</height>
       </rect>
      </property>
      <property name="title">
@@ -842,6 +842,19 @@
      </property>
      <property name="text">
       <string>Cancel</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="include_paths">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>200</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Include Photon Paths</string>
      </property>
     </widget>
    </widget>

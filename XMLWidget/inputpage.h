@@ -75,7 +75,7 @@ private:
     QCheckBox* AvgInteractionsVsTowerSpacingLogCheckbox;
     QCheckBox* AvgReflectionsVsTowerHeightCheckbox;
     QCheckBox* AbsorptionEfficiencyVsAzumithalCheckbox;
-
+    QCheckBox* includePathsCheckbox;
 };
 
 #endif // INPUTPAGE_H
