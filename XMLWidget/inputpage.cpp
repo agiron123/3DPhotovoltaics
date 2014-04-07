@@ -15,6 +15,47 @@ InputPage::InputPage(QWidget *parent) :
     QWidget test;
     ui->setupUi(this);
 
+    //Initialize the member variables
+
+    //General Properties Tab
+    root = findChild<QTabWidget*>("tab_widget");
+    generalPropertiesTab = root->findChild<QWidget*>("general_properties_tab");
+    panel_orientationEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_orientation");
+    specularReflectionCheckBox = generalPropertiesTab->findChild<QCheckBox*>("Non_Specular_Reflection");
+
+    //Orbital Properties Tab
+    orbitalPropertiesTab = root->findChild<QWidget*>("orbital_properties_tab");
+    tlePlainTextEdit = orbitalPropertiesTab->findChild<QPlainTextEdit*>("TLE");
+    beta_angleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("beta_angle");
+    earthshineEdit = orbitalPropertiesTab->findChild<QLineEdit*>("earthshine");
+
+    //Fixed Orbit
+    orbitIntervalEdit = orbitalPropertiesTab->findChild<QLineEdit*>("interval");
+    zenithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("zenith_angle");
+    azumithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("azimuth_angle");
+    photonCountEdit = orbitalPropertiesTab->findChild<QLineEdit*>("photon_count");
+
+    //Material Profiles Tab
+    materialProfilesTab = root->findChild<QWidget*>("material_profiles_tab");
+    absorptionCheckbox = materialProfilesTab->findChild<QCheckBox*>("absorbing");
+    towerTopsCheckbox = materialProfilesTab->findChild<QCheckBox*>("tower_tops");
+    trappingCheckbox = materialProfilesTab->findChild<QCheckBox*>("trapping");
+    shapeComboBox = materialProfilesTab->findChild<QComboBox*>("shape");
+    towerPitchEdit = materialProfilesTab->findChild<QLineEdit*>("pitch");
+    towerWidthEdit = materialProfilesTab->findChild<QLineEdit*>("width");
+    towerHeightEdit = materialProfilesTab->findChild<QLineEdit*>("height");
+
+    //Output Tab
+    outputTab = root->findChild<QWidget*>("output_tab");
+    maxPointPowerVsZenithAngleCheckbox = outputTab->findChild<QCheckBox*>("MaxPointPowerVsZenithAngle");
+    AverageReflectionsVsAzumithalCheckbox = outputTab->findChild<QCheckBox*>("AverageReflectionsVsAzumithal");
+    AspectRatioVsAverageReflectionsCheckbox = outputTab->findChild<QCheckBox*>("AspectRatioVsAverageReflections");
+    IntegratedAreaRatioVsAvgNumReflectionsCheckbox = outputTab->findChild<QCheckBox*>("IntegratedAreaRatioVsAvgNumReflections");
+    PowerRatio3DVsAbsorbanceCheckbox = outputTab->findChild<QCheckBox*>("PowerRatio3DVsAbsorbance");
+    AvgInteractionsVsTowerSpacingLogCheckbox = outputTab->findChild<QCheckBox*>("AvgInteractionsVsTowerSpacingLog");
+    AvgReflectionsVsTowerHeightCheckbox = outputTab->findChild<QCheckBox*>("AvgReflectionsVsTowerHeight");
+    AbsorptionEfficiencyVsAzumithalCheckbox = outputTab->findChild<QCheckBox*>("AbsorptionEfficiencyVsAzumithal");
+
 }
 
 InputPage::~InputPage()
@@ -37,8 +78,6 @@ QWidget* InputPage::loadUiFile()
     QCheckBox* checkbox = loader.findChild<QCheckBox*>("powergenratio3D");
     checkbox->setChecked(true);
 
-    qDebug() << "Hello there, I'm a log!";
-
     //After we did everything to the view, now update the view.
     formWidget->update();
 
@@ -56,20 +95,12 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QDomElement configurationsElement = addElement( doc, doc, "configurations" );
     QDomElement simulationsElement = addElement(doc, configurationsElement, "simulation");
 
-    QTabWidget* root = findChild<QTabWidget*>("tab_widget");
-
     //First load the general properties tab
-    QWidget* generalPropertiesTab = root->findChild<QWidget*>("general_properties_tab");
-    QLineEdit* panel_orientationEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_orientation");
     QString panel_orientationString = panel_orientationEdit->text();
     qDebug() << "Panel Orientation: " + panel_orientationString; //verified
     addElement(doc, simulationsElement, "panel_orientation", panel_orientationString);
 
-    qDebug() << "XML Contents:";
-    qDebug() << doc.toString();
-
     //Specular_Reflection
-    QCheckBox* specularReflectionCheckBox = generalPropertiesTab->findChild<QCheckBox*>("Non_Specular_Reflection");
     if(specularReflectionCheckBox->isChecked())
     {
         qDebug() << "Non-Specular Reflection: True"; //verified
@@ -84,8 +115,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     ///////////////////////////////////////////Orbital Properties/////////////////////////////////////////////////////////////////////////
 
     //Orbital Properties Tab (orbital_properties_tab
-    QWidget* orbitalPropertiesTab = root->findChild<QWidget*>("orbital_properties_tab");
-    QPlainTextEdit* tlePlainTextEdit = orbitalPropertiesTab->findChild<QPlainTextEdit*>("TLE");
     QString tlePlainTextEditString = tlePlainTextEdit->toPlainText();
     qDebug() << "TLE: " + tlePlainTextEditString; //verified
 
@@ -93,22 +122,21 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QDomElement realOrbitElement = addElement(doc, orbitalPropertiesElement, "real_orbit");
 
     QDomElement tle = addElement(doc, realOrbitElement, "tle", tlePlainTextEditString);
-    addElement(doc, tle, "line1", "line1text");
-    addElement(doc, tle, "line2", "line2text");
+    //TODO: Parse out the lines that are entered and put them into these two tags.
+    //addElement(doc, tle, "line1", "line1text");
+    //addElement(doc, tle, "line2", "line2text");
 
-    //TODO: Access orbital properties form inputs here
-    QLineEdit* beta_angleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("beta_angle");
+    //beta_angle
     QString beta_angleString = beta_angleEdit->text();
     qDebug() << "Beta Angle: " + beta_angleString; //verified
     addElement(doc, realOrbitElement, "beta_angle", beta_angleString);
 
-    QLineEdit* earthshineEdit = orbitalPropertiesTab->findChild<QLineEdit*>("earthshine");
+    //earthshine
     QString earthshineString = earthshineEdit->text();
     qDebug() << "Earthshine: " + earthshineString; //verified
     addElement(doc, realOrbitElement, "earthshine", earthshineString);
 
     //orbit_interval
-    QLineEdit* orbitIntervalEdit = orbitalPropertiesTab->findChild<QLineEdit*>("interval");
     QString orbitIntervalString = orbitIntervalEdit->text();
     qDebug() << "Orbit Interval: " + orbitIntervalString; //verified
     addElement(doc, realOrbitElement, "interval", orbitIntervalString);
@@ -118,34 +146,27 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     QDomElement fixedOrbitElement = addElement(doc, orbitalPropertiesElement, "tle", tlePlainTextEditString);
 
     //Zenith Angle
-    QLineEdit* zenithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("zenith_angle");
     QString zenithAngleString = zenithAngleEdit->text();
     qDebug() << "Zenith Angle: " + zenithAngleString; //verified
     addElement(doc, fixedOrbitElement, "zenith_angle", zenithAngleString);
 
     //azimuth_angle
-    QLineEdit* azumithAngleEdit = orbitalPropertiesTab->findChild<QLineEdit*>("azimuth_angle");
     QString azumithAngleString = azumithAngleEdit->text();
     qDebug() << "Azumith Angle: " + azumithAngleString; //verified
     addElement(doc, fixedOrbitElement, "azimuth_angle", azumithAngleString);
 
     //photon_count
-    QLineEdit* photonCountEdit = orbitalPropertiesTab->findChild<QLineEdit*>("photon_count");
     QString photonCountString = photonCountEdit->text();
     qDebug() << "Photon Count: " + photonCountString; //verified
     addElement(doc, fixedOrbitElement, "photon_count", photonCountString);
 
     //////////////////////////////////////////END Fixed Orbit//////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////Material Profiles///////////////////////////////////////////////////////////////////
+
     QDomElement materialProfileElement = addElement(doc, simulationsElement, "material_profile", NULL);
 
-    //Material Profiles Tab
-    QWidget* materialProfilesTab = root->findChild<QWidget*>("material_profiles_tab");
-
-    //TODO: Access material profiles form inputs here
-
     //Absorptions
-    QCheckBox* absorptionCheckbox = materialProfilesTab->findChild<QCheckBox*>("absorbing");
     if(absorptionCheckbox->isChecked())
     {
         qDebug() << "Absorption: True"; //verified
@@ -155,11 +176,9 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     {
         qDebug() << "Absorption: False"; //verified
         addElement(doc, simulationsElement, "absorbing", "False");
-
     }
 
     //Tower tops
-    QCheckBox* towerTopsCheckbox = materialProfilesTab->findChild<QCheckBox*>("tower_tops");
     if(towerTopsCheckbox->isChecked())
     {
         qDebug() << "Tower Tops: True"; //verified
@@ -172,7 +191,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //Trapping
-    QCheckBox* trappingCheckbox = materialProfilesTab->findChild<QCheckBox*>("trapping");
     if(trappingCheckbox->isChecked())
     {
         qDebug() << "Trapping: True"; //verified
@@ -184,28 +202,31 @@ void InputPage::on_pushButton_10_clicked(bool checked)
         addElement(doc, simulationsElement, "trapping", "False");
     }
 
+    QDomElement towerElement = addElement(doc, simulationsElement, "tower", NULL);
+
     //Tower Shape
-    //shape
-    QComboBox* shapeComboBox = materialProfilesTab->findChild<QComboBox*>("shape");
     qDebug() << "Selected Shape: " + shapeComboBox->itemText(shapeComboBox->currentIndex());
+    addElement(doc, towerElement, "shape", shapeComboBox->itemText(shapeComboBox->currentIndex()));
 
     //Tower Pitch
-    //TODO
+    QString towerPitchString = towerPitchEdit->text();
+    addElement(doc, towerElement, "pitch", towerPitchString);
 
     //Tower Width
-    //TODO
+    QString towerWidthString = towerWidthEdit->text();
+    addElement(doc, towerElement, "width", towerWidthString);
 
     //Tower Height
+    QString towerHeightString = towerHeightEdit->text();
+    addElement(doc, towerElement, "height", towerHeightString);
 
+
+    ///////////////////////////////////////////Output Settings/////////////////////////////////////////////////////////////////////
 
     //Output Tab
     QDomElement outputSettingsElement = addElement(doc, simulationsElement, "output_settings",NULL);
 
-    QWidget* outputTab = root->findChild<QWidget*>("output_tab");
-
-    //TODO: Access output tab form input here
     //MaxPointPowerVsZenithAngle
-    QCheckBox* maxPointPowerVsZenithAngleCheckbox = outputTab->findChild<QCheckBox*>("MaxPointPowerVsZenithAngle");
     if(maxPointPowerVsZenithAngleCheckbox->isChecked())
     {
         qDebug() << "MaxPointPowerVsZenithAngle: True"; //verified
@@ -216,7 +237,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //AverageReflectionsVsAzumithal
-    QCheckBox* AverageReflectionsVsAzumithalCheckbox = outputTab->findChild<QCheckBox*>("AverageReflectionsVsAzumithal");
     if(AverageReflectionsVsAzumithalCheckbox->isChecked())
     {
         qDebug() << "AverageReflectionsVsAzumithal: True"; //verified
@@ -227,7 +247,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //AbsorptionEfficiencyVsAzumithal
-    QCheckBox* AbsorptionEfficiencyVsAzumithalCheckbox = outputTab->findChild<QCheckBox*>("AbsorptionEfficiencyVsAzumithal");
     if(AbsorptionEfficiencyVsAzumithalCheckbox->isChecked())
     {
         qDebug() << "AbsorptionEfficiencyVsAzumithal: True"; //verified
@@ -238,7 +257,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //AspectRatioVsAverageReflections
-    QCheckBox* AspectRatioVsAverageReflectionsCheckbox = outputTab->findChild<QCheckBox*>("AspectRatioVsAverageReflections");
     if(AspectRatioVsAverageReflectionsCheckbox->isChecked())
     {
         qDebug() << "AspectRatioVsAverageReflections: True"; //verified
@@ -249,7 +267,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //IntegratedAreaRatioVsAvgNumReflections
-    QCheckBox* IntegratedAreaRatioVsAvgNumReflectionsCheckbox = outputTab->findChild<QCheckBox*>("IntegratedAreaRatioVsAvgNumReflections");
     if(IntegratedAreaRatioVsAvgNumReflectionsCheckbox->isChecked())
     {
         qDebug() << "IntegratedAreaRatioVsAvgNumReflections: True"; //verified
@@ -260,7 +277,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //PowerRatio3DVsAbsorbance
-    QCheckBox* PowerRatio3DVsAbsorbanceCheckbox = outputTab->findChild<QCheckBox*>("PowerRatio3DVsAbsorbance");
     if(PowerRatio3DVsAbsorbanceCheckbox->isChecked())
     {
         qDebug() << "PowerRatio3DVsAbsorbance: True"; //verified
@@ -271,7 +287,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //AvgInteractionsVsTowerSpacingLog
-    QCheckBox* AvgInteractionsVsTowerSpacingLogCheckbox = outputTab->findChild<QCheckBox*>("AvgInteractionsVsTowerSpacingLog");
     if(AvgInteractionsVsTowerSpacingLogCheckbox->isChecked())
     {
         qDebug() << "AvgInteractionsVsTowerSpacingLog: True"; //verified
@@ -282,7 +297,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
     }
 
     //AvgReflectionsVsTowerHeight
-    QCheckBox* AvgReflectionsVsTowerHeightCheckbox = outputTab->findChild<QCheckBox*>("AvgReflectionsVsTowerHeight");
     if(AvgReflectionsVsTowerHeightCheckbox->isChecked())
     {
         qDebug() << "AvgReflectionsVsTowerHeight: True"; //verified
@@ -292,6 +306,11 @@ void InputPage::on_pushButton_10_clicked(bool checked)
         qDebug() << "AvgReflectionsVsTowerHeight: False"; //verified
     }
 
+    ///////////////////////////////////////////END Output Settings/////////////////////////////////////////////////////////////////
+
+
+    qDebug() << "XML Contents:";
+    qDebug() << doc.toString();
 
     //TODO: Remove this later
     if(checked)
@@ -313,4 +332,29 @@ QDomElement InputPage::addElement( QDomDocument &doc, QDomNode &node,
     el.appendChild( txt );
   }
   return el;
+}
+
+void InputPage::on_addSimulationButton_clicked()
+{
+    qDebug() << "Clicked the Add Simulation button";
+
+    //Create a new simulation dom element
+
+    //Add that dom element to the existing dom structure
+}
+
+bool InputPage::validateFormInput()
+{
+    qDebug() << "Validating Form Input";
+
+    //Make sure that each input is within specified range.
+
+
+    return true;
+}
+
+
+void InputPage::on_doneButton_clicked()
+{
+    qDebug() << "Clicked the Done button";
 }

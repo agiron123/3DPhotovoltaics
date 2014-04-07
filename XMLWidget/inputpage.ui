@@ -32,7 +32,7 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>170</x>
        <y>20</y>
        <width>121</width>
        <height>16</height>
@@ -45,7 +45,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>170</x>
        <y>70</y>
        <width>121</width>
        <height>16</height>
@@ -68,49 +68,10 @@
       <string>Non-Specular Reflection</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>590</x>
-       <y>60</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Profile</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="general_SaveProfileButton">
-     <property name="geometry">
-      <rect>
-       <x>580</x>
-       <y>80</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Save Profile</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="general_LoadProfileButton">
-     <property name="geometry">
-      <rect>
-       <x>580</x>
-       <y>110</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Profile</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="panel_orientation">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>170</x>
        <y>40</y>
        <width>113</width>
        <height>21</height>
@@ -120,37 +81,11 @@
     <widget class="QLineEdit" name="num_orbits">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>170</x>
        <y>90</y>
        <width>113</width>
        <height>21</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="general_RunButton">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>190</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Run/Pause</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="general_CancelButton">
-     <property name="geometry">
-      <rect>
-       <x>400</x>
-       <y>190</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Cancel</string>
      </property>
     </widget>
    </widget>
@@ -442,32 +377,6 @@
        <width>113</width>
        <height>21</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>230</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ok</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_9">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>230</y>
-       <width>114</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Cancel</string>
      </property>
     </widget>
     <widget class="QComboBox" name="shape">
@@ -937,7 +846,7 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="addSimulationButton">
    <property name="geometry">
     <rect>
      <x>680</x>
@@ -950,7 +859,7 @@
     <string>Add Simulation</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="doneButton">
    <property name="geometry">
     <rect>
      <x>680</x>
