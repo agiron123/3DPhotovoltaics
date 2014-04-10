@@ -6,6 +6,9 @@ from XML_Input.SimulationSettings import *
 import random
 import numpy as np
 from Simulation import Photon
+import Simulation.Simulation as Simulation
+from XML_Input import XML_Reader
+import xml.etree.ElementTree as ET
 
 
 """This class just test if a Raw data dump works correctly. It does not use all of the functions as they should be used,
@@ -40,7 +43,9 @@ def Main():
                      "IntegratedAreaRatioVsAvgNumReflections":False, "PowerRatio3DVsAbsorbance":False,
                      "AvgInteractionsVsTowerSpacingLog":False,"AvgReflectionsVsTowerHeight":True}
 
-    settings_list = ["AbsorptionEfficiencyVsAzumithal"]
+    settings_list = ["AbsorptionEfficiencyVsAzumithal","AvgReflectionsVsTowerHeight","AverageReflectionsVsAzumithal",
+                     "AvgInteractionsVsTowerSpacingLog"]
+
     graph_dict = {'graph_settings': settings_list}
     out_dict = {'output_settings': graph_dict}
 
@@ -120,4 +125,75 @@ def Main():
 
     #print(vars(graph_settings))
 
+
+
+def main2():
+    """
+    Main method for running the entire program. Will prompt the user for input and then run the simulation.
+    First checks tha valid XML files for both the user input and validation file are present.
+    Each simulation tag is then checked against the validation file to make sure that it is properly formatted
+    and all needed information is present. If any simulation tag contains errors the user is notified of
+    these errors, and the simulation is not run.
+    """
+    print ("Welcome to the 3D Photovoltaics Modeling.")
+    done = False
+    while not done:
+        done = True
+        filename = raw_input("Please enter the file path for your XML configuration file: ")
+        try:
+            valid = list(ET.parse("XML_Input/validation.xml")._root)[0]
+        except Exception as e:
+            done = False
+            print("Validation file was not found. Validation file must be present inside of the XML_Input directory and should be named"
+                  "validation.xml.")
+        try:
+            inputted = ET.parse(filename)
+        except Exception as e:
+            done = False
+            print("Error opening the input file: " + e.message)
+            print("Please check your file path and make sure the XML is valid")
+    simulation_tags = inputted.findall("simulation")
+    simulation_dicts = []
+    passed_validation = True
+    for i in range(len(simulation_tags)):
+        errors = []
+        result = XML_Reader.map_validate_xml(simulation_tags[i], valid, errors)
+        if len(errors) > 0:
+            passed_validation = False
+            print("On simulation tag number " + str(i+1) + " there were the following errors: \n")
+            for error in errors:
+                print(error)
+            print("\n")
+        else:
+            simulation_dicts.append(result)
+    if passed_validation:
+        #run all of the simulations here
+        setting_objects = []
+        for d in simulation_dicts:
+            setting_objects.append((SimulationSettings(d), GraphSettings(d)))
+        for setting in setting_objects:
+            s = Statistics()
+            Simulation.run(setting[0], s)
+            a = Analysis()
+            print("##################################################################")
+            print(setting[0])
+            print("------------------------------------------------------------------")
+            print(setting[0].material_profile)
+            print("------------------------------------------------------------------")
+            print(vars(setting[0])["material_profile"])
+            print("##################################################################")
+           # a.generate_output(s, setting[0])
+           # a.generate_graphs(setting[1])
+
+
+    #statistics = Statistics()
+    #Simulation.run(arguments, statistics)
+
+    #simulation is done running, now we can out the put results and perform some analysis
+    #analysis = Analysis()
+    #analysis.generate_graphs()
+    #analysis.generate_output()
+
 Main()
+
+#main2()
