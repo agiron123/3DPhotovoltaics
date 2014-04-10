@@ -22,6 +22,10 @@ InputPage::InputPage(QWidget *parent) :
     panel_orientationEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_orientation");
     specularReflectionCheckBox = generalPropertiesTab->findChild<QCheckBox*>("Non_Specular_Reflection");
 
+    //TODO: Add to xml document structure
+    panelHeightEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_height");
+    panelWidthEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_width");
+
     //Orbital Properties Tab
     orbitalPropertiesTab = root->findChild<QWidget*>("orbital_properties_tab");
     tlePlainTextEdit = orbitalPropertiesTab->findChild<QPlainTextEdit*>("TLE");
