@@ -36,3 +36,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+#Qt Creator
+/XMLWidget/build-XMLWidget-Desktop_Qt_5_2_1_clang_64bit-Debug/
+/XMLWidget/XMLWidget.pro.user
