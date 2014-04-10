@@ -126,22 +126,21 @@ class Analysis(object):
 
             #gets the tower's setting from the simulation settings
             #TODO: Uncomment following two lines if not testing or debugging this file
-            #tower_settings = vars(sim_settings[index])['tower'])
-            #material_data = sim_settings[index]).material_profile
-
+            tower_settings = vars(sim_settings[index])['tower']
+            material_data = sim_settings[index].material_profile
 
             #----------------------------------------------------------------------------------------------------------
             #TODO: remove print statements and remove the overwrite of tower settings
             # This was for testing when the xml parser did not work to use this you need to comment out the line above
-            print("\n Tower settings changes\n")
-            width = randint(1, 10)*10.0
-            height = randint(1, 10)*10.0
-            pitch = randint(1, 10)*10.0
-            abs_coeff = randint(1, 10)*1000000.0
-            band_gap = randint(1, 200)/100.0
-            tower_settings = {'width': str(width), 'shape': 'square', 'height': str(height), 'pitch': str(pitch)}
-            material_data = {'absorption_coefficient': str(abs_coeff), 'band_gap': str(band_gap)}
-            print("\n End of tower settings changes\n")
+            #print("\n Tower settings changes\n")
+            #width = randint(1, 10)*10.0
+            #height = randint(1, 10)*10.0
+            #pitch = randint(1, 10)*10.0
+            #abs_coeff = randint(1, 10)*1000000.0
+            #band_gap = randint(1, 200)/100.0
+            #tower_settings = {'width': str(width), 'shape': 'square', 'height': str(height), 'pitch': str(pitch)}
+            #material_data = {'absorption_coefficient': str(abs_coeff), 'band_gap': str(band_gap)}
+            #print("\n End of tower settings changes\n")
             #----------------------------------------------------------------------------------------------------------
 
             #adds the aspect ratio and log of the tower pitch to the tower settings
