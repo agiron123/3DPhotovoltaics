@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="general_properties_tab">
     <attribute name="title">
@@ -83,6 +83,52 @@
       <rect>
        <x>170</x>
        <y>90</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>120</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Panel Width (cm)</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="panel_width">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>140</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>170</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Panel Height (cm)</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="panel_height">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>190</y>
        <width>113</width>
        <height>21</height>
       </rect>
