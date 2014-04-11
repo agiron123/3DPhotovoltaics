@@ -87,7 +87,7 @@ QWidget* InputPage::loadUiFile()
     return formWidget;
 }
 
-void InputPage::on_pushButton_10_clicked(bool checked)
+void InputPage::on_doneButton_clicked()
 {
     QDomDocument doc; //root element for the XML file
     QDomProcessingInstruction instr = doc.createProcessingInstruction(
@@ -114,6 +114,17 @@ void InputPage::on_pushButton_10_clicked(bool checked)
         qDebug() << "Non-Specular Reflection: False"; //verified
         addElement(doc, simulationsElement, "non_specular_reflection", "False");
     }
+
+    QDomElement panelSettingsElement = addElement(doc, simulationsElement, "panel_settings", NULL);
+
+    QString panelHeightString = panelHeightEdit->text();
+    qDebug() << "Panel Height: " + panelHeightString;
+    addElement(doc, panelSettingsElement, "panel_height", panelHeightString);
+
+    QString panelWidthString = panelWidthEdit->text();
+    qDebug() << "Panel Width: " + panelWidthString;
+    addElement(doc, panelSettingsElement, "panel_width", panelWidthString);
+
 
     ///////////////////////////////////////////Orbital Properties/////////////////////////////////////////////////////////////////////////
 
@@ -303,12 +314,6 @@ void InputPage::on_pushButton_10_clicked(bool checked)
 
     qDebug() << "Graphs List:";
     qDebug() << graphsList;
-
-    //TODO: Remove this later
-    if(checked)
-    {
-        qDebug() << "message, Pressed the damn button";
-    }
 }
 
 /* Helper function to generate a DOM Element for the given DOM document
@@ -330,9 +335,16 @@ void InputPage::on_addSimulationButton_clicked()
 {
     qDebug() << "Clicked the Add Simulation button";
 
+    //First validate form input
+    //let user know that they need to fill out all tags before proceeding
+
     //Create a new simulation dom element
 
     //Add that dom element to the existing dom structure
+
+    //Then clear out the input fields.
+
+    //Not sure about how we are going to handle things like the user going back and editing a different simulation tag.
 }
 
 bool InputPage::validateFormInput()
@@ -342,9 +354,4 @@ bool InputPage::validateFormInput()
     //Make sure that each input is within specified range.
 
     return true;
-}
-
-void InputPage::on_doneButton_clicked()
-{
-    qDebug() << "Clicked the Done button";
 }

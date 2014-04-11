@@ -27,10 +27,8 @@ public:
                             const QString &value = QString::null );
 
 private slots:
-    void on_pushButton_10_clicked(bool checked);
     void on_addSimulationButton_clicked();
     bool validateFormInput();
-
     void on_doneButton_clicked();
 
 private:
