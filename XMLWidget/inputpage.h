@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QPlainTextEdit>
 #include <QComboBox>
+#include <QDomDocument>
 
 namespace Ui {
 class InputPage;
@@ -30,11 +31,16 @@ private slots:
     void on_addSimulationButton_clicked();
     bool validateFormInput();
     void on_doneButton_clicked();
+    void saveFormInput(QDomDocument doc);
 
 private:
     Ui::InputPage *ui;
     QCheckBox power_genRatioCheckbox;
     QTabWidget* root;
+
+    //root element for the XML file
+    QDomDocument doc;
+    QDomElement configurationsElement;
 
     //General Properties Tab
     QWidget* generalPropertiesTab;

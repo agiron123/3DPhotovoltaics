@@ -6,6 +6,10 @@
 #include <QTabWidget>
 #include <QGroupBox>
 #include <QDomElement>
+#include <QTextStream>
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
 
 InputPage::InputPage(QWidget *parent) :
     QDialog(parent),
@@ -95,7 +99,7 @@ void InputPage::on_doneButton_clicked()
     doc.appendChild(instr);
 
     // generate configurations tag as root, and then add simulations to that configurations Element
-    QDomElement configurationsElement = addElement( doc, doc, "configurations" );
+    configurationsElement = addElement( doc, doc, "configurations" );
     QDomElement simulationsElement = addElement(doc, configurationsElement, "simulation");
 
     //First load the general properties tab
@@ -314,6 +318,9 @@ void InputPage::on_doneButton_clicked()
 
     qDebug() << "Graphs List:";
     qDebug() << graphsList;
+
+    qDebug() << "Saving the form input";
+    saveFormInput(doc);
 }
 
 /* Helper function to generate a DOM Element for the given DOM document
@@ -334,9 +341,14 @@ QDomElement InputPage::addElement( QDomDocument &doc, QDomNode &node,
 void InputPage::on_addSimulationButton_clicked()
 {
     qDebug() << "Clicked the Add Simulation button";
+    //validateFormInput()
+    if(validateFormInput())
+    {
+        qDebug() << "Validation was good! Adding Simulation Tag";
+        addElement(doc, configurationsElement, "simulation");
+    }
 
-    //First validate form input
-    //let user know that they need to fill out all tags before proceeding
+
 
     //Create a new simulation dom element
 
@@ -349,9 +361,65 @@ void InputPage::on_addSimulationButton_clicked()
 
 bool InputPage::validateFormInput()
 {
-    qDebug() << "Validating Form Input";
+    QString invalidStrings = "";
+    int valid = 1;
+    //Check each text box to make sure that it has something in it
+    //Make an array of textboxes so that we can loop through them
+    //TODO: check contents and validate against valid values in the XML file.
+    QLineEdit* textBoxes[13];
+    textBoxes[0] = panel_orientationEdit;
+    textBoxes[1] = panelHeightEdit;
+    textBoxes[2] = panelWidthEdit;
+    textBoxes[3] = beta_angleEdit;
+    textBoxes[4] = earthshineEdit;
+    textBoxes[5] = orbitIntervalEdit;
+    textBoxes[6] = zenithAngleEdit;
+    textBoxes[7] = azumithAngleEdit;
+    textBoxes[8] = photonCountEdit;
+    textBoxes[9] = towerPitchEdit;
+    textBoxes[10] = towerWidthEdit;
+    textBoxes[11] = towerHeightEdit;
 
-    //Make sure that each input is within specified range.
+    for(int i = 0; i < 12; i++)
+    {
+        if(textBoxes[i]->text().length() < 1)
+        {
+           qDebug() << textBoxes[i]->objectName();
+           invalidStrings += textBoxes[i]->objectName() + ", ";
+           textBoxes[i]->setText("*");
+           valid = 0;
+        }
+    }
 
-    return true;
+    if(tlePlainTextEdit->toPlainText().length() < 1)
+    {
+        valid = 0;
+        invalidStrings += tlePlainTextEdit->objectName() + ", ";
+    }
+
+    if(valid == false)
+    {
+        qDebug() << "Validating Form Input";
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Please fix the following fields:\n" + invalidStrings);
+        messageBox.setFixedSize(500,200);
+    }
+
+    return valid;
 }
+
+void InputPage::saveFormInput(QDomDocument doc)
+{
+    //Create a dialog for the user to select where to save file
+    QFileDialog dialog;
+    QString filename = dialog.getSaveFileName();
+    QFile f( filename );
+    f.open( QIODevice::ReadWrite );
+
+    QTextStream stream(&f);
+    stream << doc.toString();
+    qDebug() << doc.toString();
+    f.close();
+}
+
+
