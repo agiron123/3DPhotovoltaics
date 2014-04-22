@@ -58,15 +58,6 @@ def main():
             a.generate_output(s, setting[0])
             a.generate_graphs(setting[1])
 
-
-    #statistics = Statistics()
-    #Simulation.run(arguments, statistics)
-
-    #simulation is done running, now we can out the put results and perform some analysis
-    #analysis = Analysis()
-    #analysis.generate_graphs()
-    #analysis.generate_output()
-
 #if the user is calling this script from the command line call the main method
 if  __name__ =='__main__':
     ET.parse("XML_Input/validation.xml")
