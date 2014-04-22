@@ -20,7 +20,7 @@ class Transform(object):
         V and U should be lists of basis vectors
         """
         #transpose because we are given column vectors not row vectors
-        self.M = np.transpose(np.matirx(M))
+        self.M = np.transpose(np.matrix(M))
 
     def transform(self, v):
         """Transform the vector v from basis V to basis U. V should be expressed as a linear combination of
