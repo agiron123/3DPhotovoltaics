@@ -6,7 +6,6 @@
 <tower_tops datatype="bool">true</tower_tops><!--Whether the simulation should model the photons which strike the tops of the towers or ignore them -->
 <trapping datatype="bool">true</trapping><!-- Whether the simulation should model photons becoming trapped -->
 
-
 <material_profile datatype="NA"><!-- Information on Material used for the simulation -->
 <band_gap datatype="float" range="0.0 - 9.0">5.0</band_gap><!-- The band gap for the material in electron volts (eV) -->
 <absorption_coefficient datatype="float" range="10 - 10e7">10</absorption_coefficient><!-- The absorption coefficient for the material in (cm^-1) -->
@@ -21,6 +20,11 @@
 	<width datatype="float" range="0 - inf">10</width><!-- Width of the tower. -->
 	<height datatype="float" range="0 - inf">15</height><!-- Height of the tower. -->
 </tower>
+
+<panel_settings datatype="NA"><!-- Information on the solar panel dimensions used for the simulation -->
+    <panel_length datatype="float" range="0.0 - inf">1.0</panel_length>
+    <panel_width datatype="float" range="0.0 - inf">1.0</panel_width>
+</panel_settings>
 
 <!-- Note only one child from the childset may be present
  meaning that you must chose either a RealOrbit or a SimpleOrbit but cannot have both
@@ -54,6 +58,8 @@
     <!-- Currently only 	AspectRatioVsAverageReflections
 	                        AvgInteractionsVsTowerSpacingLog
 	                        AvgReflectionsVsTowerHeight
+	                        AverageReflectionsVsAzumithal
+	                        AbsorptionEfficiencyVsAzumithal
 	    are supported -->
 </graph_settings>
 </output_settings>
