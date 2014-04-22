@@ -2,9 +2,9 @@
 <!-- XML file to test the XML input parser. Note that this does not contain real values that are going to be used in a simulaiton. -->
 <configurations>
 <simulation datatype="NA"><!-- Contains settings for a single simulation. -->
-<absorbing datatype="bool">true</absorbing> <!-- Whether or not the simulation should model absorptions -->
-<tower_tops datatype="bool">true</tower_tops><!--Whether the simulation should model the photons which strike the tops of the towers or ignore them -->
-<trapping datatype="bool">true</trapping><!-- Whether the simulation should model photons becoming trapped -->
+<absorbing datatype="bool">false</absorbing> <!-- Whether or not the simulation should model absorptions -->
+<tower_tops datatype="bool">false</tower_tops><!--Whether the simulation should model the photons which strike the tops of the towers or ignore them -->
+<trapping datatype="bool">false</trapping><!-- Whether the simulation should model photons becoming trapped -->
 
 <material_profile datatype="NA"><!-- Information on Material used for the simulation -->
 <band_gap datatype="float" range="0.0 - 9.0">5.0</band_gap><!-- The band gap for the material in electron volts (eV) -->
@@ -32,9 +32,9 @@
 <orbital_properties datatype="NA" child_set="real_orbit, fixed_orbit"><!-- Settings for the Orbital Properties of the simulation. -->
 
 <fixed_orbit><!-- Contains all of the information for a orbit in which nothing is moving and the sun is a fixed point source -->
-    <zenith_angle datatype="float" range="0.0 - 360.0">15</zenith_angle> <!-- Zenith Angle in degrees for point source sun -->
-    <azimuth_angle datatype="float" range="0.0 - 360.0">180</azimuth_angle> <!-- Azimuth Angle in degrees for the point source sun -->
-    <photon_count datatype="int" range="0 - inf">500</photon_count> <!-- Number of photons to run the simulation for -->
+    <zenith_angle datatype="float" range="0.0 - 360.0">45</zenith_angle> <!-- Zenith Angle in degrees for point source sun -->
+    <azimuth_angle datatype="float" range="0.0 - 360.0">45</azimuth_angle> <!-- Azimuth Angle in degrees for the point source sun -->
+    <photon_count datatype="int" range="0 - inf">1000</photon_count> <!-- Number of photons to run the simulation for -->
 </fixed_orbit>
 
 
