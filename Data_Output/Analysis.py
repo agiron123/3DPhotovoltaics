@@ -23,6 +23,7 @@ class Analysis(object):
     compiled_data_tag = "Compiled Data"
     stats_data_tag = "Stats"
     material_data_tag = "Material Profile"
+    panel_settings_tag = "Solar Panel Dimension"
 
     #Folder names
     output_folder_tag = "Simulation_Data"
@@ -36,15 +37,11 @@ class Analysis(object):
     distance_unit_tag = " (Micrometers)"
     angle_unit_tag = " (Degrees)"
     wavelength_unit_tag = " (Nanometers)"
+    panel_units_tag = " (Centimeters)"
     percent_unit_tag = " (%)"
     abs_coeff_unit_tag = " (1/cm)"
     band_gap_unit_tag = " (Electronvolts)"
 
-    #Solar Panel dimensions (micrometers)
-    #TODO: Get actual values
-    length = 0
-    width = 0
-    height = 0
     #---------------------------------------------------------------------
 
     last_simulation = ""
@@ -70,7 +67,8 @@ class Analysis(object):
         try:
             file_name = open(file_location, 'wb')
         except csv.Error as e:
-            print("Couldn't open the csv file. If it is opened in another program, please close it")
+            print("++++ERROR++++ In generate output. Couldn't open the csv file. \n" +
+                  "If it is opened in another program, please close it and run the simulation again \n")
         else:
             #begins writing to the file
             writer = csv.writer(file_name)
@@ -116,8 +114,9 @@ class Analysis(object):
 
         #checks there are an equal number of statistics as there are simulation settings
         if len(statistics) != len(sim_settings):
-            raise ValueError("Number of statistics doesn't match number of simulation settings. "
-                             + "\nNumber of statics should be match number of simulation settings\n")
+            raise ValueError("++++ERROR++++ In generate output. \n" +
+                             "Number of statistics doesn't match number of simulation settings. \n" +
+                             "Number of statics should be match number of simulation settings \n")
 
         #This for loop allows it to output data for multiple simulations
         for index in range(len(statistics)):
@@ -125,9 +124,11 @@ class Analysis(object):
             compiled_data = statistics[index].data
 
             #gets the tower's setting from the simulation settings
-            #TODO: Uncomment following two lines if not testing or debugging this file
-            tower_settings = vars(sim_settings[index])['tower']
+            #TODO: Uncomment following three lines if not testing or debugging this file
+            #tower_settings = vars(sim_settings[index])['tower']
+            tower_settings = sim_settings[index].tower
             material_data = sim_settings[index].material_profile
+            #panel_dimensions = sim_settings[index].panel_settings
 
             #----------------------------------------------------------------------------------------------------------
             #TODO: remove print statements and remove the overwrite of tower settings
@@ -141,6 +142,7 @@ class Analysis(object):
             #tower_settings = {'width': str(width), 'shape': 'square', 'height': str(height), 'pitch': str(pitch)}
             #material_data = {'absorption_coefficient': str(abs_coeff), 'band_gap': str(band_gap)}
             #print("\n End of tower settings changes\n")
+            panel_dimensions = {"height": str(1.0), "width": str(1.0)}
             #----------------------------------------------------------------------------------------------------------
 
             #adds the aspect ratio and log of the tower pitch to the tower settings
@@ -154,32 +156,39 @@ class Analysis(object):
             try:
                 file_name = open(file_location, 'wb')
             except csv.Error as e:
-                print("++++ERROR++++ Couldn't open the csv file. " +
-                      "If it is opened in another program, please close it and run the simulation again")
+                print("++++ERROR++++ In generate output. Couldn't open the csv file. \n" +
+                      "If it is opened in another program, please close it and run the simulation again.\n")
             else:
                 #Creates the writer object for a given file
                 writer = csv.writer(file_name)
 
-                #writes the material profile data to the .csv file
-                writer.writerow([self.material_data_tag])
-                #adds units to the material profile keys
-                material_keys_units = self.add_units(material_data.keys())
-                writer.writerow(material_keys_units)
-                writer.writerow(material_data.values())
+                #A list of the tags that will have to be written to the .csv file. This should have the same number
+                # of values as the data_to_write list
+                tags_to_write = [self.panel_settings_tag, self.material_data_tag, self.tower_data_tag,
+                                 self.compiled_data_tag]
 
-                #Writes the tower data to the .csv file
-                writer.writerow([self.tower_data_tag])
-                #adds units to the tower data keys
-                tower_keys_units = self.add_units(tower_settings.keys())
-                writer.writerow(tower_keys_units)
-                writer.writerow(tower_settings.values())
+                #A list of the data the will need to be written to the .csv file. This should have the same number
+                # of values as the tags_to_write list
+                data_to_write = [panel_dimensions, material_data, tower_settings, compiled_data]
 
-                #Writes the compiled data to the .csv file
-                writer.writerow([self.compiled_data_tag])
-                #adds units to the compiled data keys
-                compiled_keys_units = self.add_units(compiled_data.keys())
-                writer.writerow(compiled_keys_units)
-                writer.writerow(compiled_data.values())
+                #This loops goes through the tags_to_write and data_to_write lists in order to write them to the
+                # .csv file. This is only for the data that will only have a line for the tag, the key values, and
+                # one line of data.
+                if len(tags_to_write) == len(data_to_write):
+                    for d_index in range(len(tags_to_write)):
+                       #writes the data tag to the .csv file
+                        writer.writerow([tags_to_write[d_index]])
+                        #adds units to the keys
+                        keys_with_units = self.add_units(data_to_write[d_index].keys())
+                        #writes the keys to the .csv file
+                        writer.writerow(keys_with_units)
+                        #writes the values to the .csv file
+                        writer.writerow(data_to_write[d_index].values())
+                else:
+                    file_name.close()
+                    os.remove(file_location)
+                    raise Exception("++++ERROR++++ In generate output. \n" +
+                                    "The number of tags should match the number of data types\n")
 
                 #Writes the word "Stats" to the next row of the .csv file
                 writer.writerow([self.stats_data_tag])
@@ -239,7 +248,6 @@ class Analysis(object):
             pass  # folder already exist
         return destination_dir
 
-
     @staticmethod
     def file_path_creator(destination_dir, file_name, extension):
         """
@@ -291,13 +299,15 @@ class Analysis(object):
             # 5) stores the information into the data lists above
 
             if settings_dict["MaxPointPowerVsZenithAngle"] is True:
-                print("Creating Max Point Power vs Zenith Angle Graph")
-                output_dir = self.folder_creator("Max_Point_Power_vs_Zenith_Angle")
-                file_location = self.file_path_creator(output_dir, "Max_Point_Pwr_vs_Zenith_", ".csv")
                 #TODO: finish implementing
-                print("generate_graphs in Analysis.py is not fully implemented yet." +
-                      "\nCannot create Max Power vs Zenith Angle graph\n")
-                #self.max_power_vs_zenith(file_location)
+                print("++++WARNING+++++ generate_graphs in Analysis.py is not fully implemented yet. \n" +
+                      "Cannot create Max Power vs Zenith Angle graph\n")
+                #print("Creating Max Point Power vs Zenith Angle Graph")
+                #output_dir = self.folder_creator("Max_Point_Power_vs_Zenith_Angle")
+                #file_location = self.file_path_creator(output_dir, "Max_Point_Pwr_vs_Zenith_", ".csv")
+                #labels = self.max_power_vs_zenith(file_location)
+                #output_directories_angles.append(output_dir)
+                #axis_labels_angles.append(labels)
 
             if settings_dict["AverageReflectionsVsAzimuthal"] is True:
                 print("Creating Average Number of Reflections vs Azimuthal Angle Graph")
@@ -328,7 +338,7 @@ class Analysis(object):
             # there needs to be more than one raw_data file for these graphs
             if len(os.listdir(data_dir)) > 1:
 
-                # again these if statement follow the same format as above.
+                # again these if statements follow the same format as above.
                 # 1) first it checks if the graph should be created
                 # 2) creates the folder to store the .csv file
                 # 3) creates the location of the .csv file
@@ -345,22 +355,26 @@ class Analysis(object):
                     axis_labels.append(labels)
 
                 if settings_dict["IntegratedAreaRatioVsAvgNumReflections"] is True:
-                    print("Creating Integrated Area Ratio vs Average Number Reflections Graph")
-                    output_dir = self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
-                    file_location = self.file_path_creator(output_dir, "Integrated_Area_Ratio_vs_Avg_Reflections_", ".csv")
                     #TODO: finish implementing
-                    print("generate_graphs in Analysis.py is not fully implemented yet." +
-                          "\n Cannot create Integrated Area Ratio vs Avgerage Number of Reflections graph\n")
-                    #self.integrated_area_ratio_vs_avg_num_reflections(file_location)
+                    print("++++WARNING+++++ generate_graphs in Analysis.py is not fully implemented yet. \n" +
+                          "Cannot create Integrated Area Ratio vs Avgerage Number of Reflections graph\n")
+                    #print("Creating Integrated Area Ratio vs Average Number Reflections Graph")
+                    #output_dir = self.folder_creator("Integrated_Area_Ratio_vs_Avg_Num_Reflections")
+                    #file_location = self.file_path_creator(output_dir, "Integrated_Area_Ratio_vs_Avg_Reflections_", ".csv")
+                    #labels = self.integrated_area_ratio_vs_avg_num_reflections(file_location)
+                    #output_directories.append(output_dir)
+                    #axis_labels.append(labels)
 
                 if settings_dict["PowerRatio3DVsAbsorbance"] is True:
+                    #TODO: fully implement
+                    print("++++WARNING+++++ generate_graphs in Analysis.py is not fully implemented yet. \n" +
+                          "Can create only some Power Ratio vs Absorbance graphs\n")
                     print("Creating 3D Power Ratio vs Absorbance Graph")
                     output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
                     file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
-                    #TODO: finish implementing
-                    print("generate_graphs in Analysis.py is not fully implemented yet. " +
-                          "\n Cannot create Power Ratio vs Absorbance graph\n")
-                    #self.power_ratio_vs_absorbance(file_location)
+                    labels = self.power_ratio_vs_absorbance(file_location)
+                    output_directories.append(output_dir)
+                    axis_labels.append(labels)
 
                 if settings_dict["AvgInteractionsVsTowerSpacingLog"] is True:
                     print("Creating Average Number of Interactions vs Log of Tower Pitch Graph")
@@ -389,7 +403,8 @@ class Analysis(object):
                         self.create_graph(output_directories[index], file_locations[index])
 
             else:
-                print("Need to run more than one simulation for the following graphs:\n" +
+                print("++++ERROR+++++ in generate_graphs() \n" +
+                      "Need to run more than one simulation for the following graphs:\n" +
                       "Aspect Ratio vs Average Reflections\n" +
                       "Integrated Area Ratio vs Average Number Reflections\n" +
                       "3D Power Ratio vs Absorbance\n" +
@@ -398,7 +413,8 @@ class Analysis(object):
 
             print("Finished creating graphs")
         else:
-            print("Need to run at least one simulation before being able to create a graph")
+            print("++++ERROR+++++ in generate_graphs() \n" +
+                  "Need to run at least one simulation before being able to create a graph\n")
 
     # ---- These functions Create the .csv file for each type of graph -------------------------------------------------
     #TODO: check the types of desired graphs and how to graph them
@@ -410,6 +426,11 @@ class Analysis(object):
         to the .csv file.
         """
         #TODO: finish implementing
+        title = "Power at Max Point vs Zenith Angle"
+        x_label = "Zenith Angle"+self.angle_unit_tag
+        y_label = "Power at Max Point"
+        self.write_graph_labels(file_location, title, x_label, y_label)
+        return ("zenith", "max_power")
 
     def avg_reflections_vs_azimuthal(self, file_location):
         """
@@ -422,7 +443,6 @@ class Analysis(object):
         x_label = "Azimuthal Angle"+self.angle_unit_tag
         y_label = "Average Number of Reflections"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        #self.add_graph_data_to_csv_angle(self.last_simulation, file_location, "azimuth", "avg_number_reflections")
         return ("azimuth", "avg_number_reflections")
 
     def absorption_efficiency_vs_azimuthal(self, file_location):
@@ -436,7 +456,6 @@ class Analysis(object):
         x_label = "Azimuthal Angle"+self.angle_unit_tag
         y_label = "Absorption Efficiency"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        #self.add_graph_data_to_csv_angle(self.last_simulation, file_location, "azimuth", "absorption_efficiency")
         return ("azimuth", "absorption_efficiency")
 
     def aspect_ratio_vs_avg_reflections(self, file_location):
@@ -450,7 +469,6 @@ class Analysis(object):
         x_label = "Aspect Ratio"+self.distance_unit_tag
         y_label = "Average Number of Reflections"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        #self.add_graph_data_to_csv(self.folder_dir, file_location, "aspect_ratio", "avg_number_reflections", True)
         return ("aspect_ratio", "avg_number_reflections")
 
     def integrated_area_ratio_vs_avg_num_reflections(self, file_location):
@@ -461,6 +479,11 @@ class Analysis(object):
         to the .csv file.
         """
         #TODO: finish implementing
+        title = "Integrated Area Ratio vs Average Number of Reflections"
+        x_label = "Integrated Area Ratio"
+        y_label = "Average Number of Reflections"
+        self.write_graph_labels(file_location, title, x_label, y_label)
+        return ("integrated_area_ratio", "avg_number_reflections")
 
     def power_ratio_vs_absorbance(self, file_location):
         """
@@ -469,7 +492,12 @@ class Analysis(object):
         Essentially it defines the title and axis labels for the graph. Then it calls the function to write them
         to the .csv file.
         """
-        #TODO: finish implementing
+        #TODO: fully implement
+        title = "3D Power Ratio vs Absorbance"
+        x_label = "Absorbance"
+        y_label = "Power Ratio"
+        self.write_graph_labels(file_location, title, x_label, y_label)
+        return ("absorbance", "power_ratio")
 
     def avg_interactions_vs_tower_spacing(self, file_location):
         """
@@ -482,7 +510,6 @@ class Analysis(object):
         x_label = "Tower Pitch"+self.distance_unit_tag
         y_label = "Average Number of Interactions"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        #self.add_graph_data_to_csv(self.folder_dir, file_location, "pitch", "avg_number_interactions", True)
         return ("pitch", "avg_number_interactions")
 
     def avg_reflections_vs_tower_height(self, file_location):
@@ -496,13 +523,12 @@ class Analysis(object):
         x_label = "Tower Height"+self.distance_unit_tag
         y_label = "Average Number of Reflections"
         self.write_graph_labels(file_location, title, x_label, y_label)
-        #self.add_graph_data_to_csv(self.folder_dir, file_location, "height", "avg_number_reflections", True)
         return ("height", "avg_number_reflections")
     # ------------------------------------------------------------------------------------------------------------------
 
     def add_tower_info(self, tower_settings):
         """
-        This function takes in the tower settings dictionary and adds the aspect ration and log of the tower pitch
+        This function takes in the tower settings dictionary and adds the aspect ratio and log of the tower pitch
         """
         tower_settings["aspect_ratio"] = float(tower_settings['width'])/float(tower_settings['height'])
         tower_settings["log_pitch"] = np.log(float(tower_settings['pitch']))
@@ -523,6 +549,10 @@ class Analysis(object):
             tower_data = []
             compiled_keys = []
             compiled_data = []
+            panel_keys = []
+            panel_data = []
+            material_profile_keys = []
+            material_profile_data = []
 
             #Looks through all of the files in the given data_directory and opens the .csv files for reading
             for files in os.listdir(data_directory):
@@ -531,12 +561,42 @@ class Analysis(object):
                     try:
                         file_name = open(file_dir, 'rb')
                     except csv.Error as e:
-                        print("++++ERROR++++ Couldn't open the csv file. " +
-                              "If it is opened in another program, please close it and run the simulation again")
+                        print("++++ERROR++++ In add_graph_data_to_csv()\n" + "Couldn't open the csv file. \n" +
+                              "If it is opened in another program, please close it and run the simulation again \n")
                     reader = csv.reader(file_name)
 
                     #gets the first line in the .csv file
                     data_type = reader.next()
+
+                    #gets the panel data
+                    if data_type[0] == self.panel_settings_tag:
+                        panel_key = reader.next()
+                        panel_values = reader.next()
+                    else:
+                        while data_type[0] != self.panel_settings_tag:
+                            data_type = reader.next()
+                        panel_key = reader.next()
+                        panel_values = reader.next()
+
+                    #removes the units from the panel keys and then appends it to the main data lists
+                    panel_key = self.remove_units(panel_key)
+                    panel_keys.append(panel_key)
+                    panel_data.append(panel_values)
+
+                    #gets the panel data
+                    if data_type[0] == self.material_data_tag:
+                        material_profile_key = reader.next()
+                        material_profile_values = reader.next()
+                    else:
+                        while data_type[0] != self.material_data_tag:
+                            data_type = reader.next()
+                        material_profile_key = reader.next()
+                        material_profile_values = reader.next()
+
+                    #removes the units from the panel keys and then appends it to the main data lists
+                    material_profile_key = self.remove_units(material_profile_key)
+                    material_profile_keys.append(material_profile_key)
+                    material_profile_data.append(material_profile_values)
 
                     #gets the tower data
                     if data_type[0] == self.tower_data_tag:
@@ -581,8 +641,8 @@ class Analysis(object):
                 try:
                     graph_file = open(output_file_location, 'ab')
                 except csv.Error as e:
-                    print("++++ERROR++++ Couldn't open the csv file. "
-                          + "If it is opened in another program, please close it and run the simulation again")
+                    print("++++ERROR++++ In add_graph_data_to_csv()\n" + "Couldn't open the csv file. \n" +
+                          "If it is opened in another program, please close it and run the simulation again \n")
                 #creates writer object
                 writer = csv.writer(graph_file)
 
@@ -597,48 +657,108 @@ class Analysis(object):
                     else:
                         tower_val = False
 
-                    #Gets the index of the desired y_value
-                    if y_value in compiled_keys[data]:
-                        y = compiled_keys[data].index(y_value)
-                        found_values = True
-                    else:
-                        #if it didn't find the y_value then this set should be tossed out
-                        found_values = False
-                        print("The y value "+y_value+" is not in " + self.compiled_data_tag + "." +
-                              "\nCheck if you are looking for the correct value and in the correct list")
+                    #if y_value = "power_ratio":
+                    #power_ratio_3D(tower_height, tower_width, tower_pitch, panel_height, panel_width, shape, absorbance)
 
-                    #Gets the index of the desired x_value and then writes the data point to the graph .csv file
-                    if tower_val is True and found_values is True:
-                        if x_value in tower_keys[data]:
-                            x = tower_keys[data].index(x_value)
+                    if y_value != "power_ratio":
+                        #Gets the index of the desired y_value
+                        if y_value in compiled_keys[data]:
+                            y = compiled_keys[data].index(y_value)
                             found_values = True
                         else:
-                            #if it didn't find the x_value then this set should be tossed out
+                            #if it didn't find the y_value then this set should be tossed out
                             found_values = False
-                            print("The tower x value "+x_value+" is not in " + self.tower_data_tag + "." +
-                                  "\nCheck if you are looking for the correct value and in the correct list")
-                        if found_values is True:
-                            #write the coordinate point to the .csv file
-                            writer.writerow([float(tower_data[data][x]), float(compiled_data[data][y])])
+
+                            #close and removes the files since it does not have any data
+                            graph_file.close()
+                            os.remove(output_file_location)
+                            raise Exception("++++ERROR++++ In add_graph_data_to_csv()\n" +
+                                            "The y value "+y_value+" is not in " + self.compiled_data_tag + ". \n" +
+                                            "Check if you are looking for the correct value and in the correct list \n")
+
+                        #Gets the index of the desired x_value and then writes the data point to the graph .csv file
+                        if tower_val is True and found_values is True:
+                            if x_value in tower_keys[data]:
+                                x = tower_keys[data].index(x_value)
+                                found_values = True
+                            else:
+                                #if it didn't find the x_value then this set should be tossed out
+                                found_values = False
+                                #close and removes the files since it does not have any data
+                                graph_file.close()
+                                os.remove(output_file_location)
+                                raise Exception("++++ERROR++++ In add_graph_data_to_csv()\n" +
+                                                "The tower x value "+x_value+" is not in " + self.tower_data_tag + ". \n" +
+                                                "Check if you are looking for the correct value and in the correct list \n")
+                            if found_values is True:
+                                #write the coordinate point to the .csv file
+                                writer.writerow([float(tower_data[data][x]), float(compiled_data[data][y])])
+                        else:
+                            if x_value in compiled_keys[data]:
+                                x = compiled_keys[data].index(x_value)
+                                found_values = True
+                            else:
+                                #if it didn't find the x_value then this set should be tossed out
+                                found_values = False
+                                #close and removes the files since it does not have any data
+                                graph_file.close()
+                                os.remove(output_file_location)
+                                raise Exception("++++ERROR++++ In add_graph_data_to_csv()\n" +
+                                                "The x value "+x_value+" is not in " + self.compiled_data_tag + ". \n" +
+                                                "Check if you are looking for the correct value and in the correct list \n")
+                            if found_values is True:
+                                #write the coordinate point to the .csv file
+                                writer.writerow([float(compiled_data[data][x]), float(compiled_data[data][y])])
                     else:
                         if x_value in compiled_keys[data]:
-                            x = compiled_keys[data].index(x_value)
+                            x = material_profile_keys[data].index(x_value)
                             found_values = True
                         else:
                             #if it didn't find the x_value then this set should be tossed out
                             found_values = False
-                            print("The x value "+x_value+" is not in " + self.compiled_data_tag + "." +
-                                  "\nCheck if you are looking for the correct value and in the correct list")
+                            #close and removes the files since it does not have any data
+                            graph_file.close()
+                            os.remove(output_file_location)
+                            raise Exception("++++ERROR++++ In add_graph_data_to_csv()\n" +
+                                            "The x value "+x_value+" is not in " + self.compiled_data_tag + ". \n" +
+                                            "Check if you are looking for the correct value and in the correct list \n")
                         if found_values is True:
-                            #write the coordinate point to the .csv file
-                            writer.writerow([float(compiled_data[data][x]), float(compiled_data[data][y])])
+                            # gets the indices for each of the necessary values used to calculate the power ratio
+                            tower_height_index = tower_keys[data].index("height")
+                            tower_width_index = tower_keys[data].index("width")
+                            tower_pitch_index = tower_keys[data].index("pitch")
+                            shape_index = tower_keys[data].index("shape")
+                            panel_width_index = panel_keys[data].index("width")
+                            panel_height_index = panel_keys[data].index("height")
+
+                            # gets the actual value of the data
+                            absorbance = float(material_profile_data[data][x])
+                            tower_height = float(tower_data[data][tower_height_index])
+                            tower_width = float(tower_data[data][tower_width_index])
+                            tower_pitch = float(tower_data[data][tower_pitch_index])
+                            shape = float(tower_data[data][shape_index])
+                            panel_width = float(panel_data[data][panel_width_index])
+                            panel_height = float(panel_data[data][panel_height_index])
+
+                            # Calculates the 3D Power Ratio
+                            power_ratio = self.power_ratio_3D(tower_height, tower_width, tower_pitch, panel_height,
+                                                              panel_width, shape, absorbance)
+
+                            # this does not support all tower shapes yet (ie. xtrench, ytrench)
+                            if power_ratio is not False:
+                                # Write the values to the .csv file
+                                writer.writerow([float(absorbance), float(power_ratio)])
+                            else:
+                                print("++++ERROR++++ In add_graph_data_to_csv() \n" +
+                                      "Trench shapes are not supported for calculating the power ratio \n")
+                                break
 
                 #closes the graph .csv file and copies it to Most_Recent_Run folder.
                 graph_file.close()
                 copy(output_file_location, self.most_recent_dir)
         else:
-            print("++++ERROR++++ Can't create graphs without all of the required information")
-
+            print("++++ERROR++++ in add_graph_to_csv() \n" +
+                  "Can't create graphs without all of the required information \n")
 
     def add_graph_data_to_csv_angle(self, data_file, output_file_locations=[], axis_labels=[]):
         #TODO:Fully implement this!!!!!!!!!!!!!!
@@ -647,6 +767,9 @@ class Analysis(object):
         It can make multiple .csv with one call and only uses the data from the LATEST simulation .csv file (data_file).
         It takes in a list of output file locations which will be the location of a graph's .csv file. It also takes
         in the associated axis pair for each graph.
+
+        This function was separated from add_graph_data_csv() because these graphs only need to look through one .csv
+        file and needs to use all of the photon stats
         """
         #checks if the parameters are valid
         if output_file_locations != [] and len(output_file_locations) == len(axis_labels):
@@ -655,8 +778,8 @@ class Analysis(object):
                 try:
                     file_name = open(data_file, 'rb')
                 except csv.Error as e:
-                    print("++++ERROR++++ Couldn't open the csv file. " +
-                          "If it is opened in another program, please close it and run the simulation again")
+                    print("++++ERROR++++ In add_graph_data_to_csv_angle()\n" + "Couldn't open the csv file. \n" +
+                          "If it is opened in another program, please close it and run the simulation again \n")
                 #sets the reader object for the file
                 reader = csv.reader(file_name)
 
@@ -732,10 +855,16 @@ class Analysis(object):
                 #-------------------
 
                 #this gets all of the stat data
+                #it will calculate the total number of interactions and reflections,
+                # the total number of absorbed and trapped photons, and total number of photons at a certain angle
                 for row in reader:
                     #this is a list to store the data from a stat at a given angle
                     stat_vals = []
+                    zenith_stat_vals = []
 
+                    #------ must use floats -------------
+
+                    #-------- azimuth angle --------------------------------------------
                     #it first checks if the angle is already in the dictionary
                     if row[azimuth_index] in azimuth_dict:
                         #sets the stat_vals list to the already existing list
@@ -751,7 +880,7 @@ class Analysis(object):
                     else:
                         #if the angle isn't in the dictionary then it creates a new stat_vals list for the angle
 
-                        #number of interacitons
+                        #number of interactions
                         stat_vals.append(float(row[interactions_index]))
                         #trapped photon count
                         if row[trapped_index] == "True":
@@ -769,6 +898,44 @@ class Analysis(object):
                         stat_vals.append(1.0)
                         #adds the stat_val list to the dictionary. The key being the associated angle
                         azimuth_dict[row[azimuth_index]] = stat_vals
+                    #------------------------------------------------------------------
+
+                    #-------- zenith angle --------------------------------------------
+                    #it first checks if the angle is already in the dictionary
+                    if row[zenith_index] in zenith_dict:
+                        #sets the stat_vals list to the already existing list
+                        zenith_stat_vals = zenith_dict[row[zenith_index]]
+                        #updates stat_vals values
+                        zenith_stat_vals[inter_in] += float(row[interactions_index])
+                        if row[trapped_index] == "True":
+                            zenith_stat_vals[trap_in] += 1.0
+                        if row[absorbed_index] == "True":
+                            zenith_stat_vals[abs_in] += 1.0
+                        zenith_stat_vals[refl_in] += float(row[reflections_index])
+                        zenith_stat_vals[tot_in] += 1.0
+                    else:
+                        #if the angle isn't in the dictionary then it creates a new zenith_stat_vals list for the angle
+
+                        #number of interactions
+                        zenith_stat_vals.append(float(row[interactions_index]))
+                        #trapped photon count
+                        if row[trapped_index] == "True":
+                            zenith_stat_vals.append(1.0)
+                        else:
+                            zenith_stat_vals.append(0.0)
+                        #absorbed photon count
+                        if row[absorbed_index] == "True":
+                            zenith_stat_vals.append(1.0)
+                        else:
+                            zenith_stat_vals.append(0.0)
+                        #number of reflections
+                        zenith_stat_vals.append(float(row[reflections_index]))
+                        #total number of photons at the given angle
+                        zenith_stat_vals.append(1.0)
+                        #adds the stat_val list to the dictionary. The key being the associated angle
+                        zenith_dict[row[zenith_index]] = zenith_stat_vals
+                    #------------------------------------------------------------------
+
                 file_name.close()
 
                 #this part write to the .csv file based on the graph it has to make
@@ -782,8 +949,8 @@ class Analysis(object):
                     try:
                         graph_file = open(output_file_location, 'ab')
                     except csv.Error as e:
-                        print("++++ERROR++++ Couldn't open the csv file. " +
-                              "If it is opened in another program, please close it and run the simulation again")
+                        print("++++ERROR++++ In add_graph_data_to_csv_angle()\n" + "Couldn't open the csv file. \n" +
+                              "If it is opened in another program, please close it and run the simulation again \n")
                     #creates writer object
                     writer = csv.writer(graph_file)
 
@@ -796,7 +963,8 @@ class Analysis(object):
                                 #writes the angles and the calculated value to the .csv file
                                 writer.writerow([float(key), float(average_refl)])
                         elif y_value == "absorption_efficiency":
-                            #iterates through the dictionary and calculates the absorption efficiency at the associated angle
+                            #iterates through the dictionary and calculates
+                            # the absorption efficiency at the associated angle
                             for key in azimuth_dict.keys():
                                 abs_eff = float(azimuth_dict[key][abs_in])/float(azimuth_dict[key][tot_in])
                                 #writes the angles and the calculated value to the .csv file
@@ -804,15 +972,16 @@ class Analysis(object):
                     elif x_value == "zenith":
                         #TODO: Add Max power calculation here or a function call to the calculation
                         if y_value == "Max Power":
-                            print("create power at max point graph")
+                            print("create power at max point graph need to be implemented \n")
 
                     #closes the graph .csv file and copies it to Most_Recent_Run folder.
                     graph_file.close()
                     copy(output_file_location, self.most_recent_dir)
             else:
-                print("++++ERROR++++ The given data file is not a csv file")
+                print("++++ERROR++++ In add_graph_data_to_csv_angle()\n" + "The given data file is not a csv file \n")
         else:
-            print("++++ERROR++++ Can't create graphs without all of the required information")
+            print("++++ERROR++++ In add_graph_data_to_csv_angle()\n" +
+                  "Can't create graphs without all of the required information \n")
 
     def write_graph_labels(self, file_location, title="", x_label="", y_label=""):
         """
@@ -822,8 +991,8 @@ class Analysis(object):
         try:
             file_name = open(file_location, 'wb')
         except csv.Error as e:
-            print("++++ERROR++++ Couldn't open the csv file. " +
-                  "If it is opened in another program, please close it and run the simulation again")
+            print("++++ERROR++++ in write_graph_labels()\n" + "Couldn't open the csv file. \n" +
+                  "If it is opened in another program, please close it and run the simulation again \n")
         else:
             #Creates the writer object for a given file
             writer = csv.writer(file_name)
@@ -838,8 +1007,8 @@ class Analysis(object):
         try:
             file_name = open(file_location, 'rb')
         except csv.Error as e:
-            print("++++ERROR++++ Couldn't open the csv file. " +
-                  "If it is opened in another program, please close it and run the simulation again")
+            print("++++ERROR++++ in create_graph()\n" + "Couldn't open the csv file. \n" +
+                  "If it is opened in another program, please close it and run the simulation again \n")
         else:
             values = []
             #creates the reader object for the file
@@ -867,8 +1036,7 @@ class Analysis(object):
             #copies the graph image to the most_recent_run folder
             copy(graph_path, self.most_recent_dir)
 
-
-    def add_units(self,key_list):
+    def add_units(self, key_list):
         """
         This function takes in a list of keys, it then goes through the list and adds the correct units to each key.
         It then returns a list with the keys and their corresponding units.
@@ -879,6 +1047,8 @@ class Analysis(object):
         um_list = ["height", "width", "pitch", "log_pitch", "aspect_ratio"]
         #the list of key that that have the same units for angle
         deg_list = ["zenith", "azimuth"]
+        #the list of keys for the panel dimension tag
+        cm_list = ["height", "width"]
         #the list that will be returned
         list_with_units = []
         for value in key_list:
@@ -891,6 +1061,8 @@ class Analysis(object):
                 list_with_units.append(value+self.percent_unit_tag)
             elif value == "wavelength":
                 list_with_units.append(value+self.wavelength_unit_tag)
+            elif value in cm_list:
+                list_with_units.append(value+self.panel_units_tag)
             elif value in deg_list:
                 list_with_units.append(value+self.angle_unit_tag)
             elif value in um_list:
@@ -900,7 +1072,7 @@ class Analysis(object):
                 list_with_units.append(value)
         return list_with_units
 
-    def remove_units(self,key_list):
+    def remove_units(self, key_list):
         """
         This function takes in a list and the traverses through the list and removes the units attached to a key using
         regex. It then returns a list without the units in the key name. This makes it easier to reference a key.
@@ -911,3 +1083,47 @@ class Analysis(object):
             #Replaces the old values
             key_list[index] = label.group()
         return key_list
+
+    def open_area_fraction(self, tower_height, tower_width, tower_pitch, panel_height, panel_width, shape):
+        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
+        """
+        Calculates the open area fraction from Jack Flicker's paper:
+        Simulations of absorbance efficiency and power production of three dimensional tower arrays
+        for use in photovoltaics
+
+        This does not support all tower shape yet (ie. xtrench, ytrench)
+        """
+        if "trench" not in shape:
+            tower_area = tower_height*tower_width
+            panel_area = panel_height*panel_width
+            total_tower_area = (tower_height + tower_pitch)*(tower_width + tower_pitch)
+            number_towers = panel_area/total_tower_area
+            # f0 = open area fraction
+            f0 = (1-number_towers)*(tower_area/panel_area)
+            return f0
+        else:
+            print("++++ERROR++++ In open_area_fraction()\n" +
+                  "Trench shapes are not supported for calculating the power ratio \n")
+            return False
+
+    def power_ratio_3D(self, tower_height, tower_width, tower_pitch, panel_height, panel_width, shape, absorbance):
+        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
+        """
+        Calculates the 3D power ratio from Jack Flicker's paper:
+        Simulations of absorbance efficiency and power production of three dimensional tower arrays
+        for use in photovoltaics
+
+        This does not support all tower shape yet (ie. xtrench, ytrench)
+        """
+
+        if "trench" not in shape:
+            # f0 = open area fraction
+            f0 = self.open_area_fraction(tower_height, tower_width, tower_pitch, panel_height, panel_width, shape)
+            # 3D power ratio
+            p3d = (((f0*np.pi)/(4*absorbance))*(1-absorbance))+1
+            return p3d
+        else:
+            print("++++ERROR++++ power_ratio_3D()\n" +
+                  "Trench shapes are not supported for calculating the power ratio \n")
+            return False
+

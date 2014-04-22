@@ -194,6 +194,6 @@ def main2():
     #analysis.generate_graphs()
     #analysis.generate_output()
 
-Main()
+#Main()
 
-#main2()
+main2()

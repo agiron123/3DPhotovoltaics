@@ -352,15 +352,21 @@ You can always refer to template.xml if you are unsure how something should be f
 Example Raw Data .csv Output:
 --------------------------------
 
+Solar Panel Dimension
+width (Centimeters),height (Centimeters)
+1.0,1.0
+Material Profile
+absorption_coefficient (1/cm),band_gap (Electronvolts)
+1000000.0,2.0
 Tower Data
-height(um),width(um),shape,log_pitch,pitch(um),aspect_ratio
-40.0,10.0,square,3.688879454,40.0,0.25
+height (Centimeters),width (Centimeters),shape,log_pitch (Micrometers),pitch (Micrometers),aspect_ratio (Micrometers)
+40.0,40.0,rect_prism,2.3025850929940459,10.0,1.0
 Compiled Data
-total_number_interactions,avg_number_interactions,avg_number_reflections,total_absorbed,number_photons,total_trapped,total_number_reflections
-597.0,5.97,5.49,55,100,48,549.0
+total_number_interactions,avg_number_interactions,absorption_efficiency (%),avg_number_reflections,total_absorbed,number_photons,total_number_reflections,total_trapped
+3981.0,3.981,0.0,3.981,0.0,1000.0,3981.0,0.0
 Stats
-zenith(degrees),interactions,wavelength,trapped,absorbed,reflections,azimuth(degrees)
-85.0,3.0,21.0,False,True,9.0,35.0
+zenith (Degrees),interactions,wavelength (Nanometers),trapped,absorbed,reflections,azimuth (Degrees)
+45.0,1,403.1834899756984,False,False,1,45.0
 …
 
 --------------------------------
