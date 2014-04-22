@@ -6,6 +6,7 @@ class SimulationSettings(object):
         Create the simulation settings object using the given dictionary.
         The dictionary is passed from the XML parser.
         """
+        self.panel_settings = d["panel_settings"]
         self.material_profile = d["material_profile"]
         self.tower = d["tower"]
         if 'fixed_orbit' in d['orbital_properties']:
