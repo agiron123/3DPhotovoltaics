@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="general_properties_tab">
     <attribute name="title">
@@ -121,10 +121,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Panel Height (cm)</string>
+      <string>Panel Length (cm)</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="panel_height">
+    <widget class="QLineEdit" name="panel_length">
      <property name="geometry">
       <rect>
        <x>170</x>

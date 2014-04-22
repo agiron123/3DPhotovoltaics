@@ -46,7 +46,7 @@ private:
     QWidget* generalPropertiesTab;
     QLineEdit* panel_orientationEdit;
     QCheckBox* specularReflectionCheckBox;
-    QLineEdit* panelHeightEdit;
+    QLineEdit* panelLengthEdit;
     QLineEdit* panelWidthEdit;
 
     //Orbital Properties Tab

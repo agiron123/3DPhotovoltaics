@@ -62,7 +62,7 @@
    <panel_width datatype="float" range="0.0 - inf"></panel_width>
 </panel_settings>
 
-<include_path datatype="bool"></include_path><!-- Whether to include photon paths in the CSV output files-->
+<include_path datatype="bool"></include_path><!-- Whether to include photon paths in the CSV output files -->
 <graph_settings datatype="str" list="true" valid_set="
     MaxPofloatPowerVsZenithAngle,
 	AverageReflectionsVsAzumithal,

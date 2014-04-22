@@ -27,7 +27,7 @@ InputPage::InputPage(QWidget *parent) :
     specularReflectionCheckBox = generalPropertiesTab->findChild<QCheckBox*>("Non_Specular_Reflection");
 
     //TODO: Add to xml document structure
-    panelHeightEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_height");
+    panelLengthEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_length");
     panelWidthEdit = generalPropertiesTab->findChild<QLineEdit*>("panel_width");
 
     //Orbital Properties Tab
@@ -121,9 +121,9 @@ void InputPage::on_doneButton_clicked()
 
     QDomElement panelSettingsElement = addElement(doc, simulationsElement, "panel_settings", NULL);
 
-    QString panelHeightString = panelHeightEdit->text();
-    qDebug() << "Panel Height: " + panelHeightString;
-    addElement(doc, panelSettingsElement, "panel_height", panelHeightString);
+    QString panelLengthString = panelLengthEdit->text();
+    qDebug() << "Panel Length: " + panelLengthString;
+    addElement(doc, panelSettingsElement, "panel_length", panelLengthString);
 
     QString panelWidthString = panelWidthEdit->text();
     qDebug() << "Panel Width: " + panelWidthString;
@@ -368,7 +368,7 @@ bool InputPage::validateFormInput()
     //TODO: check contents and validate against valid values in the XML file.
     QLineEdit* textBoxes[13];
     textBoxes[0] = panel_orientationEdit;
-    textBoxes[1] = panelHeightEdit;
+    textBoxes[1] = panelLengthEdit;
     textBoxes[2] = panelWidthEdit;
     textBoxes[3] = beta_angleEdit;
     textBoxes[4] = earthshineEdit;
