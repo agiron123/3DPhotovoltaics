@@ -87,6 +87,7 @@ class Analysis(object):
         This method creates a .csv file with all of the data from a simulation. It takes in  a list of statistics
         and whether or not to save a photon's path, it then generates a csv file for each statistic/simulation
         """
+
         #The name of the .csv file
         data_file_name = self.raw_data_file_tag
         #The name of the folders for the raw data .csv files
@@ -125,13 +126,12 @@ class Analysis(object):
 
             #gets the tower's setting from the simulation settings
             #TODO: Uncomment following three lines if not testing or debugging this file
-            #tower_settings = vars(sim_settings[index])['tower']
             tower_settings = sim_settings[index].tower
             material_data = sim_settings[index].material_profile
-            #panel_dimensions = sim_settings[index].panel_settings
+            panel_dimensions = sim_settings[index].panel_settings
 
             #----------------------------------------------------------------------------------------------------------
-            #TODO: remove print statements and remove the overwrite of tower settings
+            #TODO: remove print statements and remove the overwrite of settings
             # This was for testing when the xml parser did not work to use this you need to comment out the line above
             #print("\n Tower settings changes\n")
             #width = randint(1, 10)*10.0
@@ -142,12 +142,11 @@ class Analysis(object):
             #tower_settings = {'width': str(width), 'shape': 'square', 'height': str(height), 'pitch': str(pitch)}
             #material_data = {'absorption_coefficient': str(abs_coeff), 'band_gap': str(band_gap)}
             #print("\n End of tower settings changes\n")
-            panel_dimensions = {"height": str(1.0), "width": str(1.0)}
+            #panel_dimensions = {"height": str(1.0), "width": str(1.0)}
             #----------------------------------------------------------------------------------------------------------
 
             #adds the aspect ratio and log of the tower pitch to the tower settings
             self.add_tower_info(tower_settings)
-            print("\nEnd of Tower Settings Changes\n")
 
             #Creates the csv file and stores the location for later use
             file_location = self.file_path_creator(self.folder_dir, data_file_name, ".csv")
@@ -271,6 +270,7 @@ class Analysis(object):
         for each type of graph. Then it creates a path to that file location. It then calls the correct method to
         make a the .csv file used to generate the graphs. Finally it calls the function to generate the graphs.
         """
+
         #the directory of the raw_data
         data_dir = self.folder_dir
 
@@ -287,7 +287,7 @@ class Analysis(object):
 
         #checks if there are multiple simulations before creating graph
         if len(os.listdir(data_dir)) >= 1:
-            print("Creating graphs")
+            print("Creating graphs \n")
             #gets the dictionary contain which graphs to make
             settings_dict = vars(graph_settings)
 
@@ -369,12 +369,12 @@ class Analysis(object):
                     #TODO: fully implement
                     print("++++WARNING+++++ generate_graphs in Analysis.py is not fully implemented yet. \n" +
                           "Can create only some Power Ratio vs Absorbance graphs\n")
-                    print("Creating 3D Power Ratio vs Absorbance Graph")
-                    output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
-                    file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
-                    labels = self.power_ratio_vs_absorbance(file_location)
-                    output_directories.append(output_dir)
-                    axis_labels.append(labels)
+                    #print("Creating 3D Power Ratio vs Absorbance Graph")
+                    #output_dir = self.folder_creator("Power_Ratio_3D_vs_Absorbance")
+                    #file_location = self.file_path_creator(output_dir, "Power_Ratio_3D_vs_Absorbance_", ".csv")
+                    #labels = self.power_ratio_vs_absorbance(file_location)
+                    #output_directories.append(output_dir)
+                    #axis_labels.append(labels)
 
                 if settings_dict["AvgInteractionsVsTowerSpacingLog"] is True:
                     print("Creating Average Number of Interactions vs Log of Tower Pitch Graph")
@@ -657,9 +657,6 @@ class Analysis(object):
                     else:
                         tower_val = False
 
-                    #if y_value = "power_ratio":
-                    #power_ratio_3D(tower_height, tower_width, tower_pitch, panel_height, panel_width, shape, absorbance)
-
                     if y_value != "power_ratio":
                         #Gets the index of the desired y_value
                         if y_value in compiled_keys[data]:
@@ -729,7 +726,7 @@ class Analysis(object):
                             tower_pitch_index = tower_keys[data].index("pitch")
                             shape_index = tower_keys[data].index("shape")
                             panel_width_index = panel_keys[data].index("width")
-                            panel_height_index = panel_keys[data].index("height")
+                            panel_length_index = panel_keys[data].index("height")
 
                             # gets the actual value of the data
                             absorbance = float(material_profile_data[data][x])
@@ -738,10 +735,10 @@ class Analysis(object):
                             tower_pitch = float(tower_data[data][tower_pitch_index])
                             shape = float(tower_data[data][shape_index])
                             panel_width = float(panel_data[data][panel_width_index])
-                            panel_height = float(panel_data[data][panel_height_index])
+                            panel_length = float(panel_data[data][panel_length_index])
 
                             # Calculates the 3D Power Ratio
-                            power_ratio = self.power_ratio_3D(tower_height, tower_width, tower_pitch, panel_height,
+                            power_ratio = self.power_ratio_3D(tower_height, tower_width, tower_pitch, panel_length,
                                                               panel_width, shape, absorbance)
 
                             # this does not support all tower shapes yet (ie. xtrench, ytrench)
@@ -1084,31 +1081,38 @@ class Analysis(object):
             key_list[index] = label.group()
         return key_list
 
-    def open_area_fraction(self, tower_height, tower_width, tower_pitch, panel_height, panel_width, shape):
+    def open_area_fraction(self, tower_height, tower_width, tower_pitch, panel_length, panel_width, shape):
         #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         """
+        This is not fully implemented
+
         Calculates the open area fraction from Jack Flicker's paper:
         Simulations of absorbance efficiency and power production of three dimensional tower arrays
         for use in photovoltaics
 
+        Need to confirm whether the tower_area is the surface area of the sides of a tower
+
         This does not support all tower shape yet (ie. xtrench, ytrench)
         """
-        if "trench" not in shape:
-            tower_area = tower_height*tower_width
-            panel_area = panel_height*panel_width
-            total_tower_area = (tower_height + tower_pitch)*(tower_width + tower_pitch)
+
+        if shape == "square":
+            tower_area = tower_width*tower_height*4
+            panel_area = panel_length*panel_width
+            total_tower_area = (tower_width + tower_pitch)**2 + (tower_width*tower_height*4)
             number_towers = panel_area/total_tower_area
             # f0 = open area fraction
-            f0 = (1-number_towers)*(tower_area/panel_area)
+            f0 = (1-(number_towers*(tower_area/panel_area)))
             return f0
         else:
             print("++++ERROR++++ In open_area_fraction()\n" +
                   "Trench shapes are not supported for calculating the power ratio \n")
             return False
 
-    def power_ratio_3D(self, tower_height, tower_width, tower_pitch, panel_height, panel_width, shape, absorbance):
+    def power_ratio_3D(self, tower_height, tower_width, tower_pitch, panel_length, panel_width, shape, absorbance):
         #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         """
+        This is not fully implemented
+
         Calculates the 3D power ratio from Jack Flicker's paper:
         Simulations of absorbance efficiency and power production of three dimensional tower arrays
         for use in photovoltaics
@@ -1116,12 +1120,33 @@ class Analysis(object):
         This does not support all tower shape yet (ie. xtrench, ytrench)
         """
 
-        if "trench" not in shape:
+        if shape == "square":
             # f0 = open area fraction
-            f0 = self.open_area_fraction(tower_height, tower_width, tower_pitch, panel_height, panel_width, shape)
+            f0 = self.open_area_fraction(tower_height, tower_width, tower_pitch, panel_length, panel_width, shape)
             # 3D power ratio
             p3d = (((f0*np.pi)/(4*absorbance))*(1-absorbance))+1
             return p3d
+        else:
+            print("++++ERROR++++ power_ratio_3D()\n" +
+                  "Trench shapes are not supported for calculating the power ratio \n")
+            return False
+
+    def integrated_area_ratio(self, tower_height, tower_width, tower_pitch, shape, panel_length, panel_width):
+        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
+        """
+        This is not fully implemented
+
+        This calculates the total surface area of the solar cell
+
+        This does not support all tower shape yet (ie. xtrench, ytrench)
+        """
+
+        if shape == "square":
+            panel_area = panel_length*panel_width
+            total_tower_area = (tower_width + tower_pitch)**2 + (tower_width*tower_height*4)
+            number_towers = panel_area/total_tower_area
+            area  = total_tower_area*number_towers
+            return area
         else:
             print("++++ERROR++++ power_ratio_3D()\n" +
                   "Trench shapes are not supported for calculating the power ratio \n")
