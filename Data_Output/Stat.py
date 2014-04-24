@@ -17,6 +17,11 @@ class Stat(object):
 
     def absorb(self, photon, record):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+        @tag record: A Record object
+        @param record: The Record to update. Updates its record and path
+
         Increments the number of interactions and sets absorbed to true. Then adds the latest coordinate to the photon's
         path.
         """
@@ -26,6 +31,11 @@ class Stat(object):
 
     def trap(self, photon, record):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+        @tag record: A Record object
+        @param record: The Record to update. Updates its record and path
+
         Increments the number of interactions and sets trapped to true. Then adds the latest coordinate to the photon's
         path.
         """
@@ -35,6 +45,11 @@ class Stat(object):
 
     def reflect(self, photon, record):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+        @tag record: A Record object
+        @param record: The Record to update. Updates its record and path
+
         Increments the number of reflections and interactions. Then adds the latest coordinate to the photon's path.
         """
         self.reflections += 1
@@ -43,12 +58,20 @@ class Stat(object):
 
     def wrap_around(self, photon, record):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+        @tag record: A Record object
+        @param record: The Record to update. Updates its record and path
+
         Adds the latest coordinate to the photon's path.
         """
         self.add_to_path(photon, record)
 
     def exit(self, photon):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+
         This has not been implemented yet, since it is not used by any of the graphs. We left this function here for
         future use.
         """
@@ -58,6 +81,11 @@ class Stat(object):
 
     def add_to_path(self, photon, record):
         """
+        @tag photon: A Photon object
+        @param photon: The Photon to update. Updates its path
+        @tag record: A Record object
+        @param record: The Record to update. Updates its record and path
+
         Adds the latest coordinate to the photon's path.
         """
         self.path.append((photon.position, record.coordinate))

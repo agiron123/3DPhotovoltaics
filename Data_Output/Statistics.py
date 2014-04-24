@@ -15,8 +15,14 @@ class Statistics(object):
         #This is a list that wil store all of the stat objects from a photon
         self.stat_list = []
 
-    #This method updates the values in statistics object
+
     def update(self, stat):
+        """
+        @tag stat: A Stat object
+        @param stat: the Stat object to update the fields of
+
+        This method updates the values in statistics object
+        """
         if stat is not None:
 
             #Adds a stat object to the stat_list
