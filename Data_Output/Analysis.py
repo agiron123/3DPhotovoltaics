@@ -239,9 +239,9 @@ class Analysis(object):
 
     def folder_creator(self, folder_name):
         """
-        @type folder_name: String
+        @type folder_name: str
         @param folder_name: The name of the folder to create
-        @rtype destination_dir: String
+        @rtype destination_dir: str
         @return destination_dir: The file path for the new folder
 
         This function creates a folder, with the name taken from folder_name, that stores all of the .csv files for the
@@ -265,13 +265,13 @@ class Analysis(object):
     @staticmethod
     def file_path_creator(destination_dir, file_name, extension):
         """
-        @type destination_dir: String
+        @type destination_dir: str
         @param destination_dir: The location to store the new file
-        @type file_name: String
+        @type file_name: str
         @param file_name: The name of the new file
-        @type extension: String
+        @type extension: str
         @param extension: The extension of the new file (eg. ".csv")
-        @rtype path: String
+        @rtype path: str
         @return path: A string containing the file path for the new file
 
         This function helps create the .csv file, with the value taken from file_name. To create multiple files for
@@ -448,7 +448,7 @@ class Analysis(object):
     # ---- These functions Create the .csv file for each type of graph -------------------------------------------------
     def max_power_vs_zenith(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -468,7 +468,7 @@ class Analysis(object):
 
     def avg_reflections_vs_azimuthal(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -488,7 +488,7 @@ class Analysis(object):
 
     def absorption_efficiency_vs_azimuthal(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -508,7 +508,7 @@ class Analysis(object):
 
     def aspect_ratio_vs_avg_reflections(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -528,7 +528,7 @@ class Analysis(object):
 
     def integrated_area_ratio_vs_avg_num_reflections(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -548,7 +548,7 @@ class Analysis(object):
 
     def power_ratio_vs_absorbance(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -568,7 +568,7 @@ class Analysis(object):
 
     def avg_interactions_vs_tower_spacing(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -588,7 +588,7 @@ class Analysis(object):
 
     def avg_reflections_vs_tower_height(self, file_location):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path the .csv file is located
         @rtype labels: Tuple of strings
         @return labels: The labels for the data to be graphed. The labels will be the keys needed when getting the data:
@@ -620,7 +620,7 @@ class Analysis(object):
 
     def add_graph_data_to_csv(self, data_directory, output_file_locations=[], axis_labels=[]):
         """
-        @tag data_directory: String
+        @tag data_directory: str
         @param data_directory: The file path of the folder that the raw simulation data is stored
         @tag output_file_locations: List of strings
         @param output_file_locations: This will store all of the different file paths of the graph .csv files
@@ -853,7 +853,7 @@ class Analysis(object):
     def add_graph_data_to_csv_angle(self, data_file, output_file_locations=[], axis_labels=[]):
         #TODO:Fully implement add_graph_data_to_csv_angle create the .csv file for Power at Max Point
         """
-        @tag data_directory: String
+        @tag data_directory: str
         @param data_directory: The file path of the folder that the raw simulation data is stored
         @tag output_file_locations: List of strings
         @param output_file_locations: This will store all of the different file paths of the graph .csv files
@@ -1083,13 +1083,13 @@ class Analysis(object):
 
     def write_graph_labels(self, file_location, title="", x_label="", y_label=""):
         """
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path to the file that needs to be written to
-        @tag title: String
+        @tag title: str
         @param title: The title of the graph
-        @tag x_label: String
+        @tag x_label: str
         @param x_label: The x axis label for the graph
-        @tag y_label: String
+        @tag y_label: str
         @param y_label: The y label axis for the graph
 
         This function writes the title and axis labels to a graph's .csv file
@@ -1109,9 +1109,9 @@ class Analysis(object):
 
     def create_graph(self, folder_location, file_location):
         """
-        @tag folder_location: String
+        @tag folder_location: str
         @param folder_location: The file path to the folder contain the .csv files
-        @tag file_location: String
+        @tag file_location: str
         @param file_location: The file path to the file that needs to be written to
 
         This function creates a graph from a given .csv file and saves it at the given location
@@ -1150,7 +1150,7 @@ class Analysis(object):
 
     def add_units(self, key_list):
         """
-        @tag key_list: List of Strings
+        @tag key_list: List of strs
         @param key_list: A list of key values, that do not have their units concatenated to the end of the string
 
         This function takes in a list of keys, it then goes through the list and adds the correct units to each key.
@@ -1189,7 +1189,7 @@ class Analysis(object):
 
     def remove_units(self, key_list):
         """
-        @tag key_list: List of Strings
+        @tag key_list: List of strs
         @param key_list: A list of key values, that already have their units concatenated to the end of the string
 
         This function takes in a list and the traverses through the list and removes the units attached to a key using
@@ -1216,7 +1216,7 @@ class Analysis(object):
         @param panel_length: The length of the solar panel for the current simulation
         @tag panel_width: float
         @param panel_width: The width of the solar panel for the current simulation
-        @tag shape: String
+        @tag shape: str
         @param shape: The height of a tower for the current simulation
 
         This is not fully implemented
@@ -1257,7 +1257,7 @@ class Analysis(object):
         @param panel_length: The length of the solar panel for the current simulation
         @tag panel_width: float
         @param panel_width: The width of the solar panel for the current simulation
-        @tag shape: String
+        @tag shape: str
         @param shape: The height of a tower for the current simulation
         @tag absorbance: float
         @ param absorbance: the absorption coefficient for the current simulation
@@ -1296,7 +1296,7 @@ class Analysis(object):
         @param panel_length: The length of the solar panel for the current simulation
         @tag panel_width: float
         @param panel_width: The width of the solar panel for the current simulation
-        @tag shape: String
+        @tag shape: str
         @param shape: The height of a tower for the current simulation
 
         This is not fully implemented
@@ -1310,7 +1310,7 @@ class Analysis(object):
             panel_area = panel_length*panel_width
             total_tower_area = (tower_width + tower_pitch)**2 + (tower_width*tower_height*4)
             number_towers = panel_area/total_tower_area
-            area  = total_tower_area*number_towers
+            area = total_tower_area*number_towers
             return area
         else:
             print("++++ERROR++++ power_ratio_3D()\n" +
