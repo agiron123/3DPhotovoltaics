@@ -1,3 +1,4 @@
+"""Contains some methods for testing data output functionality"""
 from Data_Output.Analysis import *
 from Data_Output.Statistics import *
 from Data_Output.Stat import *

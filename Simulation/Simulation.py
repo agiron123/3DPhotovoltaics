@@ -1,4 +1,4 @@
-
+"""Contains the run method for running the simulation"""
 from Orbit.SimpleOrbit import *
 from Photon import *
 from Data_Output.Stat import *
@@ -10,16 +10,23 @@ import math
 def run(settings, statistics):
     """Run the simulation using the given settings. Record the output to the given
     statistics object. Run receives a settings object from main, this contains all of the relevant information needed to set up
-    and run the simulation."""
+    and run the simulation.
+
+    This run method is the principle coordinator of the simulation. It makes calls to other classes and methods as necessary
+    but does all of the coordination and control flow in this method.
+
+    """
     #setup the simulation
     i, photon_count, absorbing, trapping, = 0, settings.fixed_orbit['photon_count'], settings.absorbing, settings.trapping
     specular_only = not settings.non_specular_reflection
     ignore_tower_tops = settings.tower_tops
     orbit = SimpleOrbit(1, settings.fixed_orbit['zenith_angle'], settings.fixed_orbit['azimuth_angle'])
     photon = Photon(0, 0, 0, 0, 0)
-    #ignoring absorptions
+    #set up the material
     material = Material(settings.material_profile["absorption_coefficient"], settings.material_profile["band_gap"])
     tower = Tower(settings.tower["height"], material, settings.tower["pitch"], settings.tower["width"], settings.tower["shape"])
+
+    #TODO: this terminating condition will need to be changed when we incoporate orbit
     while i < photon_count:
         #generate a new photon from orbit
         photon = orbit.generate_photon(photon, tower)

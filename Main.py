@@ -1,3 +1,4 @@
+"""Contains the main method which does some basic setup and conclusion steps"""
 import Simulation.Simulation as Simulation
 from XML_Input.GraphSettings import *
 from Data_Output.Statistics import *

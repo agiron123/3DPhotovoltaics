@@ -1,7 +1,6 @@
+"""Holds the Plane class"""
 import math
-
 import numpy as np
-
 from Simulation.Record import *
 from Wall import *
 

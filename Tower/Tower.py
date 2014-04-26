@@ -1,3 +1,4 @@
+"""Holds the Tower class"""
 from Cylinder import *
 from Plane import *
 from Floor import *

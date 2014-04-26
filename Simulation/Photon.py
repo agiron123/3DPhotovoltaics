@@ -1,5 +1,5 @@
+"""Holds the Photon class"""
 import numpy as np
-
 
 class Photon(object):
     """Represents a photon in the simulation. Only one photon is ever made, it is just reset when needed"""

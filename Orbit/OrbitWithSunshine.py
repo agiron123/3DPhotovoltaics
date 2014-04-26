@@ -1,3 +1,4 @@
+"""Contains class for an orbit that models the ISS orbiting the earth"""
 __author__ = 'cxaviousb'
 from Orbit import *
 

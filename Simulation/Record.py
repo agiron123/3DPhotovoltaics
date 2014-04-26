@@ -1,3 +1,4 @@
+"""Holds the Record class"""
 class Record(object):
     """Record is used to store information relevant to photon collisions within the simulation"""
 

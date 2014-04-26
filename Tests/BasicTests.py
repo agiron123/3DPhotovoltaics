@@ -1,5 +1,5 @@
+"""Script that runs some very basic tests. Was used in intial debugging"""
 from random import *
-
 from Simulation.Photon import *
 from Tower.Plane import *
 from Tower.Cylinder import *

@@ -1,12 +1,11 @@
+"""Contains the abstract orbit class"""
 import math
 import random
 from Simulation.Photon import *
 
 class Orbit(object):
-    """Represents the orbit of the ISS in space.
-        Is responsible for generating an accurate probability distribution
-        of intial photon parameters (i.e. velocity, wavelength, and position). Is also responsible for
-        determining how many photons will be fired per time step."""
+    """Represents a generic orbit. Can be sub classed to produce a real orbit that actual represents moving around the ISS
+    Can also be sub classed with a simple orbit that just models the sun as a fixed point source"""
 
     def __init__(self):
         """Initialize the orbit given the initial parameters"""
@@ -15,6 +14,7 @@ class Orbit(object):
 
     #attempt at porting the generate_photon method from Christian's processing code to use as a dummy generate photon for now
     def dummy_generate_photon(self,photon,tower):
+        """Method just for testing purposes"""
         azimuth=photon.azimuth*math.PI/180;
         rho=1
         #TODO: make sure we are using proper angles, different conventions on order in which zenith and azimuth angles are listed and such

@@ -1,3 +1,4 @@
+"""Contains the Analysis class"""
 import csv
 import os
 import matplotlib.pyplot as plt
@@ -758,7 +759,6 @@ class Analysis(object):
                   "Can't create graphs without all of the required information \n")
 
     def add_graph_data_to_csv_angle(self, data_file, output_file_locations=[], axis_labels=[]):
-        #TODO:Fully implement this!!!!!!!!!!!!!!
         """
         This function creates the .csv file needed to create graphs with an angle value.
         It can make multiple .csv with one call and only uses the data from the LATEST simulation .csv file (data_file).
@@ -768,6 +768,7 @@ class Analysis(object):
         This function was separated from add_graph_data_csv() because these graphs only need to look through one .csv
         file and needs to use all of the photon stats
         """
+        #TODO:Fully implement this!!!!!!!!!!!!!!
         #checks if the parameters are valid
         if output_file_locations != [] and len(output_file_locations) == len(axis_labels):
             #checks if data_file is valid
@@ -1109,7 +1110,6 @@ class Analysis(object):
             return False
 
     def power_ratio_3D(self, tower_height, tower_width, tower_pitch, panel_length, panel_width, shape, absorbance):
-        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         """
         This is not fully implemented
 
@@ -1119,7 +1119,7 @@ class Analysis(object):
 
         This does not support all tower shape yet (ie. xtrench, ytrench)
         """
-
+        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         if shape == "square":
             # f0 = open area fraction
             f0 = self.open_area_fraction(tower_height, tower_width, tower_pitch, panel_length, panel_width, shape)
@@ -1132,7 +1132,6 @@ class Analysis(object):
             return False
 
     def integrated_area_ratio(self, tower_height, tower_width, tower_pitch, shape, panel_length, panel_width):
-        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         """
         This is not fully implemented
 
@@ -1140,7 +1139,7 @@ class Analysis(object):
 
         This does not support all tower shape yet (ie. xtrench, ytrench)
         """
-
+        #TODO: Account for different tower shapes. (eg. xtrench, ytrench)
         if shape == "square":
             panel_area = panel_length*panel_width
             total_tower_area = (tower_width + tower_pitch)**2 + (tower_width*tower_height*4)

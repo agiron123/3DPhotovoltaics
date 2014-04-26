@@ -1,3 +1,4 @@
+"""Contains the stats class"""
 class Stat(object):
     """Stores information that will be based to the Statistics class. Each photon has a stat.
          Stat stores all the information that could be used to compute meaningful

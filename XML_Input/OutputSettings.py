@@ -1,3 +1,4 @@
+"""Holds the OutputSettings class"""
 class OutputSettings(object):
     """Class for the OutputSettings that were parsed from the XML file."""
     def __init__(self, settingsDict):

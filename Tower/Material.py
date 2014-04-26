@@ -1,3 +1,4 @@
+"""Holds the Material class"""
 import math
 import random
 

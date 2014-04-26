@@ -1,3 +1,4 @@
+"""Contains utility class for matrix transformations"""
 import numpy as np
 
 

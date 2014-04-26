@@ -1,3 +1,4 @@
+"""Holds the floor class"""
 import numpy as np
 from Wall import *
 from Simulation.Record import *

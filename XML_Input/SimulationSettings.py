@@ -1,3 +1,4 @@
+"""Holds the SimulationSettings class"""
 class SimulationSettings(object):
     """Class to hold the SimulationSettings that were parsed from the XML file."""
 

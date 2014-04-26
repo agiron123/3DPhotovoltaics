@@ -1,7 +1,6 @@
+"""Simple script that was used to prdocue some graphs to compare with those shown by Jack Flicker in his derivation of power gain paper"""
 import math
-
 import matplotlib.pyplot as plt
-
 import Simulation.Simulation as Simulation
 from XML_Input.SimulationSettings import *
 from Data_Output.Statistics import *

@@ -1,3 +1,4 @@
+"""Contains class for a simple orbit. In this orbit the sun is a point source"""
 from Orbit import *
 import math
 import numpy as np
