@@ -1,4 +1,3 @@
-"""Contains the statistics class"""
 class Statistics(object):
     """This class holds information that the user will be interested in retrieving after the simulation
         has finished running. The information is held in key, value pairs in the classes info dictionary
@@ -16,8 +15,12 @@ class Statistics(object):
         #This is a list that wil store all of the stat objects from a photon
         self.stat_list = []
 
+
     def update(self, stat):
         """
+        @tag stat: A Stat object
+        @param stat: the Stat object to update the fields of
+
         This method updates the values in statistics object
         """
         if stat is not None:
