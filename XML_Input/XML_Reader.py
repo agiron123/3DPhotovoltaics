@@ -27,6 +27,15 @@ def map_validate_xml(input_el, valid_el, errors):
     Each error will result in an entry to the errors list, which will describe the error
 
     Additionally all data undergoes the proper type conversions into live python data types
+
+    @type input_el: DOM element node
+    @param input_el: a DOM node from the users input XML file
+    @type valid_el: DOM element node
+    @param valid_el: a DOM node from the validation XML file that should match the users
+    @type errors: list
+    @param errors: A running list of errors, appended with all errors created
+    @rtype: either a number, string, or dictionary depending on the case
+    @return: The result from parsing the DOM tree rooted at this node, this can either be a dictionary or just a bit of data depending on the level of the DOM
     """
 
     valid_children = list(valid_el)
@@ -34,6 +43,9 @@ def map_validate_xml(input_el, valid_el, errors):
     valid_children_tags = set([el.tag for el in valid_children])
     input_children_tags = set([el.tag for el in input_children])
     result = {}
+
+    #each of the if statements below is concerned with a different type of error
+    #we check for almost all feasible errors
 
     #use of dictionaries for the tree requires a node have children with unique tag names
     #if there are duplicate tag name this is an error, we could possibly continue the recursion
@@ -198,8 +210,12 @@ def map_validate_xml(input_el, valid_el, errors):
 def key_list(el):
     """
     Utility function which generates a comma separated list of tag names
-     for this element and all of its descendants of
+    for this element and all of its descendants of
     this xml element. Essentially just a string of the DFS traversal order
+    @type el: DOM element node
+    @param el: The element which we want a key list of
+    @rtype: string
+    @return: Comma separated list of tag names for this element and all its descendants in DFS traversal order
     """
     children = list(el)
     if len(children) == 0:

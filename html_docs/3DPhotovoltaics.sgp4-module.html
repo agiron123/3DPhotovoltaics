@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.sgp4</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        Package&nbsp;sgp4
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.sgp4-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PACKAGE DESCRIPTION ==================== -->
+<h1 class="epydoc">Package sgp4</h1><p class="nomargin-top"><span class="codelink"><a href="3DPhotovoltaics.sgp4-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+Track earth satellite TLE orbits using up-to-date 2010 version of SGP4
+
+This Python package computes the position and velocity of an
+earth-orbiting satellite, given the satellite's TLE orbital elements
+from a source like `Celestrak &lt;http://celestrak.com/&gt;`_.  It implements
+the most recent version of SGP4, and is regularly run against the SGP4
+test suite to make sure that its satellite position predictions **agree
+to within 1&#160;&#181;m** of the predictions of the standard C++ implementation
+of the algorithm.  This error is far less than the 1&#8211;3&#160;km/day by which
+satellites themselves deviate from the ideal orbits described in TLE
+files.
+
+The C++ function names have been retained, since users may already be
+familiar with this library in other languages.  Here is how to compute
+the x,y,z position and velocity for Vanguard&#160;1 at 12:50:19 on 29
+June&#160;2000:
+
+&gt;&gt;&gt; from sgp4.earth_gravity import wgs72
+&gt;&gt;&gt; from sgp4.io import twoline2rv
+&gt;&gt;&gt;
+&gt;&gt;&gt; line1 = ('1 00005U 58002B   00179.78495062  '
+...          '.00000023  00000-0  28098-4 0  4753')
+&gt;&gt;&gt; line2 = ('2 00005  34.2682 348.7242 1859667 '
+...          '331.7664  19.3264 10.82419157413667')
+&gt;&gt;&gt;
+&gt;&gt;&gt; satellite = twoline2rv(line1, line2, wgs72)
+&gt;&gt;&gt; position, velocity = satellite.propagate(
+...     2000, 6, 29, 12, 50, 19)
+&gt;&gt;&gt;
+&gt;&gt;&gt; position
+[5576.056952400586, -3999.371134576452, -1521.9571594376037]
+&gt;&gt;&gt; velocity
+[4.772627303379319, 5.119817120959591, 4.275553909172126]
+
+The position vector measures the satellite position in **meters** from
+the center of the earth.  The velocity is the rate at which those same
+three parameters are changing, expressed in **meters per second**.
+
+There are three gravity models available that you can import from the
+``earth_gravity`` module:
+
+* ``wgs72``
+* ``wgs72old``
+* ``wgs84``
+
+The ``wgs72`` model seems to be the most commonly used in the satellite
+tracking community, and is probably the model behind most TLE elements
+that are available for download.
+
+The ``twoline2rv()`` function returns a ``Satellite`` object whose
+attributes carry the data loaded from the TLE entry.
+
+This implementation passes all of the automated tests in the August 2010
+release of the reference implementation of SGP4 by Vallado et&#160;al., who
+originally published their revision of SGP4 in&#160;2006:
+
+    Vallado, David A., Paul Crawford, Richard Hujsak, and T.S. Kelso, &#8220;Revisiting Spacetrack Report #3,&#8221; presented at the AIAA/AAS Astrodynamics Specialist Conference, Keystone, CO, 2006 August 21&#8211;24.
+
+If you would like to review the paper, it is `available online
+&lt;http://www.celestrak.com/publications/AIAA/2006-6753/&gt;`_.  You can
+always download the latest version of their code for comparison against
+this Python module (or other implementations) at `AIAA-2006-6753.zip
+&lt;http://www.celestrak.com/publications/AIAA/2006-6753/AIAA-2006-6753.zip&gt;`_.
+
+This module was adapted from Vallado's C++ code since its revision date
+was the most recently updated SGP4 implementation in their zip file:
+
+* C++, August 2010
+* Fortran, August 2008
+* Pascal, August 2008
+* Matlab, May 2008
+* Java, July 2005
+
+Changelog
+---------
+
+| 2012-11-22 &#8212; 1.1 &#8212; Python&#160;3 compatibility; more documentation
+| 2012-08-27 &#8212; 1.0 &#8212; Initial release
+
+</pre>
+
+<!-- ==================== SUBMODULES ==================== -->
+<a name="section-Submodules"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Submodules</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Submodules"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr><td class="summary">
+  <ul class="nomargin">
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.earth_gravity-module.html">3DPhotovoltaics.sgp4.earth_gravity</a></strong>: <em class="summary">Three earth-gravity models for use with SGP4.</em>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.ext-module.html">3DPhotovoltaics.sgp4.ext</a></strong>: <em class="summary">Utility routines from &quot;sgp4ext.cpp&quot;.</em>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.io-module.html">3DPhotovoltaics.sgp4.io</a></strong>: <em class="summary">Read the TLE earth satellite file format.</em>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.model-module.html">3DPhotovoltaics.sgp4.model</a></strong>: <em class="summary">The Satellite class.</em>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.propagation-module.html">3DPhotovoltaics.sgp4.propagation</a></strong>: <em class="summary">The sgp4 procedures for analytical propagation of a satellite.</em>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.setup-module.html">3DPhotovoltaics.sgp4.setup</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="3DPhotovoltaics.sgp4.tests-module.html">3DPhotovoltaics.sgp4.tests</a></strong>: <em class="summary">Test suite for SGP4.</em>    </li>
+  </ul></td></tr>
+</table>
+
+<br />
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

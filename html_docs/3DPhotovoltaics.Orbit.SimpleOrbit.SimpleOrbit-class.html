@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        <a href="3DPhotovoltaics.Orbit-module.html">Package&nbsp;Orbit</a> ::
+        <a href="3DPhotovoltaics.Orbit.SimpleOrbit-module.html">Module&nbsp;SimpleOrbit</a> ::
+        Class&nbsp;SimpleOrbit
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class SimpleOrbit</h1><p class="nomargin-top"><span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+??-22 --+
+        |
+       <strong class="uidshort">SimpleOrbit</strong>
+</pre>
+
+<hr />
+<p>A substitute orbit class to use until the actual orbit class is 
+  complete. Will also be useful for testing the simulation. This simple 
+  orbit treats the sun as a point source located at the given spherical 
+  coordinates</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">rho</span>,
+        <span class="summary-sig-arg">zenith</span>,
+        <span class="summary-sig-arg">azimuth</span>)</span><br />
+      Create a simple orbit using the given spherical coordinates</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">Photon object</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#generate_photon" class="summary-sig-name">generate_photon</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">photon</span>,
+        <span class="summary-sig-arg">tower</span>)</span><br />
+      Modify the inputted photon to represent a new photon generated around
+      the given tower.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.generate_photon">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#step_azimuth" class="summary-sig-name">step_azimuth</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">delta</span>)</span><br />
+      Update the Orbit's azimuthal angle by the given delta</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.step_azimuth">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">rho</span>,
+        <span class="sig-arg">zenith</span>,
+        <span class="sig-arg">azimuth</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create a simple orbit using the given spherical coordinates</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>rho</code></strong> (should always be 1 for now) - not currently used, should always be 1 for now</li>
+        <li><strong class="pname"><code>zenith</code></strong> (floating point number, radians) - the zenith angle for the point source sun in polar coordinates</li>
+        <li><strong class="pname"><code>azimuth</code></strong> (floating point number, radians) - the azimuth angle for the point source sun in polar coordinates</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="generate_photon"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">generate_photon</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">photon</span>,
+        <span class="sig-arg">tower</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.generate_photon">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Modify the inputted photon to represent a new photon generated around 
+  the given tower. Return the modified photon</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>photon</code></strong> (Photon object) - The photon which is being modified into a new photon</li>
+        <li><strong class="pname"><code>tower</code></strong> (A Tower Object) - The tower to use for determining the photons starting position 
+          (need the bounds of the simulation)</li>
+    </ul></dd>
+    <dt>Returns: Photon object</dt>
+        <dd>The new photon which was created by this orbit (actually just the
+          old photon updated)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="step_azimuth"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">step_azimuth</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">delta</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html#SimpleOrbit.step_azimuth">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Update the Orbit's azimuthal angle by the given delta</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>delat</code></strong> - how much to step the azimuth angle by</li>
+        <li><strong class="pname"><code>delta</code></strong> (floating point number)</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

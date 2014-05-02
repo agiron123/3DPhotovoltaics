@@ -2,7 +2,11 @@
 class OutputSettings(object):
     """Class for the OutputSettings that were parsed from the XML file."""
     def __init__(self, settingsDict):
-        """Get everything from the OutputSettings dictionary"""
+        """
+        Initialize the output settings object with the given dictionary, essentially just copy everything over
+        @type settingsDict: dictionary
+        @param settingsDict: dictionary containing all the info needed for initialization
+        """
         self.powergenratio3D = settingsDict["powergenratio3D"]
         self.maximum_point_power = settingsDict["maximum_point_power"]
         self.absorption_efficiency = settingsDict["absorption_efficiency"]

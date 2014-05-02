@@ -4,17 +4,23 @@ import random
 from Simulation.Photon import *
 
 class Orbit(object):
-    """Represents a generic orbit. Can be sub classed to produce a real orbit that actual represents moving around the ISS
-    Can also be sub classed with a simple orbit that just models the sun as a fixed point source"""
+    """
+    Represents a generic orbit. Can be sub classed to produce a real orbit that actual represents moving around the ISS
+    Can also be sub classed with a simple orbit that just models the sun as a fixed point source
+    """
 
     def __init__(self):
-        """Initialize the orbit given the initial parameters"""
+        """
+        Initialize the orbit given the initial parameters
+        """
         #not sure what exactly to put here right now, we need a better understanding of the physics
         #to determine that exactly, beta angles, and earth shine definitely seem like things which should go here
 
     #attempt at porting the generate_photon method from Christian's processing code to use as a dummy generate photon for now
     def dummy_generate_photon(self,photon,tower):
-        """Method just for testing purposes"""
+        """
+        Method just for testing purposes
+        """
         azimuth=photon.azimuth*math.PI/180;
         rho=1
         #TODO: make sure we are using proper angles, different conventions on order in which zenith and azimuth angles are listed and such
@@ -32,7 +38,9 @@ class Orbit(object):
 
 
     def generate_photon(self, photon, tower):
-        """Reset the photon which the simulation is using to represent a new photon"""
+        """
+        Reset the photon which the simulation is using to represent a new photon
+        """
         #TODO : hard physics stuff goes here
         #NOTE : leaving a normal distribution here
         #TODO: do we want a normal distribution here or the distribution from the processing code
@@ -40,5 +48,7 @@ class Orbit(object):
 
     def time_step(self, delta_t):
         #TODO: seems like for release one we could update zenith and azimuth here
-        """Move the ISS along the orbit by the given time step. The probability distribution of
-            generate_photon will reflect this change"""
+        """
+        Move the ISS along the orbit by the given time step. The probability distribution of
+        generate_photon will reflect this change
+        """

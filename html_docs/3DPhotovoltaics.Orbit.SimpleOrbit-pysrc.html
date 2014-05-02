@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.Orbit.SimpleOrbit</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        <a href="3DPhotovoltaics.Orbit-module.html">Package&nbsp;Orbit</a> ::
+        Module&nbsp;SimpleOrbit
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.Orbit.SimpleOrbit-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="3DPhotovoltaics.Orbit.SimpleOrbit-module.html">Module 3DPhotovoltaics.Orbit.SimpleOrbit</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""Contains class for a simple orbit. In this orbit the sun is a point source"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package 3DPhotovoltaics.Orbit=3DPhotovoltaics.Orbit-module.html,Module 3DPhotovoltaics.Orbit.Orbit=3DPhotovoltaics.Orbit.Orbit-module.html,Class 3DPhotovoltaics.Orbit.Orbit.Orbit=3DPhotovoltaics.Orbit.Orbit.Orbit-class.html"><a title="3DPhotovoltaics.Orbit
+3DPhotovoltaics.Orbit.Orbit
+3DPhotovoltaics.Orbit.Orbit.Orbit" class="py-name" href="#" onclick="return doclink('link-0', 'Orbit', 'link-0');">Orbit</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">numpy</tt> <tt class="py-keyword">as</tt> <tt class="py-name">np</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">random</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="SimpleOrbit"></a><div id="SimpleOrbit-def"><a name="L8"></a><tt class="py-lineno"> 8</tt> <a class="py-toggle" href="#" id="SimpleOrbit-toggle" onclick="return toggle('SimpleOrbit');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html">SimpleOrbit</a><tt class="py-op">(</tt><tt class="py-base-class">Orbit</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SimpleOrbit-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="SimpleOrbit-expanded"><a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">    A substitute orbit class to use until the actual orbit class is complete.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">    Will also be useful for testing the simulation. This simple orbit treats the sun as a point source located</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">    at the given spherical coordinates</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="SimpleOrbit.__init__"></a><div id="SimpleOrbit.__init__-def"><a name="L14"></a><tt class="py-lineno">14</tt> <a class="py-toggle" href="#" id="SimpleOrbit.__init__-toggle" onclick="return toggle('SimpleOrbit.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rho</tt><tt class="py-op">,</tt> <tt class="py-param">zenith</tt><tt class="py-op">,</tt> <tt class="py-param">azimuth</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SimpleOrbit.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SimpleOrbit.__init__-expanded"><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        Create a simple orbit using the given spherical coordinates</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">        @type rho: should always be 1 for now</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        @param rho: not currently used, should always be 1 for now</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">        @type zenith: floating point number, radians</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        @param zenith: the zenith angle for the point source sun in polar coordinates</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">        @type azimuth: floating point number, radians</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">        @param azimuth: the azimuth angle for the point source sun in polar coordinates</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rho</tt> <tt class="py-op">=</tt> <tt class="py-name">rho</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt> <tt class="py-op">=</tt> <tt class="py-name">zenith</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt> <tt class="py-op">=</tt> <tt class="py-name">azimuth</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="SimpleOrbit.generate_photon"></a><div id="SimpleOrbit.generate_photon-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="SimpleOrbit.generate_photon-toggle" onclick="return toggle('SimpleOrbit.generate_photon');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#generate_photon">generate_photon</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">photon</tt><tt class="py-op">,</tt> <tt class="py-param">tower</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SimpleOrbit.generate_photon-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SimpleOrbit.generate_photon-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-docstring">        Modify the inputted photon to represent a new photon generated around the given tower.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-docstring">        Return the modified photon</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-docstring">        @type photon: Photon object</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">        @param photon: The photon which is being modified into a new photon</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">        @type tower: A Tower Object</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">        @param tower: The tower to use for determining the photons starting position (need the bounds of the simulation)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: Photon object</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">        @return: The new photon which was created by this orbit (actually just the old photon updated)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-name">x</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rho</tt> <tt class="py-op">*</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sin</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">cos</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">y</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rho</tt> <tt class="py-op">*</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sin</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sin</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-name">z</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rho</tt> <tt class="py-op">*</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">cos</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt id="link-1" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.photon=3DPhotovoltaics.Tests.BasicTests-module.html#photon"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-1', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> <tt class="py-op">=</tt> <tt class="py-name">np</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">,</tt> <tt class="py-name">y</tt><tt class="py-op">,</tt> <tt class="py-name">z</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt id="link-2" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-2', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> <tt class="py-op">*=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt class="py-name">sim_width</tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.tower=3DPhotovoltaics.Tests.BasicTests-module.html#tower"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-3', 'tower', 'link-3');">tower</a></tt><tt class="py-op">.</tt><tt class="py-name">width</tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt> <tt class="py-op">+</tt> <tt id="link-4" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-4', 'tower', 'link-3');">tower</a></tt><tt class="py-op">.</tt><tt class="py-name">pitch</tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-name">x</tt> <tt class="py-op">=</tt> <tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">uniform</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-name">sim_width</tt><tt class="py-op">,</tt> <tt class="py-name">sim_width</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-name">y</tt> <tt class="py-op">=</tt> <tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">uniform</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-name">sim_width</tt><tt class="py-op">,</tt> <tt class="py-name">sim_width</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-name">z</tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-5', 'tower', 'link-3');">tower</a></tt><tt class="py-op">.</tt><tt class="py-name">height</tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt id="link-6" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-6', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">position</tt> <tt class="py-op">=</tt> <tt class="py-name">np</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">,</tt> <tt class="py-name">y</tt><tt class="py-op">,</tt> <tt class="py-name">z</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt id="link-7" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-7', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">wavelength</tt> <tt class="py-op">=</tt> <tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">uniform</tt><tt class="py-op">(</tt><tt class="py-number">200</tt><tt class="py-op">,</tt> <tt class="py-number">827</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt id="link-8" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-8', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt id="link-9" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-9', 'photon', 'link-1');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-10" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-10', 'photon', 'link-1');">photon</a></tt> </tt>
+</div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="SimpleOrbit.step_azimuth"></a><div id="SimpleOrbit.step_azimuth-def"><a name="L54"></a><tt class="py-lineno">54</tt> <a class="py-toggle" href="#" id="SimpleOrbit.step_azimuth-toggle" onclick="return toggle('SimpleOrbit.step_azimuth');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#step_azimuth">step_azimuth</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">delta</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SimpleOrbit.step_azimuth-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SimpleOrbit.step_azimuth-expanded"><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt class="py-docstring">        Update the Orbit's azimuthal angle by the given delta</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-docstring">        @type delta: floating point number</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">        @param delat: how much to step the azimuth angle by</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt> <tt class="py-op">+=</tt> <tt class="py-name">delta</tt> </tt>
+</div></div><a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

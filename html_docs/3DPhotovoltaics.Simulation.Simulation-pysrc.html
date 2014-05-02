@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.Simulation.Simulation</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        <a href="3DPhotovoltaics.Simulation-module.html">Package&nbsp;Simulation</a> ::
+        Module&nbsp;Simulation
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.Simulation.Simulation-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="3DPhotovoltaics.Simulation.Simulation-module.html">Module 3DPhotovoltaics.Simulation.Simulation</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""Contains the run method for running the simulation"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package 3DPhotovoltaics.Orbit=3DPhotovoltaics.Orbit-module.html,Module 3DPhotovoltaics.Orbit.Orbit=3DPhotovoltaics.Orbit.Orbit-module.html,Class 3DPhotovoltaics.Orbit.Orbit.Orbit=3DPhotovoltaics.Orbit.Orbit.Orbit-class.html"><a title="3DPhotovoltaics.Orbit
+3DPhotovoltaics.Orbit.Orbit
+3DPhotovoltaics.Orbit.Orbit.Orbit" class="py-name" href="#" onclick="return doclink('link-0', 'Orbit', 'link-0');">Orbit</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Class 3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit=3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit-class.html,Module 3DPhotovoltaics.Orbit.SimpleOrbit=3DPhotovoltaics.Orbit.SimpleOrbit-module.html,Class 3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit=3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html"><a title="3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit
+3DPhotovoltaics.Orbit.SimpleOrbit
+3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit" class="py-name" href="#" onclick="return doclink('link-1', 'SimpleOrbit', 'link-1');">SimpleOrbit</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module 3DPhotovoltaics.Simulation.Photon=3DPhotovoltaics.Simulation.Photon-module.html,Class 3DPhotovoltaics.Simulation.Photon.Photon=3DPhotovoltaics.Simulation.Photon.Photon-class.html"><a title="3DPhotovoltaics.Simulation.Photon
+3DPhotovoltaics.Simulation.Photon.Photon" class="py-name" href="#" onclick="return doclink('link-2', 'Photon', 'link-2');">Photon</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package 3DPhotovoltaics.Data_Output=3DPhotovoltaics.Data_Output-module.html"><a title="3DPhotovoltaics.Data_Output" class="py-name" href="#" onclick="return doclink('link-3', 'Data_Output', 'link-3');">Data_Output</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module 3DPhotovoltaics.Data_Output.Stat=3DPhotovoltaics.Data_Output.Stat-module.html,Class 3DPhotovoltaics.Data_Output.Stat.Stat=3DPhotovoltaics.Data_Output.Stat.Stat-class.html"><a title="3DPhotovoltaics.Data_Output.Stat
+3DPhotovoltaics.Data_Output.Stat.Stat" class="py-name" href="#" onclick="return doclink('link-4', 'Stat', 'link-4');">Stat</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name" targets="Package 3DPhotovoltaics.Tower=3DPhotovoltaics.Tower-module.html,Module 3DPhotovoltaics.Tower.Tower=3DPhotovoltaics.Tower.Tower-module.html,Class 3DPhotovoltaics.Tower.Tower.Tower=3DPhotovoltaics.Tower.Tower.Tower-class.html"><a title="3DPhotovoltaics.Tower
+3DPhotovoltaics.Tower.Tower
+3DPhotovoltaics.Tower.Tower.Tower" class="py-name" href="#" onclick="return doclink('link-5', 'Tower', 'link-5');">Tower</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module 3DPhotovoltaics.Tower.Material=3DPhotovoltaics.Tower.Material-module.html,Class 3DPhotovoltaics.Tower.Material.Material=3DPhotovoltaics.Tower.Material.Material-class.html"><a title="3DPhotovoltaics.Tower.Material
+3DPhotovoltaics.Tower.Material.Material" class="py-name" href="#" onclick="return doclink('link-6', 'Material', 'link-6');">Material</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name"><a title="3DPhotovoltaics.Tower
+3DPhotovoltaics.Tower.Tower
+3DPhotovoltaics.Tower.Tower.Tower" class="py-name" href="#" onclick="return doclink('link-7', 'Tower', 'link-5');">Tower</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="3DPhotovoltaics.Tower
+3DPhotovoltaics.Tower.Tower
+3DPhotovoltaics.Tower.Tower.Tower" class="py-name" href="#" onclick="return doclink('link-8', 'Tower', 'link-5');">Tower</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="run"></a><div id="run-def"><a name="L10"></a><tt class="py-lineno">10</tt> <a class="py-toggle" href="#" id="run-toggle" onclick="return toggle('run');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Simulation-module.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">settings</tt><tt class="py-op">,</tt> <tt class="py-param">statistics</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="run-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="run-expanded"><a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">    Run the simulation using the given settings. Record the output to the given</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-docstring">    statistics object. Run receives a settings object from main, this contains all of the relevant information needed to set up</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-docstring">    and run the simulation.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">    This run method is the principle coordinator of the simulation. It makes calls to other classes and methods as necessary</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">    but does all of the coordination and control flow in this method.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">    @type settings: SimulationSettings Object</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">    @param settings: Holds all of the information used to configure the simulation in the correct form</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">    @type statistics: Statistics Object</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">    @param statistics: The Statistics object which will be used to record all of the data produced by the simulation</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt class="py-comment">#setup the simulation using the data from the setting object</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt class="py-name">i</tt><tt class="py-op">,</tt> <tt class="py-name">photon_count</tt><tt class="py-op">,</tt> <tt class="py-name">absorbing</tt><tt class="py-op">,</tt> <tt class="py-name">trapping</tt><tt class="py-op">,</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">fixed_orbit</tt><tt class="py-op">[</tt><tt class="py-string">'photon_count'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">absorbing</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">trapping</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-name">specular_only</tt> <tt class="py-op">=</tt> <tt class="py-keyword">not</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">non_specular_reflection</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-name">ignore_tower_tops</tt> <tt class="py-op">=</tt> <tt class="py-keyword">not</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">tower_tops</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">orbit</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit
+3DPhotovoltaics.Orbit.SimpleOrbit
+3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit" class="py-name" href="#" onclick="return doclink('link-9', 'SimpleOrbit', 'link-1');">SimpleOrbit</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">fixed_orbit</tt><tt class="py-op">[</tt><tt class="py-string">'zenith_angle'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">fixed_orbit</tt><tt class="py-op">[</tt><tt class="py-string">'azimuth_angle'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt id="link-10" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.photon=3DPhotovoltaics.Tests.BasicTests-module.html#photon"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-10', 'photon', 'link-10');">photon</a></tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="3DPhotovoltaics.Simulation.Photon
+3DPhotovoltaics.Simulation.Photon.Photon" class="py-name" href="#" onclick="return doclink('link-11', 'Photon', 'link-2');">Photon</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-comment">#set up the material</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-name">material</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="3DPhotovoltaics.Tower.Material
+3DPhotovoltaics.Tower.Material.Material" class="py-name" href="#" onclick="return doclink('link-12', 'Material', 'link-6');">Material</a></tt><tt class="py-op">(</tt><tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">material_profile</tt><tt class="py-op">[</tt><tt class="py-string">"absorption_coefficient"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt class="py-name">material_profile</tt><tt class="py-op">[</tt><tt class="py-string">"band_gap"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt id="link-13" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.tower=3DPhotovoltaics.Tests.BasicTests-module.html#tower"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-13', 'tower', 'link-13');">tower</a></tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name"><a title="3DPhotovoltaics.Tower
+3DPhotovoltaics.Tower.Tower
+3DPhotovoltaics.Tower.Tower.Tower" class="py-name" href="#" onclick="return doclink('link-14', 'Tower', 'link-5');">Tower</a></tt><tt class="py-op">(</tt><tt class="py-name">settings</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-15', 'tower', 'link-13');">tower</a></tt><tt class="py-op">[</tt><tt class="py-string">"height"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">material</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-16', 'tower', 'link-13');">tower</a></tt><tt class="py-op">[</tt><tt class="py-string">"pitch"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-17', 'tower', 'link-13');">tower</a></tt><tt class="py-op">[</tt><tt class="py-string">"width"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">settings</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-18', 'tower', 'link-13');">tower</a></tt><tt class="py-op">[</tt><tt class="py-string">"shape"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-comment">#TODO: this terminating condition will need to be changed when we incoporate orbit</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">i</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">photon_count</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-comment">#generate a new photon from orbit</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt id="link-19" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-19', 'photon', 'link-10');">photon</a></tt> <tt class="py-op">=</tt> <tt class="py-name">orbit</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method 3DPhotovoltaics.Orbit.Orbit.Orbit.generate_photon()=3DPhotovoltaics.Orbit.Orbit.Orbit-class.html#generate_photon,Method 3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit.generate_photon()=3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit-class.html#generate_photon,Method 3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit.generate_photon()=3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit-class.html#generate_photon"><a title="3DPhotovoltaics.Orbit.Orbit.Orbit.generate_photon
+3DPhotovoltaics.Orbit.OrbitWithSunshine.SimpleOrbit.generate_photon
+3DPhotovoltaics.Orbit.SimpleOrbit.SimpleOrbit.generate_photon" class="py-name" href="#" onclick="return doclink('link-20', 'generate_photon', 'link-20');">generate_photon</a></tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-21', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-22" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-22', 'tower', 'link-13');">tower</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-comment">#generate new stat datum</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">stat</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="3DPhotovoltaics.Data_Output.Stat
+3DPhotovoltaics.Data_Output.Stat.Stat" class="py-name" href="#" onclick="return doclink('link-23', 'Stat', 'link-4');">Stat</a></tt><tt class="py-op">(</tt><tt id="link-24" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-24', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt id="link-25" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.done=3DPhotovoltaics.Tests.BasicTests-module.html#done"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-25', 'done', 'link-25');">done</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-26" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-26', 'tower', 'link-13');">tower</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method 3DPhotovoltaics.Tower.Tower.Tower.is_inside()=3DPhotovoltaics.Tower.Tower.Tower-class.html#is_inside"><a title="3DPhotovoltaics.Tower.Tower.Tower.is_inside" class="py-name" href="#" onclick="return doclink('link-27', 'is_inside', 'link-27');">is_inside</a></tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-28', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">ignore_tower_tops</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                <tt id="link-29" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-29', 'done', 'link-25');">done</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                <tt id="link-30" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.record=3DPhotovoltaics.Tests.BasicTests-module.html#record"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-30', 'record', 'link-30');">record</a></tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name" targets="Module 3DPhotovoltaics.Simulation.Record=3DPhotovoltaics.Simulation.Record-module.html,Class 3DPhotovoltaics.Simulation.Record.Record=3DPhotovoltaics.Simulation.Record.Record-class.html"><a title="3DPhotovoltaics.Simulation.Record
+3DPhotovoltaics.Simulation.Record.Record" class="py-name" href="#" onclick="return doclink('link-31', 'Record', 'link-31');">Record</a></tt><tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-32', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">position</tt><tt class="py-op">,</tt> <tt class="py-name">np</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">absorbing</tt> <tt class="py-keyword">and</tt> <tt id="link-33" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-33', 'tower', 'link-13');">tower</a></tt><tt class="py-op">.</tt><tt class="py-name">material</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method 3DPhotovoltaics.Tower.Material.Material.is_absorbed()=3DPhotovoltaics.Tower.Material.Material-class.html#is_absorbed"><a title="3DPhotovoltaics.Tower.Material.Material.is_absorbed" class="py-name" href="#" onclick="return doclink('link-34', 'is_absorbed', 'link-34');">is_absorbed</a></tt><tt class="py-op">(</tt><tt id="link-35" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-35', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                    <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Stat.Stat.absorb()=3DPhotovoltaics.Data_Output.Stat.Stat-class.html#absorb"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.absorb" class="py-name" href="#" onclick="return doclink('link-36', 'absorb', 'link-36');">absorb</a></tt><tt class="py-op">(</tt><tt id="link-37" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-37', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-38" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-38', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">trapping</tt> <tt class="py-keyword">and</tt> <tt id="link-39" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-39', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method 3DPhotovoltaics.Simulation.Photon.Photon.is_trapped()=3DPhotovoltaics.Simulation.Photon.Photon-class.html#is_trapped"><a title="3DPhotovoltaics.Simulation.Photon.Photon.is_trapped" class="py-name" href="#" onclick="return doclink('link-40', 'is_trapped', 'link-40');">is_trapped</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                    <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Stat.Stat.trap()=3DPhotovoltaics.Data_Output.Stat.Stat-class.html#trap"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.trap" class="py-name" href="#" onclick="return doclink('link-41', 'trap', 'link-41');">trap</a></tt><tt class="py-op">(</tt><tt id="link-42" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-42', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-43" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-43', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                    <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Stat.Stat.reflect()=3DPhotovoltaics.Data_Output.Stat.Stat-class.html#reflect"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.reflect" class="py-name" href="#" onclick="return doclink('link-44', 'reflect', 'link-44');">reflect</a></tt><tt class="py-op">(</tt><tt id="link-45" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-45', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-46" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-46', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                <tt class="py-comment">#completely ignore photons spawned on the top of the tower</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-comment">#continue until photon is absorbed, trapped, or exits the simulation</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-keyword">not</tt> <tt id="link-47" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-47', 'done', 'link-25');">done</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">            <tt class="py-comment">#get a collision</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">            <tt id="link-48" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-48', 'record', 'link-30');">record</a></tt> <tt class="py-op">=</tt> <tt id="link-49" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-49', 'tower', 'link-13');">tower</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name" targets="Method 3DPhotovoltaics.Tower.Tower.Tower.get_record()=3DPhotovoltaics.Tower.Tower.Tower-class.html#get_record"><a title="3DPhotovoltaics.Tower.Tower.Tower.get_record" class="py-name" href="#" onclick="return doclink('link-50', 'get_record', 'link-50');">get_record</a></tt><tt class="py-op">(</tt><tt id="link-51" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-51', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">            <tt class="py-comment">#check 3 things</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">            <tt class="py-comment">#exiting</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-52" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-52', 'record', 'link-30');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">is_exiting</tt><tt class="py-op">:</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">                <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Stat.Stat.exit()=3DPhotovoltaics.Data_Output.Stat.Stat-class.html#exit"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.exit" class="py-name" href="#" onclick="return doclink('link-53', 'exit', 'link-53');">exit</a></tt><tt class="py-op">(</tt><tt id="link-54" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-54', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">                <tt id="link-55" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-55', 'done', 'link-25');">done</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt>  <tt class="py-comment"># move onto next photon</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">            <tt class="py-comment">#wrap around</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt id="link-56" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-56', 'record', 'link-30');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">is_boundary</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">                <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Stat.Stat.wrap_around()=3DPhotovoltaics.Data_Output.Stat.Stat-class.html#wrap_around,Method 3DPhotovoltaics.Simulation.Photon.Photon.wrap_around()=3DPhotovoltaics.Simulation.Photon.Photon-class.html#wrap_around"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.wrap_around
+3DPhotovoltaics.Simulation.Photon.Photon.wrap_around" class="py-name" href="#" onclick="return doclink('link-57', 'wrap_around', 'link-57');">wrap_around</a></tt><tt class="py-op">(</tt><tt id="link-58" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-58', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-59" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-59', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">                <tt id="link-60" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-60', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.wrap_around
+3DPhotovoltaics.Simulation.Photon.Photon.wrap_around" class="py-name" href="#" onclick="return doclink('link-61', 'wrap_around', 'link-57');">wrap_around</a></tt><tt class="py-op">(</tt><tt id="link-62" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-62', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">            <tt class="py-comment">#absorbed</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">absorbing</tt> <tt class="py-keyword">and</tt> <tt id="link-63" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.tower" class="py-name" href="#" onclick="return doclink('link-63', 'tower', 'link-13');">tower</a></tt><tt class="py-op">.</tt><tt class="py-name">material</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="3DPhotovoltaics.Tower.Material.Material.is_absorbed" class="py-name" href="#" onclick="return doclink('link-64', 'is_absorbed', 'link-34');">is_absorbed</a></tt><tt class="py-op">(</tt><tt id="link-65" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-65', 'photon', 'link-10');">photon</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">                <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.absorb" class="py-name" href="#" onclick="return doclink('link-66', 'absorb', 'link-36');">absorb</a></tt><tt class="py-op">(</tt><tt id="link-67" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-67', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-68" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-68', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">                <tt id="link-69" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-69', 'done', 'link-25');">done</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt>  <tt class="py-comment"># move onto next photon</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">            <tt class="py-comment">#trapped</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">trapping</tt> <tt class="py-keyword">and</tt> <tt id="link-70" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-70', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt class="py-name">trapped</tt><tt class="py-op">(</tt><tt id="link-71" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-71', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">                <tt class="py-comment">#TODO : do trapping work here</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">                <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.trap" class="py-name" href="#" onclick="return doclink('link-72', 'trap', 'link-41');">trap</a></tt><tt class="py-op">(</tt><tt id="link-73" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-73', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-74" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-74', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">                <tt class="py-comment">#something else?</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">                <tt id="link-75" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.done" class="py-name" href="#" onclick="return doclink('link-75', 'done', 'link-25');">done</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt>  <tt class="py-comment"># move onto next photon</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">specular_only</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">                <tt id="link-76" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-76', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt id="link-77" class="py-name" targets="Method 3DPhotovoltaics.Simulation.Photon.Photon.specular_reflect()=3DPhotovoltaics.Simulation.Photon.Photon-class.html#specular_reflect"><a title="3DPhotovoltaics.Simulation.Photon.Photon.specular_reflect" class="py-name" href="#" onclick="return doclink('link-77', 'specular_reflect', 'link-77');">specular_reflect</a></tt><tt class="py-op">(</tt><tt id="link-78" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-78', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">                <tt class="py-name">stat</tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="3DPhotovoltaics.Data_Output.Stat.Stat.reflect" class="py-name" href="#" onclick="return doclink('link-79', 'reflect', 'link-44');">reflect</a></tt><tt class="py-op">(</tt><tt id="link-80" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-80', 'photon', 'link-10');">photon</a></tt><tt class="py-op">,</tt> <tt id="link-81" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-81', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">                <tt id="link-82" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.photon" class="py-name" href="#" onclick="return doclink('link-82', 'photon', 'link-10');">photon</a></tt><tt class="py-op">.</tt><tt id="link-83" class="py-name" targets="Method 3DPhotovoltaics.Simulation.Photon.Photon.non_specular_reflect()=3DPhotovoltaics.Simulation.Photon.Photon-class.html#non_specular_reflect"><a title="3DPhotovoltaics.Simulation.Photon.Photon.non_specular_reflect" class="py-name" href="#" onclick="return doclink('link-83', 'non_specular_reflect', 'link-83');">non_specular_reflect</a></tt><tt class="py-op">(</tt><tt id="link-84" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-84', 'record', 'link-30');">record</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">        <tt class="py-comment">#finish with this photon by updating statistics with its stat datum</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">        <tt class="py-name">statistics</tt><tt class="py-op">.</tt><tt id="link-85" class="py-name" targets="Method 3DPhotovoltaics.Data_Output.Statistics.Statistics.update()=3DPhotovoltaics.Data_Output.Statistics.Statistics-class.html#update"><a title="3DPhotovoltaics.Data_Output.Statistics.Statistics.update" class="py-name" href="#" onclick="return doclink('link-85', 'update', 'link-85');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">stat</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">        <tt class="py-name">i</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

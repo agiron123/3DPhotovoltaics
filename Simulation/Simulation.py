@@ -8,18 +8,24 @@ import math
 
 
 def run(settings, statistics):
-    """Run the simulation using the given settings. Record the output to the given
+    """
+    Run the simulation using the given settings. Record the output to the given
     statistics object. Run receives a settings object from main, this contains all of the relevant information needed to set up
     and run the simulation.
 
     This run method is the principle coordinator of the simulation. It makes calls to other classes and methods as necessary
     but does all of the coordination and control flow in this method.
 
+    @type settings: SimulationSettings Object
+    @param settings: Holds all of the information used to configure the simulation in the correct form
+    @type statistics: Statistics Object
+    @param statistics: The Statistics object which will be used to record all of the data produced by the simulation
+
     """
-    #setup the simulation
+    #setup the simulation using the data from the setting object
     i, photon_count, absorbing, trapping, = 0, settings.fixed_orbit['photon_count'], settings.absorbing, settings.trapping
     specular_only = not settings.non_specular_reflection
-    ignore_tower_tops = settings.tower_tops
+    ignore_tower_tops = not settings.tower_tops
     orbit = SimpleOrbit(1, settings.fixed_orbit['zenith_angle'], settings.fixed_orbit['azimuth_angle'])
     photon = Photon(0, 0, 0, 0, 0)
     #set up the material

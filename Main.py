@@ -52,12 +52,15 @@ def main():
         setting_objects = []
         for d in simulation_dicts:
             setting_objects.append((SimulationSettings(d), GraphSettings(d)))
+        i = 1
         for setting in setting_objects:
             s = Statistics()
+            print("Running Simulation #" + str(i))
             Simulation.run(setting[0], s)
             a = Analysis()
             a.generate_output(s, setting[0])
             a.generate_graphs(setting[1])
+            i += 1
 
 #if the user is calling this script from the command line call the main method
 if  __name__ =='__main__':

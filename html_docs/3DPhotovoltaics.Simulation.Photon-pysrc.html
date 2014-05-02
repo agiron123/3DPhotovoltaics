@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.Simulation.Photon</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        <a href="3DPhotovoltaics.Simulation-module.html">Package&nbsp;Simulation</a> ::
+        Module&nbsp;Photon
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.Simulation.Photon-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="3DPhotovoltaics.Simulation.Photon-module.html">Module 3DPhotovoltaics.Simulation.Photon</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""Holds the Photon class"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">numpy</tt> <tt class="py-keyword">as</tt> <tt class="py-name">np</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"> </tt>
+<a name="Photon"></a><div id="Photon-def"><a name="L4"></a><tt class="py-lineno"> 4</tt> <a class="py-toggle" href="#" id="Photon-toggle" onclick="return toggle('Photon');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html">Photon</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Photon-expanded"><a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Represents a photon in the simulation. Only one photon is ever made, it is just reset when needed</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="Photon.__init__"></a><div id="Photon.__init__-def"><a name="L10"></a><tt class="py-lineno">10</tt> <a class="py-toggle" href="#" id="Photon.__init__-toggle" onclick="return toggle('Photon.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">position</tt><tt class="py-op">,</tt> <tt class="py-param">velocity</tt><tt class="py-op">,</tt> <tt class="py-param">wavelength</tt><tt class="py-op">,</tt> <tt class="py-param">azimuth</tt><tt class="py-op">,</tt> <tt class="py-param">zenith</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Photon.__init__-expanded"><a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">        Initialize the photon with the given parameters. Azimuth and Zenith are used to track</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-docstring">        where it initially entered</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring">        @type position: 3D vector, should be numpy array</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        @param position: The position of the photon in 3D space</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">        @type velocity: 3D vector, should be a numpy array</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        @param velocity: The velocity of the photon in 3D space</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">        @type wavelength: floating point number</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        @param wavelength: The wavelength of the photon</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">        @type azimuth: floating point number, radians</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">        @param azimuth: The initial azimuth angle for this photon</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">        @type zenith: floating point number, radians</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">        @param zenith: The initial zentih angle for this photon</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">position</tt> <tt class="py-op">=</tt> <tt class="py-name">position</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> <tt class="py-op">=</tt> <tt class="py-name">velocity</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">wavelength</tt> <tt class="py-op">=</tt> <tt class="py-name">wavelength</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">azimuth</tt> <tt class="py-op">=</tt> <tt class="py-name">azimuth</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zenith</tt> <tt class="py-op">=</tt> <tt class="py-name">zenith</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="Photon.specular_reflect"></a><div id="Photon.specular_reflect-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="Photon.specular_reflect-toggle" onclick="return toggle('Photon.specular_reflect');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html#specular_reflect">specular_reflect</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">record</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon.specular_reflect-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Photon.specular_reflect-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">        Update position and velocity of photon for a perfect specular</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">        mirror-like reflection off a wall based upon the given record.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">        @type record: Record Object</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">        @param record: The record to use when performing the reflection</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-comment">#</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">position</tt> <tt class="py-op">+=</tt> <tt id="link-0" class="py-name" targets="Variable 3DPhotovoltaics.Tests.BasicTests.record=3DPhotovoltaics.Tests.BasicTests-module.html#record"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-0', 'record', 'link-0');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">time</tt> <tt class="py-op">*</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-comment"># v_new = v_old - 2 * &lt;v_old, normal&gt; * normal</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> <tt class="py-op">-=</tt> <tt class="py-number">2</tt> <tt class="py-op">*</tt> <tt class="py-name">np</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Function 3DPhotovoltaics.sgp4.ext.dot()=3DPhotovoltaics.sgp4.ext-module.html#dot"><a title="3DPhotovoltaics.sgp4.ext.dot" class="py-name" href="#" onclick="return doclink('link-1', 'dot', 'link-1');">dot</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-2', 'record', 'link-0');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">normal</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt id="link-3" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-3', 'record', 'link-0');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">normal</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
+<a name="Photon.wrap_around"></a><div id="Photon.wrap_around-def"><a name="L44"></a><tt class="py-lineno">44</tt> <a class="py-toggle" href="#" id="Photon.wrap_around-toggle" onclick="return toggle('Photon.wrap_around');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html#wrap_around">wrap_around</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">record</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon.wrap_around-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Photon.wrap_around-expanded"><a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt class="py-docstring">        Simulate repeating boundary conditions and represent an infinite array by wrapping the photon around to the</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt class="py-docstring">        other side</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-docstring">        @type record: Record Object</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-docstring">        @param record: The record to use when performing the wrap around</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">position</tt> <tt class="py-op">+=</tt> <tt id="link-4" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-4', 'record', 'link-0');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">time</tt> <tt class="py-op">*</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">velocity</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-comment">#reflect the position around the x or y axis to move to the other side of the simulation</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-comment">#left and right boundaries</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-5" class="py-name"><a title="3DPhotovoltaics.Tests.BasicTests.record" class="py-name" href="#" onclick="return doclink('link-5', 'record', 'link-0');">record</a></tt><tt class="py-op">.</tt><tt class="py-name">normal</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">position</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">*=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-comment">#top and bottom boundaries</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">position</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">*=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt class="py-comment">#TODO : Implement non-specular reflection</tt> </tt>
+<a name="Photon.non_specular_reflect"></a><div id="Photon.non_specular_reflect-def"><a name="L61"></a><tt class="py-lineno">61</tt> <a class="py-toggle" href="#" id="Photon.non_specular_reflect-toggle" onclick="return toggle('Photon.non_specular_reflect');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html#non_specular_reflect">non_specular_reflect</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">record</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon.non_specular_reflect-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Photon.non_specular_reflect-expanded"><a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt class="py-docstring">        Update position and velocity of photon for non-specular reflection off a wall based upon a</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"><tt class="py-docstring">                record.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"><tt class="py-docstring">        @type record: Record Object</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"><tt class="py-docstring">        @param record: The record to use when performing the reflection</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt class="py-docstring">                """</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-string">"non_specular_reflect in Photon.py is not implemented yet."</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">    <tt class="py-comment">#TODO : Implement is_trapped check</tt> </tt>
+<a name="Photon.is_trapped"></a><div id="Photon.is_trapped-def"><a name="L71"></a><tt class="py-lineno">71</tt> <a class="py-toggle" href="#" id="Photon.is_trapped-toggle" onclick="return toggle('Photon.is_trapped');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="3DPhotovoltaics.Simulation.Photon.Photon-class.html#is_trapped">is_trapped</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">record</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Photon.is_trapped-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Photon.is_trapped-expanded"><a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">        <tt class="py-docstring">"""See Ricardo for implementation."""</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-string">"is_trapped in Photon.py is not implemented yet."</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

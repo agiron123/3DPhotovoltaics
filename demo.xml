@@ -16,9 +16,9 @@
 	<shape datatype="str" valid_set="rect_prism, cylinder, convex_polygon, ytrench, xtrench, box">
         rect_prism
     </shape><!-- Shape of the tower. Shape must be chosen from the valid set-->
-	<pitch datatype="float" range="0 - inf">5</pitch><!-- Pitch of the tower. How far the towers are separated -->
-	<width datatype="float" range="0 - inf">10</width><!-- Width of the tower. -->
-	<height datatype="float" range="0 - inf">25</height><!-- Height of the tower. -->
+	<pitch datatype="float" range="0 - inf">10</pitch><!-- Pitch of the tower. How far the towers are separated -->
+	<width datatype="float" range="0 - inf">40</width><!-- Width of the tower. -->
+	<height datatype="float" range="0 - inf">40</height><!-- Height of the tower. -->
 </tower>
 
 <panel_settings datatype="NA"><!-- Information on the solar panel dimensions used for the simulation -->
@@ -33,8 +33,8 @@
 
 <fixed_orbit><!-- Contains all of the information for a orbit in which nothing is moving and the sun is a fixed point source -->
      <zenith_angle datatype="float" range="0.0 - 360.0">45</zenith_angle><!-- Zenith Angle in degrees for point source sun -->
-    <azimuth_angle datatype="float" range="0.0 - 360.0">45</azimuth_angle> <!-- Azimuth Angle in degrees for the point source sun -->
-    <photon_count datatype="int" range="0 - inf">2500</photon_count> <!-- Number of photons to run the simulation for -->
+    <azimuth_angle datatype="float" range="0.0 - 360.0">90</azimuth_angle> <!-- Azimuth Angle in degrees for the point source sun -->
+    <photon_count datatype="int" range="0 - inf">10000</photon_count> <!-- Number of photons to run the simulation for -->
 </fixed_orbit>
 
 

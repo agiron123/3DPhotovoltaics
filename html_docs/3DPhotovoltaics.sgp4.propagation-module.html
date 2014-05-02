@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>3DPhotovoltaics.sgp4.propagation</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="3DPhotovoltaics-module.html">Package&nbsp;3DPhotovoltaics</a> ::
+        <a href="3DPhotovoltaics.sgp4-module.html">Package&nbsp;sgp4</a> ::
+        Module&nbsp;propagation
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="3DPhotovoltaics.sgp4.propagation-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module propagation</h1><p class="nomargin-top"><span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html">source&nbsp;code</a></span></p>
+<p>The sgp4 procedures for analytical propagation of a satellite.</p>
+  <p>I have made the rather unorthodox decision to leave as much of this 
+  C++ code alone as possible: if a line of code would run without change in
+  Python, then I refused to re-indent it or remove its terminal semicolon, 
+  so that in the future it will be easier to keep updating this file as the
+  original author's C++ continues to improve.  Thus, 5-space indentation 
+  (!) prevails in this file.</p>
+  <p>I have even kept all of the C++ block comments (by turning them into 
+  Python string constants) to make this easier to navigate and maintain, as
+  well as to make it more informative for people who encounter this code 
+  for the first time here in its Python form.</p>
+  <p>| - Brandon Rhodes |   Common Grounds Coffee House, Bluffton, Ohio |
+  On a very hot August day in 2012</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_dpper"></a><span class="summary-sig-name">_dpper</span>(<span class="summary-sig-arg">satrec</span>,
+        <span class="summary-sig-arg">inclo</span>,
+        <span class="summary-sig-arg">init</span>,
+        <span class="summary-sig-arg">ep</span>,
+        <span class="summary-sig-arg">inclp</span>,
+        <span class="summary-sig-arg">nodep</span>,
+        <span class="summary-sig-arg">argpp</span>,
+        <span class="summary-sig-arg">mp</span>,
+        <span class="summary-sig-arg">opsmode</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_dpper">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_dscom"></a><span class="summary-sig-name">_dscom</span>(<span class="summary-sig-arg">epoch</span>,
+        <span class="summary-sig-arg">ep</span>,
+        <span class="summary-sig-arg">argpp</span>,
+        <span class="summary-sig-arg">tc</span>,
+        <span class="summary-sig-arg">inclp</span>,
+        <span class="summary-sig-arg">nodep</span>,
+        <span class="summary-sig-arg">np</span>,
+        <span class="summary-sig-arg">e3</span>,
+        <span class="summary-sig-arg">ee2</span>,
+        <span class="summary-sig-arg">peo</span>,
+        <span class="summary-sig-arg">pgho</span>,
+        <span class="summary-sig-arg">pho</span>,
+        <span class="summary-sig-arg">pinco</span>,
+        <span class="summary-sig-arg">plo</span>,
+        <span class="summary-sig-arg">se2</span>,
+        <span class="summary-sig-arg">se3</span>,
+        <span class="summary-sig-arg">sgh2</span>,
+        <span class="summary-sig-arg">sgh3</span>,
+        <span class="summary-sig-arg">sgh4</span>,
+        <span class="summary-sig-arg">sh2</span>,
+        <span class="summary-sig-arg">sh3</span>,
+        <span class="summary-sig-arg">si2</span>,
+        <span class="summary-sig-arg">si3</span>,
+        <span class="summary-sig-arg">sl2</span>,
+        <span class="summary-sig-arg">sl3</span>,
+        <span class="summary-sig-arg">sl4</span>,
+        <span class="summary-sig-arg">xgh2</span>,
+        <span class="summary-sig-arg">xgh3</span>,
+        <span class="summary-sig-arg">xgh4</span>,
+        <span class="summary-sig-arg">xh2</span>,
+        <span class="summary-sig-arg">xh3</span>,
+        <span class="summary-sig-arg">xi2</span>,
+        <span class="summary-sig-arg">xi3</span>,
+        <span class="summary-sig-arg">xl2</span>,
+        <span class="summary-sig-arg">xl3</span>,
+        <span class="summary-sig-arg">xl4</span>,
+        <span class="summary-sig-arg">zmol</span>,
+        <span class="summary-sig-arg">zmos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_dscom">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_dsinit"></a><span class="summary-sig-name">_dsinit</span>(<span class="summary-sig-arg">whichconst</span>,
+        <span class="summary-sig-arg">cosim</span>,
+        <span class="summary-sig-arg">emsq</span>,
+        <span class="summary-sig-arg">argpo</span>,
+        <span class="summary-sig-arg">s1</span>,
+        <span class="summary-sig-arg">s2</span>,
+        <span class="summary-sig-arg">s3</span>,
+        <span class="summary-sig-arg">s4</span>,
+        <span class="summary-sig-arg">s5</span>,
+        <span class="summary-sig-arg">sinim</span>,
+        <span class="summary-sig-arg">ss1</span>,
+        <span class="summary-sig-arg">ss2</span>,
+        <span class="summary-sig-arg">ss3</span>,
+        <span class="summary-sig-arg">ss4</span>,
+        <span class="summary-sig-arg">ss5</span>,
+        <span class="summary-sig-arg">sz1</span>,
+        <span class="summary-sig-arg">sz3</span>,
+        <span class="summary-sig-arg">sz11</span>,
+        <span class="summary-sig-arg">sz13</span>,
+        <span class="summary-sig-arg">sz21</span>,
+        <span class="summary-sig-arg">sz23</span>,
+        <span class="summary-sig-arg">sz31</span>,
+        <span class="summary-sig-arg">sz33</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">tc</span>,
+        <span class="summary-sig-arg">gsto</span>,
+        <span class="summary-sig-arg">mo</span>,
+        <span class="summary-sig-arg">mdot</span>,
+        <span class="summary-sig-arg">no</span>,
+        <span class="summary-sig-arg">nodeo</span>,
+        <span class="summary-sig-arg">nodedot</span>,
+        <span class="summary-sig-arg">xpidot</span>,
+        <span class="summary-sig-arg">z1</span>,
+        <span class="summary-sig-arg">z3</span>,
+        <span class="summary-sig-arg">z11</span>,
+        <span class="summary-sig-arg">z13</span>,
+        <span class="summary-sig-arg">z21</span>,
+        <span class="summary-sig-arg">z23</span>,
+        <span class="summary-sig-arg">z31</span>,
+        <span class="summary-sig-arg">z33</span>,
+        <span class="summary-sig-arg">ecco</span>,
+        <span class="summary-sig-arg">eccsq</span>,
+        <span class="summary-sig-arg">em</span>,
+        <span class="summary-sig-arg">argpm</span>,
+        <span class="summary-sig-arg">inclm</span>,
+        <span class="summary-sig-arg">mm</span>,
+        <span class="summary-sig-arg">nm</span>,
+        <span class="summary-sig-arg">nodem</span>,
+        <span class="summary-sig-arg">irez</span>,
+        <span class="summary-sig-arg">atime</span>,
+        <span class="summary-sig-arg">d2201</span>,
+        <span class="summary-sig-arg">d2211</span>,
+        <span class="summary-sig-arg">d3210</span>,
+        <span class="summary-sig-arg">d3222</span>,
+        <span class="summary-sig-arg">d4410</span>,
+        <span class="summary-sig-arg">d4422</span>,
+        <span class="summary-sig-arg">d5220</span>,
+        <span class="summary-sig-arg">d5232</span>,
+        <span class="summary-sig-arg">d5421</span>,
+        <span class="summary-sig-arg">d5433</span>,
+        <span class="summary-sig-arg">dedt</span>,
+        <span class="summary-sig-arg">didt</span>,
+        <span class="summary-sig-arg">dmdt</span>,
+        <span class="summary-sig-arg">dnodt</span>,
+        <span class="summary-sig-arg">domdt</span>,
+        <span class="summary-sig-arg">del1</span>,
+        <span class="summary-sig-arg">del2</span>,
+        <span class="summary-sig-arg">del3</span>,
+        <span class="summary-sig-arg">xfact</span>,
+        <span class="summary-sig-arg">xlamo</span>,
+        <span class="summary-sig-arg">xli</span>,
+        <span class="summary-sig-arg">xni</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_dsinit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_dspace"></a><span class="summary-sig-name">_dspace</span>(<span class="summary-sig-arg">irez</span>,
+        <span class="summary-sig-arg">d2201</span>,
+        <span class="summary-sig-arg">d2211</span>,
+        <span class="summary-sig-arg">d3210</span>,
+        <span class="summary-sig-arg">d3222</span>,
+        <span class="summary-sig-arg">d4410</span>,
+        <span class="summary-sig-arg">d4422</span>,
+        <span class="summary-sig-arg">d5220</span>,
+        <span class="summary-sig-arg">d5232</span>,
+        <span class="summary-sig-arg">d5421</span>,
+        <span class="summary-sig-arg">d5433</span>,
+        <span class="summary-sig-arg">dedt</span>,
+        <span class="summary-sig-arg">del1</span>,
+        <span class="summary-sig-arg">del2</span>,
+        <span class="summary-sig-arg">del3</span>,
+        <span class="summary-sig-arg">didt</span>,
+        <span class="summary-sig-arg">dmdt</span>,
+        <span class="summary-sig-arg">dnodt</span>,
+        <span class="summary-sig-arg">domdt</span>,
+        <span class="summary-sig-arg">argpo</span>,
+        <span class="summary-sig-arg">argpdot</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">tc</span>,
+        <span class="summary-sig-arg">gsto</span>,
+        <span class="summary-sig-arg">xfact</span>,
+        <span class="summary-sig-arg">xlamo</span>,
+        <span class="summary-sig-arg">no</span>,
+        <span class="summary-sig-arg">atime</span>,
+        <span class="summary-sig-arg">em</span>,
+        <span class="summary-sig-arg">argpm</span>,
+        <span class="summary-sig-arg">inclm</span>,
+        <span class="summary-sig-arg">xli</span>,
+        <span class="summary-sig-arg">mm</span>,
+        <span class="summary-sig-arg">xni</span>,
+        <span class="summary-sig-arg">nodem</span>,
+        <span class="summary-sig-arg">nm</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_dspace">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_initl"></a><span class="summary-sig-name">_initl</span>(<span class="summary-sig-arg">satn</span>,
+        <span class="summary-sig-arg">whichconst</span>,
+        <span class="summary-sig-arg">ecco</span>,
+        <span class="summary-sig-arg">epoch</span>,
+        <span class="summary-sig-arg">inclo</span>,
+        <span class="summary-sig-arg">no</span>,
+        <span class="summary-sig-arg">method</span>,
+        <span class="summary-sig-arg">opsmode</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_initl">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="sgp4init"></a><span class="summary-sig-name">sgp4init</span>(<span class="summary-sig-arg">whichconst</span>,
+        <span class="summary-sig-arg">opsmode</span>,
+        <span class="summary-sig-arg">satn</span>,
+        <span class="summary-sig-arg">epoch</span>,
+        <span class="summary-sig-arg">xbstar</span>,
+        <span class="summary-sig-arg">xecco</span>,
+        <span class="summary-sig-arg">xargpo</span>,
+        <span class="summary-sig-arg">xinclo</span>,
+        <span class="summary-sig-arg">xmo</span>,
+        <span class="summary-sig-arg">xno</span>,
+        <span class="summary-sig-arg">xnodeo</span>,
+        <span class="summary-sig-arg">satrec</span>)</span><br />
+      /* ------------------------ initialization --------------------- */ 
+      // sgp4fix divisor for divide by zero check on inclination // the old
+      check used 1.0 + cos(pi-1.0e-9), but then compared it to // 1.5 e-12,
+      so the threshold was changed to 1.5e-12 for consistency</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#sgp4init">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="sgp4"></a><span class="summary-sig-name">sgp4</span>(<span class="summary-sig-arg">satrec</span>,
+        <span class="summary-sig-arg">tsince</span>,
+        <span class="summary-sig-arg">whichconst</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#sgp4">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_gstime"></a><span class="summary-sig-name">_gstime</span>(<span class="summary-sig-arg">jdut1</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#_gstime">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getgravconst"></a><span class="summary-sig-name">getgravconst</span>(<span class="summary-sig-arg">whichconst</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="3DPhotovoltaics.sgp4.propagation-pysrc.html#getgravconst">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="deg2rad"></a><span class="summary-name">deg2rad</span> = <code title="0.0174532925199">0.0174532925199</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="false"></a><span class="summary-name">false</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="true"></a><span class="summary-name">true</span> = <code title="True">True</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="3DPhotovoltaics.sgp4.propagation-module.html#twopi" class="summary-name">twopi</a> = <code title="6.28318530718">6.28318530718</code><br />
+      /*     
+      ---------------------------------------------------------------- * *
+      sgp4unit.cpp * *    this file contains the sgp4 procedures for 
+      analytical propagation *    of a satellite.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'3DPhotovoltaics.sgp4'"><code class="variable-quote">'</code><code class="variable-string">3DPhotovoltaics.sgp4</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="twopi"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">twopi</h3>
+  <p>/*     
+  ---------------------------------------------------------------- * *
+  sgp4unit.cpp * *    this file contains the sgp4 procedures for analytical
+  propagation *    of a satellite. the code was originally released in the 
+  1980 and 1986 *    spacetrack papers. a detailed discussion of the theory
+  and history *    may be found in the 2006 aiaa paper by vallado, 
+  crawford, hujsak, *    and kelso. * *                            
+  companion code for *               fundamentals of astrodynamics and 
+  applications *                                    2007 *
+  by david vallado * *       (w) 719-573-2600, email dvallado@agi.com * *
+  current : *              30 Aug 10  david vallado *
+  delete unused variables in initl *                           replace pow 
+  inetger 2, 3 with multiplies for speed *    changes : *               3 
+  Nov 08  david vallado *                           put returns in for 
+  error codes *              29 sep 08  david vallado *
+  fix atime for faster operation in dspace *                           add 
+  operationmode for afspc (a) or improved (i) *                           
+  performance mode *              16 jun 08  david vallado *
+  update small eccentricity check *              16 nov 07  david vallado *
+  misc fixes for better compliance *              20 apr 07  david vallado 
+  *                           misc fixes for constants *              11 
+  aug 06  david vallado *                           chg lyddane choice back
+  to strn3, constants, misc doc *              15 dec 05  david vallado *
+  misc fixes *              26 jul 05  david vallado *
+  fixes for paper *                           note that each fix is 
+  preceded by a *                           comment with 
+  &quot;sgp4fix&quot; and an explanation of *                           
+  what was changed *              10 aug 04  david vallado *
+  2nd printing baseline working *              14 may 01  david vallado *
+  2nd edition baseline *                     80  norad *
+  original baseline *       
+  ----------------------------------------------------------------      
+  */</p>
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+6.28318530718
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="3DPhotovoltaics-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu May  1 22:08:26 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

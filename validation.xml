@@ -21,6 +21,11 @@
 	<height datatype="float" range="0 - inf"></height><!-- Height of the tower. -->
 </tower>
 
+<panel_settings datatype="NA"><!-- Information on the solar panel dimensions used for the simulation -->
+   <panel_length datatype="float" range="0.0 - inf"></panel_length>
+   <panel_width datatype="float" range="0.0 - inf"></panel_width>
+</panel_settings>
+
 <!-- Note only one child from the childset may be present
  meaning that you must chose either a RealOrbit or a SimpleOrbit but cannot have both
  -->
@@ -57,7 +62,7 @@
 
 <output_settings datatype="NA"><!-- Lists specifying what forms of data should be outputted -->
 
-<include_path datatype="bool"></include_path><!-- Whether to include photon paths in the CSV output files-->
+<include_path datatype="bool"></include_path><!-- Whether to include photon paths in the CSV output files -->
 <graph_settings datatype="str" list="true" valid_set="
     MaxPofloatPowerVsZenithAngle,
 	AverageReflectionsVsAzumithal,
@@ -70,6 +75,8 @@
     <!-- Currently only 	AspectRatioVsAverageReflections
 	                        AvgInteractionsVsTowerSpacingLog
 	                        AvgReflectionsVsTowerHeight
+	                        AverageReflectionsVsAzumithal
+	                        AbsorptionEfficiencyVsAzumithal
 	    are supported -->
 </graph_settings>
 </output_settings>

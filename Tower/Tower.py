@@ -5,8 +5,10 @@ from Floor import *
 
 
 class Tower(object):
-    """Represents a tower in the simulation. Only one tower will be modeled.
-    The Tower is always centered on the origin"""
+    """
+    Represents a tower in the simulation. Only one tower will be modeled.
+    The Tower is always centered on the origin
+    """
     #constants
     epsilon = 10 ** -7
     RECT_PRISM = "rect_prism"
@@ -19,7 +21,19 @@ class Tower(object):
     BOX = "box"
 
     def __init__(self, height, material, pitch, width, tower_type):
-        """Initialize a tower with the given parameters"""
+        """
+        Initialize a tower with the given parameters
+        @type height: floating point number
+        @param height: The tower's height
+        @type material: Material Object
+        @param material: The material the tower is coated with
+        @type pitch: floating point number
+        @param pitch: How far the towers are spaced apart
+        @type width: floating point number
+        @param width: The tower's width
+        @type tower_type: string, should match preset values
+        @param tower_type: the shape of the tower, must be from preset list of values
+        """
         self.pitch = pitch
         self.material = material
         self.height = height
@@ -63,8 +77,14 @@ class Tower(object):
             raise NotImplementedError("The specified wall type is not currently supported")
 
     def get_record(self, photon):
-        """Given a photon return the Record corresponding to the first collision. If there is no collision Record's
-            is_exiting field will be true and all other fields will be None or infinity"""
+        """
+        Given a photon return the Record corresponding to the first collision. If there is no collision Record's
+        is_exiting field will be true and all other fields will be None or infinity
+        @type photon: Photon object
+        @param photon: the photon to determine a collision for
+        @rtype: Record Object
+        @return: The calculated Record, will indicate a collision, a wrap around, or exiting, contains all needed info
+        """
         #find the record with the lowest positive time to collision
         record = Record(False, float('inf'), None, None, True)
         for wall in self.walls:
@@ -84,7 +104,18 @@ class Tower(object):
         return record
 
     def is_inside(self, photon):
-        """Determine whether the given photon is on the top of the tower"""
+        """
+        Determine whether the given photon is on the top of the tower. Note that by inside
+        we really mean whether it is over the tower or not (i.e. inside its 2D bounds)
+        @type photon: Photon object
+        @param photon: The photon in questions
+        @rtype: boolean
+        @return: Whether the photon is inside the tower or not
+
+        """
+        #for any of these shapes we can just take the dot product with each wall
+        #all of the signs will match if the photon is "inside" the tower
+        #note this assumes we are consistent with our normal vectors, which we are
         if self.tower_type == Tower.CONVEX_POLYGON or self.tower_type == Tower.YTRENCH or \
             self.tower_type == Tower.RECT_PRISM or self.tower_type == Tower.XTRENCH:
             base_orientation = Tower.wall_normal_dot(self.walls[0], photon)
@@ -107,4 +138,11 @@ class Tower(object):
 
     @staticmethod
     def wall_normal_dot(wall, photon):
+        """
+        Utility method for is inside method, we just do the dot product and copy the sign
+        @type photon: Photon Object
+        @param photon: The photon in questions
+        @rtype: floating point number
+        @return: The sign copied result of the dot product operation
+        """
         return math.copysign(1.0, np.dot(wall.normal, photon.position - wall.point1))

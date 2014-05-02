@@ -5,18 +5,31 @@ from Simulation.Record import *
 
 
 class Floor(Wall):
-    """Subclass of Wall representing the floor of the simulation"""
+    """
+    Subclass of Wall representing the floor of the simulation
+    """
 
     def __init__(self, depth):
-        """Create a floor with the given depth """
+        """
+        Create a floor with the given depth
+        @type depth: floating point number
+        @param depth: The depth of the floor
+        """
         self.point1 = np.array([0, 0, -depth])
         self.depth = depth
         self.is_boundary = False
         self.normal = np.array([0, 0, 1])
 
     def get_collision(self, photon):
-        """Override the default behavior of the wall class to determine if their is a collision.
-            If there is a collision the proper record is generated, if there is no collision None is returned"""
+        """
+        Override the default behavior of the wall class to determine if their is a collision.
+        If there is a collision the proper record is generated, if there is no collision None is returned
+
+        @type photon: Photon object
+        @param photon: The photon to use in determining a collision.
+        @rtype: Record Object
+        @return: Record summarizing the results of a collision or None if no collision
+        """
         # Calculates time and coordinate of collision
         # Discards cases where the photon does not collide with the plane
         if np.dot(photon.velocity, self.normal) == 0:
